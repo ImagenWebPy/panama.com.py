@@ -8,24 +8,11 @@
                     <div class="widget-content">
                         <!-- Site logo start //-->
                         <div class="site-logo">
-                            <a href="#" title="Magnis - Multipurpose HTML Template"><img src="img/site-logo-inverted.png" alt="Magnis - Multipurpose HTML Template"></a>
+                            <a href="#" title="Magnis - Multipurpose HTML Template"><img src="<?= IMG; ?>site-logo-inverted.png" alt="Magnis - Multipurpose HTML Template"></a>
                         </div>
                         <!-- Site logo end //-->
                         <div class="clearfix"></div>
                         <p>In id lacinia dolor. Nam lectus quam, ultricies a rutrum in, mattis nec mi. Vestibulum at tempus arcu. Fusce sit amet velit vitae mauris tempus gravida. Nullam at felis a nisl iaculis sodales. Praesent euismod porttitor nibh, et dictum tellus accumsan sed.</p>
-                    </div>
-                </aside>
-                <!-- Widget end //-->
-            </div>
-            <div class="clearfix mobile-typo-fix hidden-lg"></div>
-            <div class="col-lg-3">
-                <!-- Widget start //-->
-                <aside class="widget widget-twitter">
-                    <h4 class="widget-title">latest tweets</h4>
-                    <div class="widget-content">
-                        <div class="plugin-container" id="tweets">
-                            <div class="riva-insert-menu-here"></div>
-                        </div>
                     </div>
                 </aside>
                 <!-- Widget end //-->
@@ -203,26 +190,16 @@
 
 <!-- Tipso JS-->
 <script src="<?= JS; ?>tipso.min.js" type="text/javascript"></script>
-
-<!-- Twitter widget -->
-<script src="<?= JS; ?>tweetie.min.js" type="text/javascript"></script>
-
 <script src="<?= JS; ?>magnis.js" type="text/javascript"></script>
-
 <script>
     (function ($) {
         "use strict";
-
         /* Preload Images */
-
         $('document').ready(function () {
-
             var $container = $('body'),
                     tweetsTimer,
                     $preload = $('#riva-preload');
-
             $container.imagesLoaded(function () {
-
                 /* PLACE YOUR JAVASCRIPT CODE HERE */
 
                 $('#projects').rivaCarousel({
@@ -277,16 +254,16 @@
                     e.preventDefault();
                     $.fancybox.open([
                         {
-                            href: 'img/projects/gallery/1.jpg',
+                            href: '<?= IMG; ?>projects/gallery/1.jpg',
                             title: '#1 Picture'
                         }, {
-                            href: 'img/projects/gallery/2.jpg',
+                            href: '<?= IMG; ?>projects/gallery/2.jpg',
                             title: '#2 Picture'
                         }, {
-                            href: 'img/projects/gallery/3.jpg',
+                            href: '<?= IMG; ?>projects/gallery/3.jpg',
                             title: '#3 Picture'
                         }, {
-                            href: 'img/projects/gallery/4.jpg',
+                            href: '<?= IMG; ?>projects/gallery/4.jpg',
                             title: '#4 Picture'
                         }
                     ], {
@@ -298,57 +275,19 @@
                         }
                     });
                 });
-
-                $('#tweets').twittie({
-                    dateFormat: '%b. %d, %Y',
-                    template: '<div class="tweet"><span class="content">{{tweet}}</span><span class="date">{{date}}</span></div>',
-                    count: 5,
-                    loadingText: 'Loading tweets...'
-                }, function () {
-
-                    $('<div class="riva-insert-menu-here"></div>').appendTo($('#tweets'));
-
-                    $('#tweets').find('.tweet').each(function () {
-
-                        $(this).unwrap('li');
-
-                        $('<i class="fa fa-twitter"></i>').appendTo($(this));
-
-                    }).unwrap('ul');
-
-                    $('#tweets').rivaCarousel({
-                        style: 'horizontal',
-                        navigation: 'bullets',
-                        navigation_class: 'bullets-nav-1 light',
-                        visible: 1,
-                        selector: 'tweet',
-                        gutter: 0,
-                        interval: 1200,
-                        autostart: 0,
-                        speed: 350,
-                        ease: 'easeInBack'
-                    });
-
-                });
-
                 $('#layerslider').layerSlider({
-                    autoStart: false,
+                    autoStart: true,
                     firstLayer: 1,
                     skin: 'fullwidthdark',
                     responsive: true,
                     responsiveUnder: 1170,
                     layersContainer: 1170,
-                    skinsPath: 'layerslider/skins/'
+                    skinsPath: 'public/layerslider/skins/'
                 });
-
                 $preload.hide();
-
             });
-
             clearTimeout(tweetsTimer);
-
         });
-
     })(jQuery);
 </script>
 </html>

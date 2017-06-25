@@ -42,7 +42,7 @@ define('HASH_GENERAL_KEY', 'MixitUp200');
 define('HASH_PASSWORD_KEY', '!@123456789ABCDEFGHIJKLMNOPRSTWYZ[¿]{?}<->');
 
 //CONFIGURACIONES VARIAS DEL SITIO
-define('SITE_TITLE', 'Panama Representaciones :: ');
+define('SITE_TITLE', 'Panamá Representaciones :: ');
 define('IMG', URL . 'public/img/');
 define('CSS', URL . 'public/css/');
 define('JS', URL . 'public/js/');

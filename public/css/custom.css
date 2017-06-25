@@ -1,0 +1,12 @@
+/* 
+    Created on : 25-jun-2017, 8:48:42
+    Author     : Imagen Web
+*/
+.panamaBg {}
+.panamaBorderTop {border-top: 5px solid #D60006 !important;}
+.panamaColor {color: #D60006 !important;}
+.header-contacts > li i {color: #D60006 !important;}
+nav.header-nav ul#main-nav > li > a:hover{color: #D60006 !important;}
+nav.header-nav ul#main-nav > li ul {border-top: 3px solid #D60006 !important;}
+.header-soc-btns li a:hover { background:#D60006 !important; }
+nav.header-nav ul#main-nav > li { margin-right: 10px !important;}

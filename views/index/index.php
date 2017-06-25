@@ -1,101 +1,41 @@
 <div class="clearfix"></div>
-
 <!-- Site content start //-->
-
 <section class="homepage-banner">
-
     <div id="layerslider" class="layerslider1">
-
         <!-- first slide -->
-
         <div class="ls-slide" data-ls="slidedelay: 4500; transition2d: 16;">
-
             <!-- slide contents goes here -->
-
-            <img src="img/layersliderimgs/1/bg1.jpg" class="ls-bg" alt="Slide background">
-
-            <p class="slide-title ls-l" style="top: 150px; left: 50px;" data-ls="delayin: 500; delayout: 500; ">planning<span class="color-primary">.</span></p>
-
-            <p class="slide-desc-1 ls-l" style="top: 300px; left: 50px;" data-ls="delayin: 700; delayout: 700; ">Mauris consequat lorem eget tincidunt placerat. Quisque placerat ante id pha: bottom; retra facilisis.</p>
-
-            <p class="slide-desc-2 ls-l" style="top: 400px; left: 50px;" data-ls="delayin: 900; delayout: 900;  durationin: 2000;">Donec faucibus tincidunt ligula <a href="#" class="m-btn margin-left-30" data-size="normal" data-color="primary">discover more</a></p>
-
+            <img src="<?= IMG; ?>layersliderimgs/banner-fidi_1367.jpg" class="ls-bg" alt="Slide background">
         </div>
-
         <!-- second slide -->
-
         <div class="ls-slide" data-ls="slidedelay: 4500; transition2d: 17;">
-
             <!-- slide contents goes here -->
-
-            <img src="img/layersliderimgs/1/bg2.jpg" class="ls-bg" alt="Slide background">
-
-            <p class="slide-title ls-l" style="top: 150px; left: 50px;" data-ls="delayin: 500; delayout: 500; ">action<span class="color-primary">.</span></p>
-
-            <p class="slide-desc-1 ls-l" style="top: 300px; left: 50px;" data-ls="delayin: 700; delayout: 700; ">Integer ullamcorper turpis non risus feugiat fringilla. Duis fermentum semper fermentum.</p>
-
-            <p class="slide-desc-2 ls-l" style="top: 400px; left: 50px;" data-ls="delayin: 900; delayout: 900;  durationin: 2000;">Vivamus sit amet magna leo <a href="#" class="m-btn margin-left-30" data-size="normal" data-color="primary">discover more</a></p>
-
+            <img src="<?= IMG; ?>layersliderimgs/banner_ype_1367.jpg" class="ls-bg" alt="Slide background">
         </div>
-
         <!-- third slide -->
-
         <div class="ls-slide" data-ls="slidedelay: 4500; transition2d: 18;">
-
             <!-- slide contents goes here -->
-
-            <img src="img/layersliderimgs/1/bg3.jpg" class="ls-bg" alt="Slide background">
-
-            <p class="slide-title ls-l" style="top: 150px; left: 50px;" data-ls="delayin: 500; delayout: 500; ">success<span class="color-primary">.</span></p>
-
-            <p class="slide-desc-1 ls-l" style="top: 300px; left: 50px;" data-ls="delayin: 700; delayout: 700; ">Nam risus sem, viverra vitae dolor consequat, ultricies aliquet eros. </p>
-
-            <p class="slide-desc-2 ls-l" style="top: 400px; left: 50px;" data-ls="delayin: 900; delayout: 900;  durationin: 2000;">Vestibulum blandit lacinia neque <a href="#" class="m-btn margin-left-30" data-size="normal" data-color="primary">discover more</a></p>
-
+            <img src="<?= IMG; ?>layersliderimgs/banner_variados_1367.jpg" class="ls-bg" alt="Slide background">
         </div>
-
     </div>
-
 </section>
-
 <!-- Site content end //-->
-
 <div class="clearfix"></div>
-
 <!-- Call to action #1 start //-->
-
 <section class="cta1" data-style="dark">
-
     <div class="container">
-
         <div class="row">
-
             <div class="col-lg-9 col-md-8">
-
-                <h3>Praesent dignissim <span class="decor-font color-primary">sem sapien</span> a vulputate enim auctor vitae</h3>
-
-                <p>Duis non lorem porta, adipiscing eros sit amet, tempor sem. Donec nunc arcu, semper a tempus et, consequat eu quam.</p>
-
+                <h3>Conoce todas nuestras sucursales y ubica la más cercana</h3>
             </div>
-
             <div class="col-lg-3 col-md-4">
-
-                <a href="#" class="m-btn" data-size="normal" data-color="white">learn more</a>
-
-                <a href="#" class="m-btn" data-size="normal" data-color="primary">purchase</a>
-
+                <a href="#" class="m-btn" data-size="normal" data-color="white">visitanos</a>
             </div>
-
         </div>
-
     </div>
-
 </section>
-
 <!-- Call to action #1 end //-->
-
 <!-- Intro start //-->
-
 <section>
 
     <div class="container">
@@ -103,33 +43,16 @@
         <div class="row">
 
             <div class="col-lg-4 col-md-4">
-
-                <h2>we are <span class="color-primary">magnis</span></h2>
-
-                <p>Fusce hendrerit, mi non lobortis pellentesque, nibh ante accumsan nisi, in tristique nibh nisi nec tortor. Mauris nibh sem, vulputate non consequat in, condimentum eget nulla. Cras quis enim luctus, convallis libero non, tincidunt diam. Proin vestibulum libero massa, et molestie dui bibendum nec. Duis tincidunt sagittis tristique. Duis pulvinar nisl non sem tincidunt aliquam. Donec turpis erat, cursus et consectetur eu, interdum non velit. </p>
-
-                <p>Ut sit amet libero velit. Praesent dignissim sem sapien, a vulputate enim auctor vitae. Duis non lorem porta, adipiscing eros sit amet, tempor sem. </p>
-
-                <p><span class="decor-font color-primary font-size-40">John Doe</span></p>
-
-                <p class="small margin-top-0">Magnis CO. Founder</p>
-
+                <h2>Somos <span class="color-primary">Panamá</span></h2>
+                <p>Trading Company S.A. Panamá Representaciones, fundada en 1993, Importadora y Exportadora, con sede en la ciudad de Pedro Juan Caballero, está formada por profesionales en diversas áreas que buscan siempre mejorar la calidad de atención y prestación de servicios, así como la expansión de todas sus marcas de alta calidad y excelente aceptación en el mercado. Desde su fundación, la empresa viene aportando a la comunidad fuentes de trabajo, desarrollo profesional y satisfacción personal, tanto a sus colaboradores como a sus asociados.</p>
             </div>
-
             <div class="col-lg-4 col-md-4">
-
                 <figure>
-
-                    <img src="img/pages/1.jpg" alt="">
-
+                    <img src="<?= IMG; ?>mesa.png" alt="">
                 </figure>
-
             </div>
-
             <div class="col-lg-4 col-md-4">
-
                 <h2>our features</h2>
-
                 <div class="icon-box-1">
 
                     <i class="glyphicon glyphicon-heart"></i>
@@ -195,15 +118,10 @@
                     <div class="row">
 
                         <div class="col-lg-3">
-
                             <div class="projects-desc">
-
-                                <h4>our latest projects</h4>
-
-                                <p>Mauris rhoncus elit vitae felis viverra.</p>
-
+                                <h4>Marcas Representadas</h4>
+                                <p>Conozca nuestras Marcas</p>
                                 <div class="riva-insert-menu-here"></div>
-
                             </div>
 
                         </div>
@@ -218,13 +136,13 @@
 
                                     <figure>
 
-                                        <img src="img/projects/1.jpg" alt="">
+                                        <img src="<?= IMG; ?>projects/1.jpg" alt="">
 
                                     </figure>
 
                                     <div class="buttons">
 
-                                        <a href="img/projects/1.jpg" class="m-btn link fancybox" data-size="normal" data-color="primary" data-border><i class="glyphicon glyphicon-fullscreen"></i></a>
+                                        <a href="<?= IMG; ?>projects/1.jpg" class="m-btn link fancybox" data-size="normal" data-color="primary" data-border><i class="glyphicon glyphicon-fullscreen"></i></a>
 
                                         <a href="#" class="m-btn" data-size="normal" data-color="primary" data-border><i class="glyphicon glyphicon-link"></i></a>
 
@@ -244,13 +162,13 @@
 
                                     <figure>
 
-                                        <img src="img/projects/2.jpg" alt="">
+                                        <img src="<?= IMG; ?>projects/2.jpg" alt="">
 
                                     </figure>
 
                                     <div class="buttons">
 
-                                        <a href="img/projects/2.jpg" class="m-btn link" id="open-project-gallery" data-size="normal" data-color="primary" data-border><i class="glyphicon glyphicon-picture"></i></a>
+                                        <a href="<?= IMG; ?>projects/2.jpg" class="m-btn link" id="open-project-gallery" data-size="normal" data-color="primary" data-border><i class="glyphicon glyphicon-picture"></i></a>
 
                                         <a href="#" class="m-btn" data-size="normal" data-color="primary" data-border><i class="glyphicon glyphicon-link"></i></a>
 
@@ -270,7 +188,7 @@
 
                                     <figure>
 
-                                        <img src="img/projects/3.jpg" alt="">
+                                        <img src="<?= IMG; ?>projects/3.jpg" alt="">
 
                                     </figure>
 
@@ -296,13 +214,13 @@
 
                                     <figure>
 
-                                        <img src="img/projects/4.jpg" alt="">
+                                        <img src="<?= IMG; ?>projects/4.jpg" alt="">
 
                                     </figure>
 
                                     <div class="buttons">
 
-                                        <a href="img/projects/4.jpg" class="m-btn link fancybox" data-size="normal" data-color="primary" data-border><i class="glyphicon glyphicon-fullscreen"></i></a>
+                                        <a href="<?= IMG; ?>projects/4.jpg" class="m-btn link fancybox" data-size="normal" data-color="primary" data-border><i class="glyphicon glyphicon-fullscreen"></i></a>
 
                                         <a href="#" class="m-btn" data-size="normal" data-color="primary" data-border><i class="glyphicon glyphicon-link"></i></a>
 
@@ -322,13 +240,13 @@
 
                                     <figure>
 
-                                        <img src="img/projects/6.jpg" alt="">
+                                        <img src="<?= IMG; ?>projects/6.jpg" alt="">
 
                                     </figure>
 
                                     <div class="buttons">
 
-                                        <a href="img/projects/6.jpg" class="m-btn link fancybox" data-size="normal" data-color="primary" data-border><i class="glyphicon glyphicon-fullscreen"></i></a>
+                                        <a href="<?= IMG; ?>projects/6.jpg" class="m-btn link fancybox" data-size="normal" data-color="primary" data-border><i class="glyphicon glyphicon-fullscreen"></i></a>
 
                                         <a href="#" class="m-btn" data-size="normal" data-color="primary" data-border><i class="glyphicon glyphicon-link"></i></a>
 
@@ -380,7 +298,7 @@
 
                         <figure>
 
-                            <a href="#"><img src="img/posts/1.jpg" alt=""></a>
+                            <a href="#"><img src="<?= IMG; ?>posts/1.jpg" alt=""></a>
 
                         </figure>
 
@@ -431,7 +349,7 @@
 
                         <figure>
 
-                            <a href="#"><img src="img/posts/2.jpg" alt=""></a>
+                            <a href="#"><img src="<?= IMG; ?>posts/2.jpg" alt=""></a>
 
                         </figure>
 
@@ -482,7 +400,7 @@
 
                         <figure>
 
-                            <a href="#"><img src="img/posts/3.jpg" alt=""></a>
+                            <a href="#"><img src="<?= IMG; ?>posts/3.jpg" alt=""></a>
 
                         </figure>
 
@@ -533,7 +451,7 @@
 
                         <figure>
 
-                            <a href="#"><img src="img/posts/4.jpg" alt=""></a>
+                            <a href="#"><img src="<?= IMG; ?>posts/4.jpg" alt=""></a>
 
                         </figure>
 
@@ -584,7 +502,7 @@
 
                         <figure>
 
-                            <a href="#"><img src="img/posts/7.jpg" alt=""></a>
+                            <a href="#"><img src="<?= IMG; ?>posts/7.jpg" alt=""></a>
 
                         </figure>
 
@@ -647,7 +565,7 @@
 
                         <figure>
 
-                            <img src="img/team/12.jpg" alt="">
+                            <img src="<?= IMG; ?>team/12.jpg" alt="">
 
                         </figure>
 
@@ -672,7 +590,7 @@
 
                         <figure>
 
-                            <img src="img/team/11.jpg" alt="">
+                            <img src="<?= IMG; ?>team/11.jpg" alt="">
 
                         </figure>
 
@@ -699,7 +617,7 @@
 
                         <figure>
 
-                            <img src="img/team/10.jpg" alt="">
+                            <img src="<?= IMG; ?>team/10.jpg" alt="">
 
                         </figure>
 
@@ -724,7 +642,7 @@
 
                         <figure>
 
-                            <img src="img/team/9.jpg" alt="">
+                            <img src="<?= IMG; ?>team/9.jpg" alt="">
 
                         </figure>
 
