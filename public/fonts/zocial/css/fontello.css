@@ -1,0 +1,159 @@
+@font-face {
+  font-family: 'fontello';
+  src: url('../font/fontello792f.eot?6330906');
+  src: url('../font/fontello792f.eot?6330906#iefix') format('embedded-opentype'),
+       url('../font/fontello792f.woff?6330906') format('woff'),
+       url('../font/fontello792f.ttf?6330906') format('truetype'),
+       url('../font/fontello792f.svg?6330906#fontello') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
+/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
+/*
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: 'fontello';
+    src: url('../font/fontello.svg?6330906#fontello') format('svg');
+  }
+}
+*/
+ 
+ [class^="icon-"]:before, [class*=" icon-"]:before {
+  font-family: "fontello";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+ 
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+ 
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+ 
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+ 
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+ 
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+ 
+  /* Font smoothing. That was taken from TWBS */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+ 
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+ 
+.icon-zocial-duckduckgo:before { content: '\a100'; } /* 'ꄀ' */
+.icon-zocial-aim:before { content: '\a101'; } /* 'ꄁ' */
+.icon-zocial-delicious:before { content: '\a102'; } /* 'ꄂ' */
+.icon-zocial-paypal:before { content: '\a103'; } /* 'ꄃ' */
+.icon-zocial-flattr:before { content: '\a104'; } /* 'ꄄ' */
+.icon-zocial-android:before { content: '\a105'; } /* 'ꄅ' */
+.icon-zocial-eventful:before { content: '\a106'; } /* 'ꄆ' */
+.icon-zocial-smashmag:before { content: '\a107'; } /* 'ꄇ' */
+.icon-zocial-gplus:before { content: '\a108'; } /* 'ꄈ' */
+.icon-zocial-wikipedia:before { content: '\a109'; } /* 'ꄉ' */
+.icon-zocial-lanyrd:before { content: '\a10a'; } /* 'ꄊ' */
+.icon-zocial-calendar:before { content: '\a10b'; } /* 'ꄋ' */
+.icon-zocial-stumbleupon:before { content: '\a10c'; } /* 'ꄌ' */
+.icon-zocial-fivehundredpx:before { content: '\a10d'; } /* 'ꄍ' */
+.icon-zocial-pinterest:before { content: '\a10e'; } /* 'ꄎ' */
+.icon-zocial-bitcoin:before { content: '\a10f'; } /* 'ꄏ' */
+.icon-zocial-w3c:before { content: '\a110'; } /* 'ꄐ' */
+.icon-zocial-foursquare:before { content: '\a111'; } /* 'ꄑ' */
+.icon-zocial-html5:before { content: '\a112'; } /* 'ꄒ' */
+.icon-zocial-ie:before { content: '\a113'; } /* 'ꄓ' */
+.icon-zocial-klout:before { content: '\a114'; } /* 'ꄔ' */
+.icon-zocial-weibo:before { content: '\a115'; } /* 'ꄕ' */
+.icon-zocial-instapaper:before { content: '\a116'; } /* 'ꄖ' */
+.icon-zocial-viadeo:before { content: '\a117'; } /* 'ꄗ' */
+.icon-zocial-google:before { content: '\a118'; } /* 'ꄘ' */
+.icon-zocial-flickr:before { content: '\a119'; } /* 'ꄙ' */
+.icon-zocial-evernote:before { content: '\a11a'; } /* 'ꄚ' */
+.icon-zocial-dribbble:before { content: '\a11b'; } /* 'ꄛ' */
+.icon-zocial-cc:before { content: '\a11c'; } /* 'ꄜ' */
+.icon-zocial-blogger:before { content: '\a11d'; } /* 'ꄝ' */
+.icon-zocial-appstore:before { content: '\a11e'; } /* 'ꄞ' */
+.icon-zocial-gowalla:before { content: '\a11f'; } /* 'ꄟ' */
+.icon-zocial-guest:before { content: '\a120'; } /* 'ꄠ' */
+.icon-zocial-reddit:before { content: '\a121'; } /* 'ꄡ' */
+.icon-zocial-spotify:before { content: '\a122'; } /* 'ꄢ' */
+.icon-zocial-digg:before { content: '\a123'; } /* 'ꄣ' */
+.icon-zocial-forrst:before { content: '\a124'; } /* 'ꄤ' */
+.icon-zocial-ninetyninedesigns:before { content: '\a125'; } /* 'ꄥ' */
+.icon-zocial-grooveshark:before { content: '\a126'; } /* 'ꄦ' */
+.icon-zocial-call:before { content: '\a127'; } /* 'ꄧ' */
+.icon-zocial-linkedin:before { content: '\a128'; } /* 'ꄨ' */
+.icon-zocial-meetup:before { content: '\a129'; } /* 'ꄩ' */
+.icon-zocial-vk:before { content: '\a12a'; } /* 'ꄪ' */
+.icon-zocial-plancast:before { content: '\a12b'; } /* 'ꄫ' */
+.icon-zocial-disqus:before { content: '\a12c'; } /* 'ꄬ' */
+.icon-zocial-rss:before { content: '\a12d'; } /* 'ꄭ' */
+.icon-zocial-skype:before { content: '\a12e'; } /* 'ꄮ' */
+.icon-zocial-twitter:before { content: '\a12f'; } /* 'ꄯ' */
+.icon-zocial-youtube:before { content: '\a130'; } /* 'ꄰ' */
+.icon-zocial-vimeo:before { content: '\a131'; } /* 'ꄱ' */
+.icon-zocial-windows:before { content: '\a132'; } /* 'ꄲ' */
+.icon-zocial-xing:before { content: '\a133'; } /* 'ꄳ' */
+.icon-zocial-yahoo:before { content: '\a134'; } /* 'ꄴ' */
+.icon-zocial-chrome:before { content: '\a135'; } /* 'ꄵ' */
+.icon-zocial-email:before { content: '\a136'; } /* 'ꄶ' */
+.icon-zocial-macstore:before { content: '\a137'; } /* 'ꄷ' */
+.icon-zocial-myspace:before { content: '\a138'; } /* 'ꄸ' */
+.icon-zocial-podcast:before { content: '\a139'; } /* 'ꄹ' */
+.icon-zocial-amazon:before { content: '\a13a'; } /* 'ꄺ' */
+.icon-zocial-steam:before { content: '\a13b'; } /* 'ꄻ' */
+.icon-zocial-yelp:before { content: '\a13c'; } /* 'ꄼ' */
+.icon-zocial-wordpress:before { content: '\a13d'; } /* 'ꄽ' */
+.icon-zocial-eventasaurus:before { content: '\a13e'; } /* 'ꄾ' */
+.icon-zocial-tumblr:before { content: '\a13f'; } /* 'ꄿ' */
+.icon-zocial-soundcloud:before { content: '\a140'; } /* 'ꅀ' */
+.icon-zocial-quora:before { content: '\a141'; } /* 'ꅁ' */
+.icon-zocial-openid:before { content: '\a142'; } /* 'ꅂ' */
+.icon-zocial-pinboard:before { content: '\a143'; } /* 'ꅃ' */
+.icon-zocial-gmail:before { content: '\a144'; } /* 'ꅄ' */
+.icon-zocial-lastfm:before { content: '\a145'; } /* 'ꅅ' */
+.icon-zocial-songkick:before { content: '\a146'; } /* 'ꅆ' */
+.icon-zocial-plurk:before { content: '\a147'; } /* 'ꅇ' */
+.icon-zocial-itunes:before { content: '\a148'; } /* 'ꅈ' */
+.icon-zocial-googleplay:before { content: '\a149'; } /* 'ꅉ' */
+.icon-zocial-github-circled:before { content: '\a14a'; } /* 'ꅊ' */
+.icon-zocial-github:before { content: '\a14b'; } /* 'ꅋ' */
+.icon-zocial-facebook:before { content: '\a14c'; } /* 'ꅌ' */
+.icon-zocial-ebay:before { content: '\a14d'; } /* 'ꅍ' */
+.icon-zocial-dropbox:before { content: '\a14e'; } /* 'ꅎ' */
+.icon-zocial-cloudapp:before { content: '\a14f'; } /* 'ꅏ' */
+.icon-zocial-intensedebate:before { content: '\a150'; } /* 'ꅐ' */
+.icon-zocial-eventbrite:before { content: '\a151'; } /* 'ꅑ' */
+.icon-zocial-scribd:before { content: '\a152'; } /* 'ꅒ' */
+.icon-zocial-posterous:before { content: '\a153'; } /* 'ꅓ' */
+.icon-zocial-stripe:before { content: '\a154'; } /* 'ꅔ' */
+.icon-zocial-opentable:before { content: '\a155'; } /* 'ꅕ' */
+.icon-zocial-cart:before { content: '\a156'; } /* 'ꅖ' */
+.icon-zocial-print:before { content: '\a157'; } /* 'ꅗ' */
+.icon-zocial-angellist:before { content: '\a158'; } /* 'ꅘ' */
+.icon-zocial-instagram:before { content: '\a159'; } /* 'ꅙ' */
+.icon-zocial-dwolla:before { content: '\a15a'; } /* 'ꅚ' */
+.icon-zocial-appnet:before { content: '\a15b'; } /* 'ꅛ' */
+.icon-zocial-statusnet:before { content: '\a15c'; } /* 'ꅜ' */
+.icon-zocial-acrobat:before { content: '\a15d'; } /* 'ꅝ' */
+.icon-zocial-drupal:before { content: '\a15e'; } /* 'ꅞ' */
+.icon-zocial-buffer:before { content: '\a15f'; } /* 'ꅟ' */
+.icon-zocial-pocket:before { content: '\a160'; } /* 'ꅠ' */
+.icon-zocial-bitbucket:before { content: '\a161'; } /* 'ꅡ' */
+.icon-zocial-lego:before { content: '\a162'; } /* 'ꅢ' */
+.icon-zocial-login:before { content: '\a163'; } /* 'ꅣ' */
+.icon-zocial-stackoverflow:before { content: '\a164'; } /* 'ꅤ' */
+.icon-zocial-hackernews:before { content: '\a165'; } /* 'ꅥ' */
+.icon-zocial-lkdto:before { content: '\a166'; } /* 'ꅦ' */

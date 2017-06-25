@@ -1,0 +1,43 @@
+	
+		<form name="simplexform" id="simplexform" class="simplexform" action="http://rivathemes.net/html/magnis/v2/inc/inc/config-page-contact-form.php" method="post" enctype="multipart/form-data">
+			<div id="result"></div>
+			<div class="form-elements form-page-contact-form">
+					<div class="fields-group-0 groups">
+		<div class="group-title">Personal information</div><div class="acm-field"><label for="cname">Your Name</label><div id="cname" class="form-input text "><input class="text short" name="cname" type="text" value="" placeholder="Your Name" /><span class="required"></span></div>
+						</div><div class="acm-field"><label for="email">Your Email</label><div id="email" class="form-input text "><input class="text short" name="email" type="text" value="" placeholder="Your Email" /><span class="required"></span></div>
+						</div><div class="acm-field"><label for="phone">Phone number</label><div id="phone" class="form-input text "><input class="text short" name="phone" type="text" value="" placeholder="Phone number" /></div>
+						</div></div><div class="fields-group-1 groups "><div class="group-title">quotation details</div><div class="acm-field"><label for="subject">Subject</label><div id="subject" class="form-input select "><select class="text short" name="subject"><option value="">Select</option><option class="optcolors" value="Sales">Sales</option><option class="optcolors" value="Techinal">Techinal</option><option class="optcolors" value="Billing">Billing</option><option class="optcolors" value="Adversting">Adversting</option><option class="optcolors" value="Other">Other</option></select><span class="required"></span></div>
+						</div><div class="acm-field"><label for="files_0">Photo upload </label><div id="files_0" class="form-input file "><div class="addfile short"><span>Add File</span><input class="upload" name="files[0]" type="file" value="" /></div></div>
+						</div><div class="acm-field"><label for="message">Your Message</label><div id="message" class="form-input textarea "><textarea class="text short" name="message" placeholder="Your Message"></textarea><span class="required"></span></div>
+						</div><div class="acm-field"><label for="datepick">Date Picker</label><div id="datepick" class="form-input date "><input class="text datepicker short" name="datepick" type="text" value="" placeholder="Date Picker" /><span class="required"></span></div>
+						</div><div class="acm-field"><label for="choose">Radio button</label><div id="choose" class="form-input radio "><input name="choose" type="radio" value="One" />
+								<span class="field_desc">One</span><input name="choose" type="radio" value="two" />
+								<span class="field_desc">two</span><input name="choose" type="radio" value="Three" />
+								<span class="field_desc">Three</span></div>
+						</div><div class="acm-field"><div id="html" class="form-input html "><input class="text short" name="html" type="html" value="" placeholder="<a href='#'>Some html content</a>" /></div>
+						</div></div><div class="fields-group-2 groups "><div class="group-title">input validation</div><div class="acm-field"><label for="test">Checkbox</label><div id="test" class="form-input checkbox "><input name="test[]" type="checkbox" value="one" />
+								<span class="field_desc">one</span><input name="test[]" type="checkbox" value="two" />
+								<span class="field_desc">two</span><span class="required"></span></div>
+						</div><div class="acm-field"><label for="terms">Checkbox</label><div id="terms" class="form-input checkbox "><input name="terms[]" type="checkbox" value="Accept Terms" />
+								<span class="field_desc">Accept Terms</span><span class="required"></span></div>
+						</div><div class="acm-field"><label for="files_1">File upload</label><div id="files_1" class="form-input file "><div class="addfile short"><span>Add File</span><input class="upload" name="files[1]" type="file" value="" /></div></div>
+						</div><div class="acm-field captcha"><label>Calculate 0 + 7</label>
+					<div id="security_question" class="form-input">
+						<input class="text math short" type="input" name="math_answer" placeholder="Calculate" />
+						<input type="hidden" name="math_token" value="380befd954696a46be7169db230cd826" />
+						<span class="required"></span></div>
+				</div><input class="js_status" type="hidden" name="js_status" value="false" />				</div>
+				<br />
+				<div class="acm-field submitbtn">
+					<input type="hidden" name="simplex_key" value="nYSG9BmUqHE" /><input type="hidden" name="simplex_token" value="5cc56b27c502d78c199fc47bc1d0afe5" />					<button type="submit" name="submit" id="submit"><i class="glyphicon glyphicon-envelope"></i> Send Mail</button>
+					<div class="loader"></div>
+				</div>
+			</div>
+		</form>
+		<script type="text/javascript" src="assets/js/jquery.form.html"></script>
+		<script type="text/javascript" src="assets/js/ajax.html"></script>
+		<script type="text/javascript">
+			$(function() {
+				$( "input.datepicker" ).datepicker({showAnim: 'fadeIn'});
+			  });
+		</script>

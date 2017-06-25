@@ -1,0 +1,258 @@
+/**
+* Simplex AJAX Contact Form Pro
+* Version: 2.0.5
+* Author: KannanC
+* url: http://acmeedesign.com
+**/
+@font-face {
+        font-family: 'Calibri Regular';
+        font-style: normal;
+        font-weight: normal;
+        src: local('Calibri Regular'), url('fonts/CALIBRI.woff') format('woff');
+}
+#simplex-form {
+        font-size: 14px;
+        font-family: 'Myriad pro', 'Open Sans', sans-serif, Arial, Helvetica;
+        line-height: 19px;
+        text-align: left;
+        width:500px;
+}
+#simplex-form h2 {
+        font-size: 23px;
+        font-weight: normal;
+        font-family: 'Calibri Regular','Myriad pro', 'Open Sans', sans-serif, Arial, Helvetica;
+        padding: 10px 25px;
+        margin-bottom:20px;
+        position: relative;
+}
+#simplex-form h2 span{
+        font-size: 12px;
+        font-weight: normal;
+        display:block;
+        padding-top: 7px;
+}
+form#simplexform {
+        font-size: 14px;
+        margin: 0;
+        padding: 0;
+        position: relative;
+}
+form#simplexform div.acm-field {
+        padding: 0 25px;
+        margin: 0 0 10px;
+        display: block;
+        clear: both;
+}
+form#simplexform label {
+        width: 30%;
+        float: left;
+        padding: 7px 0;
+        font-family: 'Myriad pro', 'Open Sans', sans-serif, Arial, Helvetica;
+}
+form#simplexform input.text, form#simplexform textarea.text, form#simplexform select.text {
+        padding: 7px 10px;
+        font-family: 'Myriad pro', 'Open Sans', Arial, Helvetica, sans-serif;
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px;
+        border-radius: 2px;
+            -moz-box-sizing:border-box;
+        -webkit-box-sizing:border-box;
+        box-sizing:border-box;
+        position: relative;
+}
+::-webkit-input-placeholder {
+        color: #d6c7c7;
+}
+:-moz-placeholder { /* Firefox 18- */
+        color: #d6c7c7;
+}
+::-moz-placeholder {  /* Firefox 19+ */
+        color: #d6c7c7;
+}
+:-ms-input-placeholder {  
+        color: #d6c7c7;
+}
+form#simplexform input.text, form#simplexform textarea.text, form#simplexform select.text {
+        transition: background 0.2s linear 0s, box-shadow 0.2s linear 0s;
+}
+form#simplexform input.focus, form#simplexform textarea.focus, form#simplexform select.focus {
+        outline: 0;
+        -moz-outline-style: none;
+}
+select {
+        color: #d6c7c7;
+}
+select option.options{
+        color: #000;
+}
+form#simplexform input.short, form#simplexform textarea.short, form#simplexform select.short, form#simplexform div.short {
+        width: 60%;
+}
+form#simplexform input.full, form#simplexform textarea.full, form#simplexform select.full, form#simplexform div.full {
+        width: 90%;
+}
+form#simplexform div.checkbox, form#simplexform div.radio {
+        padding: 7px 0;
+}
+form#simplexform input[type="checkbox"], form#simplexform input[type="radio"] {
+        width: 20px;
+        float: left;
+        margin: 3px 3px 0 0;
+        padding: 0;
+        background: none !important;
+        border: none !important;
+}
+span.field_desc {
+        float: left;
+        margin-right: 10px;
+}
+form#simplexform textarea.text {
+        height: 100px;
+}
+form#simplexform .form-input {
+        position: relative;
+}
+form#simplexform div.form-input:after, form#simplexform div.submitbtn:after, div#simplex-form:after{
+        content: "";
+        width: 0; 
+        height: 0;
+        display: block;
+        clear: both;
+}
+form#simplexform .addfile {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+        text-align: center;
+        vertical-align: middle;
+        cursor: pointer;
+        padding: 6px 0px;
+        color: #fff;
+        font-size: 14px;
+        line-height: 1.42857143;
+        border-radius: 2px;
+}
+form#simplexform .addfile input.upload {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 0;
+        padding: 10px;
+        cursor: pointer;
+        opacity: 0;
+        -moz-opacity:0;
+        filter: alpha(opacity=0);
+        height: 100%;
+        font-size:45px;
+}
+form#simplexform .group-title {
+    font-family: 'Calibri Regular';
+    font-size: 16px;
+    font-weight: bold;
+    padding: 0 25px 20px;
+    margin: 25px 0 25px;
+    border-bottom: 1px solid #ddd
+}
+form#simplexform #submit {
+        width: 120px;
+        float: left;
+        display: inline-block;
+        text-align: center;
+        line-height: 30px;
+        font-size: 14px;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        border-radius: 1px;
+        outline: none;
+        cursor: pointer;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+}
+form#simplexform div.loader {
+        display: inline-block;
+        margin-top: 12px;
+        margin-left: 15px;
+}
+form#simplexform span.required {
+        width: 8px;
+        height:8px;
+        display: inline-block;
+        position: absolute;
+        top: 0;
+        right:2%;
+        background: url(../images/required.png) no-repeat;
+        margin-top: 12px;
+}
+form#simplexform div.submitbtn {
+        margin: 0 !important;
+}
+form#simplexform span.error-default, form#simplexform span.error-slick {
+        position: absolute;
+        z-index: 100;
+        opacity: 0.85;
+}
+form#simplexform span.error-default {	
+        right: 9%;
+        top: -12px;
+        padding: 5px 10px;
+        font-size: 12px;
+        text-align: center;
+        white-space: nowrap;
+        border-radius: 5px;
+        text-shadow: 0 0 5px #000;
+        -moz-box-shadow: 0 0 5px rgba(0,0,0,0.5);
+        -webkit-box-shadow: 0 0 5px rgba(0,0,0,0.5);
+        box-shadow: 0 0 5px rgba(0,0,0,0.5);
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+}
+form#simplexform span.error-default:before {
+        content: "";
+        width: 0; 
+        height: 0; 
+        position: absolute;
+        top:99%;
+        right: 19px;
+}
+form#simplexform span.error-slick {
+        right: 1%;
+        top: 7px;
+        width: 20px;
+        height: 20px;
+        display: inline-block;
+        text-indent: -9999px;
+}
+h3 span.success {
+        width: 100%;
+        height: 20px;
+        display: block;
+        margin-bottom: 12px;
+}
+div#result .message {
+        padding: 25px;
+        margin-bottom: 25px;
+        text-align: center;
+}
+div#result .message h3 {
+        font-size: 18px;
+        font-weight: normal;
+        margin-bottom: 10px;
+}
+
+@media (max-width: 768px) and (orientation: portrait) {
+        #simplex-form {
+                width: 100%;
+        }
+        form#simplexform label {
+                width: 100%;
+                display:block;
+        }
+        form#simplexform input.text, form#simplexform textarea.text, form#simplexform select.text, form#simplexform div.addfile {
+                width: 100%;
+                float: none;
+        }
+        form#simplexform span.required {
+                right:4%;
+        }
+}

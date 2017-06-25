@@ -7,9 +7,7 @@ class Index extends Controller {
     }
     
     function index() {
-        //echo Hash::create('sha256', 'admin', HASH_PASSWORD_KEY);
-        //echo Hash::create('sha256', 'test2', HASH_PASSWORD_KEY);
-        $this->view->title = 'Home';
+        $this->view->title = 'Bienvenido';
         $this->view->render('header');
         $this->view->render('index/index');
         $this->view->render('footer');

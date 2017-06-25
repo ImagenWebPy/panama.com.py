@@ -1,0 +1,143 @@
+@charset "UTF-8";
+
+ @font-face {
+  font-family: 'fontello';
+  src: url('../font/fontellofef5.eot?90342149');
+  src: url('../font/fontellofef5.eot?90342149#iefix') format('embedded-opentype'),
+       url('../font/fontellofef5.woff?90342149') format('woff'),
+       url('../font/fontellofef5.ttf?90342149') format('truetype'),
+       url('../font/fontellofef5.svg?90342149#fontello') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
+/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
+/*
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: 'fontello';
+    src: url('../font/fontello.svg?90342149#fontello') format('svg');
+  }
+}
+*/
+ 
+ [class^="icon-"]:before, [class*=" icon-"]:before {
+  font-family: "fontello";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+ 
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+ 
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+ 
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+ 
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+ 
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+ 
+  /* Font smoothing. That was taken from TWBS */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+ 
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+ 
+.icon-ws-search:before { content: '\ac00'; } /* '가' */
+.icon-ws-mail:before { content: '\ac01'; } /* '각' */
+.icon-ws-heart:before { content: '\ac02'; } /* '갂' */
+.icon-ws-heart-empty:before { content: '\ac03'; } /* '갃' */
+.icon-ws-star:before { content: '\ac04'; } /* '간' */
+.icon-ws-user:before { content: '\ac05'; } /* '갅' */
+.icon-ws-video:before { content: '\ac06'; } /* '갆' */
+.icon-ws-picture:before { content: '\ac07'; } /* '갇' */
+.icon-ws-th-large:before { content: '\ac08'; } /* '갈' */
+.icon-ws-th-list:before { content: '\ac09'; } /* '갉' */
+.icon-ws-th:before { content: '\ac0a'; } /* '갊' */
+.icon-ws-ok:before { content: '\ac0b'; } /* '갋' */
+.icon-ws-ok-circle:before { content: '\ac0c'; } /* '갌' */
+.icon-ws-cancel:before { content: '\ac0d'; } /* '갍' */
+.icon-ws-cancel-circle:before { content: '\ac0e'; } /* '갎' */
+.icon-ws-plus-circle:before { content: '\ac0f'; } /* '갏' */
+.icon-ws-minus-circle:before { content: '\ac10'; } /* '감' */
+.icon-ws-link:before { content: '\ac11'; } /* '갑' */
+.icon-ws-attach:before { content: '\ac12'; } /* '값' */
+.icon-ws-lock:before { content: '\ac13'; } /* '갓' */
+.icon-ws-logout:before { content: '\ac14'; } /* '갔' */
+.icon-ws-cog:before { content: '\ac15'; } /* '강' */
+.icon-ws-rss-alt:before { content: '\ac16'; } /* '갖' */
+.icon-ws-rss:before { content: '\ac17'; } /* '갗' */
+.icon-ws-archive:before { content: '\ac18'; } /* '갘' */
+.icon-ws-folder:before { content: '\ac19'; } /* '같' */
+.icon-ws-docs-landscape:before { content: '\ac1a'; } /* '갚' */
+.icon-ws-doc:before { content: '\ac1b'; } /* '갛' */
+.icon-ws-location:before { content: '\ac1c'; } /* '개' */
+.icon-ws-attention:before { content: '\ac1d'; } /* '객' */
+.icon-ws-chat:before { content: '\ac1e'; } /* '갞' */
+.icon-ws-comment-alt:before { content: '\ac1f'; } /* '갟' */
+.icon-ws-comment:before { content: '\ac20'; } /* '갠' */
+.icon-ws-retweet:before { content: '\ac21'; } /* '갡' */
+.icon-ws-code:before { content: '\ac22'; } /* '갢' */
+.icon-ws-forward:before { content: '\ac23'; } /* '갣' */
+.icon-ws-reply-all:before { content: '\ac24'; } /* '갤' */
+.icon-ws-reply:before { content: '\ac25'; } /* '갥' */
+.icon-ws-tag:before { content: '\ac26'; } /* '갦' */
+.icon-ws-lock-open:before { content: '\ac27'; } /* '갧' */
+.icon-ws-clock:before { content: '\ac28'; } /* '갨' */
+.icon-ws-block:before { content: '\ac29'; } /* '갩' */
+.icon-ws-resize-full:before { content: '\ac2a'; } /* '갪' */
+.icon-ws-resize-full-circle:before { content: '\ac2b'; } /* '갫' */
+.icon-ws-popup:before { content: '\ac2c'; } /* '갬' */
+.icon-ws-left-open:before { content: '\ac2d'; } /* '갭' */
+.icon-ws-right-open:before { content: '\ac2e'; } /* '갮' */
+.icon-ws-left-circle:before { content: '\ac30'; } /* '갰' */
+.icon-ws-right-circle:before { content: '\ac31'; } /* '갱' */
+.icon-ws-up-circle:before { content: '\ac32'; } /* '갲' */
+.icon-ws-down-dir:before { content: '\ac33'; } /* '갳' */
+.icon-ws-right-dir:before { content: '\ac34'; } /* '갴' */
+.icon-ws-down-micro:before { content: '\ac35'; } /* '갵' */
+.icon-ws-up-micro:before { content: '\ac36'; } /* '갶' */
+.icon-ws-cw-circle:before { content: '\ac37'; } /* '갷' */
+.icon-ws-arrows-cw:before { content: '\ac38'; } /* '갸' */
+.icon-ws-updown-circle:before { content: '\ac39'; } /* '갹' */
+.icon-ws-target:before { content: '\ac3a'; } /* '갺' */
+.icon-ws-signal:before { content: '\ac3b'; } /* '갻' */
+.icon-ws-googleplus-rect:before { content: '\ac3c'; } /* '갼' */
+.icon-ws-tumblr-rect:before { content: '\ac3d'; } /* '갽' */
+.icon-ws-vimeo-rect:before { content: '\ac3e'; } /* '갾' */
+.icon-ws-twitter-bird:before { content: '\ac3f'; } /* '갿' */
+.icon-ws-facebook-rect:before { content: '\ac40'; } /* '걀' */
+.icon-ws-terminal:before { content: '\ac41'; } /* '걁' */
+.icon-ws-cloud:before { content: '\ac42'; } /* '걂' */
+.icon-ws-indent-right:before { content: '\ac43'; } /* '걃' */
+.icon-ws-indent-left:before { content: '\ac44'; } /* '걄' */
+.icon-ws-list-numbered:before { content: '\ac45'; } /* '걅' */
+.icon-ws-list:before { content: '\ac46'; } /* '걆' */
+.icon-ws-font:before { content: '\ac47'; } /* '걇' */
+.icon-ws-progress-7:before { content: '\ac48'; } /* '걈' */
+.icon-ws-progress-5:before { content: '\ac49'; } /* '걉' */
+.icon-ws-progress-4:before { content: '\ac4a'; } /* '걊' */
+.icon-ws-progress-3:before { content: '\ac4b'; } /* '걋' */
+.icon-ws-progress-1:before { content: '\ac4c'; } /* '걌' */
+.icon-ws-progress-0:before { content: '\ac4d'; } /* '걍' */
+.icon-ws-progress-2:before { content: '\ac4e'; } /* '걎' */
+.icon-ws-linkedin-rect:before { content: '\ac4f'; } /* '걏' */
+.icon-ws-skype:before { content: '\ac50'; } /* '걐' */
+.icon-ws-vkontakte-rect:before { content: '\ac51'; } /* '걑' */
+.icon-ws-youtube:before { content: '\ac52'; } /* '걒' */
+.icon-ws-odnoklassniki-rect:before { content: '\ac53'; } /* '걓' */
+.icon-ws-progress-6:before { content: '\ac54'; } /* '걔' */
+.icon-ws-down-circle:before { content: '򬠯'; } /* '\ac82f' */
