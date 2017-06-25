@@ -36,7 +36,7 @@ $bootstrap = new Bootstrap();
 //$bootstrap->setControllerPath();
 //$bootstrap->setModelPath();
 //$bootstrap->setDefaultFile();
-$bootstrap->setErrorFile();
+//$bootstrap->setErrorFile();
 
 $bootstrap->init();
 

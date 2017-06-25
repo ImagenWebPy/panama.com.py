@@ -17,14 +17,14 @@
         <!-- M Menu -->
         <link href="<?= CSS; ?>jquery.mmenu.all.css" type="text/css" rel="stylesheet"/>
         <!-- Add fancyBox -->
-        <link href="<?= URL; ?>public/fancybox/source/jquery.fancybox8cbb.css?v=2.1.5" type="text/css" media="screen" rel="stylesheet"/>
+        <link href="<?= URL; ?>public/fancybox/source/jquery.fancybox8cbb.css" type="text/css" media="screen" rel="stylesheet"/>
         <!-- Optionally add helpers - button, thumbnail and/or media -->
-        <link href="<?= URL; ?>public/fancybox/source/helpers/jquery.fancybox-buttons3447.css?v=1.0.5" type="text/css" media="screen" rel="stylesheet"/>
-        <link href="<?= URL; ?>public/fancybox/source/helpers/jquery.fancybox-thumbsf2ad.css?v=1.0.7" type="text/css" media="screen" rel="stylesheet"/>
+        <link href="<?= URL; ?>public/fancybox/source/helpers/jquery.fancybox-buttons3447.css" type="text/css" media="screen" rel="stylesheet"/>
+        <link href="<?= URL; ?>public/fancybox/source/helpers/jquery.fancybox-thumbsf2ad.css" type="text/css" media="screen" rel="stylesheet"/>
         <!-- Font Awesome v4.3.0 -->
-        <link href="<?= URL; ?>font-awesome.min.css" type="text/css" rel="stylesheet"/>
+        <link href="<?= CSS; ?>font-awesome.min.css" type="text/css" rel="stylesheet"/>
         <!--Jquery UI -->
-        <link rel="stylesheet" href="<?= URL; ?>jquery-ui.css" media="screen" />
+        <link rel="stylesheet" href="<?= CSS; ?>jquery-ui.css" media="screen" />
         <!-- Simplex Form -->
         <link rel="stylesheet" href="<?= URL; ?>public/assets/css/simplex.css" media="screen" />
         <link rel="stylesheet" href="<?= URL; ?>public/assets/css/form.elegant.css" media="screen" />
