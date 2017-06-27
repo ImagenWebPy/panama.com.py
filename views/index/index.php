@@ -52,7 +52,7 @@
                 </figure>
             </div>
             <div class="col-lg-4 col-md-4">
-                <h2>our features</h2>
+                <h2>Algunos de nuestros productos</h2>
                 <div class="icon-box-1">
 
                     <i class="glyphicon glyphicon-heart"></i>
@@ -112,185 +112,137 @@
         <div class="row">
 
             <div class="col-lg-12">
-
                 <div class="project-block-1" id="projects">
-
                     <div class="row">
-
                         <div class="col-lg-3">
                             <div class="projects-desc">
                                 <h4>Marcas Representadas</h4>
                                 <p>Conozca nuestras Marcas</p>
                                 <div class="riva-insert-menu-here"></div>
                             </div>
-
                         </div>
-
                         <div class="col-lg-9">
-
                             <div class="w-100 float-left bg-secondary">
-
                                 <!-- Project item start //-->
-
                                 <div class="project-item">
-
                                     <figure>
-
-                                        <img src="<?= IMG; ?>projects/1.jpg" alt="">
-
+                                        <img src="<?= IMG; ?>marcas/ype.jpg" alt="">
                                     </figure>
-
                                     <div class="buttons">
-
-                                        <a href="<?= IMG; ?>projects/1.jpg" class="m-btn link fancybox" data-size="normal" data-color="primary" data-border><i class="glyphicon glyphicon-fullscreen"></i></a>
-
                                         <a href="#" class="m-btn" data-size="normal" data-color="primary" data-border><i class="glyphicon glyphicon-link"></i></a>
-
                                     </div>
-
-                                    <p class="title"><a href="#">hot blonde with jeans outfit</a></p>
-
-                                    <p class="tags">fasshion, total look</p>
-
+                                    <p class="title"><a href="#">Lorem ipsum dolor sit amet</a></p>
                                 </div>
-
                                 <!-- Project item end //-->
-
                                 <!-- Project item start //-->
-
                                 <div class="project-item">
-
                                     <figure>
-
-                                        <img src="<?= IMG; ?>projects/2.jpg" alt="">
-
+                                        <img src="<?= IMG; ?>marcas/brahma.jpg" alt="">
                                     </figure>
-
                                     <div class="buttons">
-
-                                        <a href="<?= IMG; ?>projects/2.jpg" class="m-btn link" id="open-project-gallery" data-size="normal" data-color="primary" data-border><i class="glyphicon glyphicon-picture"></i></a>
-
                                         <a href="#" class="m-btn" data-size="normal" data-color="primary" data-border><i class="glyphicon glyphicon-link"></i></a>
-
                                     </div>
-
-                                    <p class="title"><a href="#">lost in ocean</a></p>
-
-                                    <p class="tags">advanture, water</p>
-
+                                    <p class="title"><a href="#">Lorem ipsum dolor sit amet</a></p>
                                 </div>
-
                                 <!-- Project item end //-->
-
                                 <!-- Project item start //-->
-
                                 <div class="project-item">
-
                                     <figure>
-
-                                        <img src="<?= IMG; ?>projects/3.jpg" alt="">
-
+                                        <img src="<?= IMG; ?>marcas/protex.jpg" alt="">
                                     </figure>
-
                                     <div class="buttons">
-
-                                        <a href="https://vimeo.com/15084621" class="m-btn link fancybox-media" data-size="normal" data-color="primary" data-border><i class="glyphicon glyphicon-film"></i></a>
-
                                         <a href="#" class="m-btn" data-size="normal" data-color="primary" data-border><i class="glyphicon glyphicon-link"></i></a>
-
                                     </div>
-
-                                    <p class="title"><a href="#">statue of liberty low poly</a></p>
-
-                                    <p class="tags">monuments, state, freedom</p>
-
+                                    <p class="title"><a href="#">Lorem ipsum dolor sit amet</a></p>
                                 </div>
-
                                 <!-- Project item end //-->
-
                                 <!-- Project item start //-->
-
                                 <div class="project-item">
-
                                     <figure>
-
-                                        <img src="<?= IMG; ?>projects/4.jpg" alt="">
-
+                                        <img src="<?= IMG; ?>marcas/budweiser.jpg" alt="">
                                     </figure>
-
                                     <div class="buttons">
-
-                                        <a href="<?= IMG; ?>projects/4.jpg" class="m-btn link fancybox" data-size="normal" data-color="primary" data-border><i class="glyphicon glyphicon-fullscreen"></i></a>
-
                                         <a href="#" class="m-btn" data-size="normal" data-color="primary" data-border><i class="glyphicon glyphicon-link"></i></a>
-
                                     </div>
-
-                                    <p class="title"><a href="#">van life</a></p>
-
-                                    <p class="tags">road, feature, rest</p>
-
+                                    <p class="title"><a href="#">Lorem ipsum dolor sit amet</a></p>
                                 </div>
-
                                 <!-- Project item end //-->
-
                                 <!-- Project item start //-->
-
                                 <div class="project-item">
-
                                     <figure>
-
-                                        <img src="<?= IMG; ?>projects/6.jpg" alt="">
-
+                                        <img src="<?= IMG; ?>marcas/palmolive.jpg" alt="">
                                     </figure>
-
                                     <div class="buttons">
-
-                                        <a href="<?= IMG; ?>projects/6.jpg" class="m-btn link fancybox" data-size="normal" data-color="primary" data-border><i class="glyphicon glyphicon-fullscreen"></i></a>
-
                                         <a href="#" class="m-btn" data-size="normal" data-color="primary" data-border><i class="glyphicon glyphicon-link"></i></a>
-
                                     </div>
-
-                                    <p class="title"><a href="#">white butterfly</a></p>
-
-                                    <p class="tags">nature, human, hands</p>
-
+                                    <p class="title"><a href="#">Lorem ipsum dolor sit amet</a></p>
                                 </div>
-
                                 <!-- Project item end //-->
-
+                                <!-- Project item start //-->
+                                <div class="project-item">
+                                    <figure>
+                                        <img src="<?= IMG; ?>marcas/colgate.jpg" alt="">
+                                    </figure>
+                                    <div class="buttons">
+                                        <a href="#" class="m-btn" data-size="normal" data-color="primary" data-border><i class="glyphicon glyphicon-link"></i></a>
+                                    </div>
+                                    <p class="title"><a href="#">Lorem ipsum dolor sit amet</a></p>
+                                </div>
+                                <!-- Project item end //-->
+                                <!-- Project item start //-->
+                                <div class="project-item">
+                                    <figure>
+                                        <img src="<?= IMG; ?>marcas/ourofino.jpg" alt="">
+                                    </figure>
+                                    <div class="buttons">
+                                        <a href="#" class="m-btn" data-size="normal" data-color="primary" data-border><i class="glyphicon glyphicon-link"></i></a>
+                                    </div>
+                                    <p class="title"><a href="#">Lorem ipsum dolor sit amet</a></p>
+                                </div>
+                                <!-- Project item end //-->
+                                <!-- Project item start //-->
+                                <div class="project-item">
+                                    <figure>
+                                        <img src="<?= IMG; ?>marcas/fini.jpg" alt="">
+                                    </figure>
+                                    <div class="buttons">
+                                        <a href="#" class="m-btn" data-size="normal" data-color="primary" data-border><i class="glyphicon glyphicon-link"></i></a>
+                                    </div>
+                                    <p class="title"><a href="#">Lorem ipsum dolor sit amet</a></p>
+                                </div>
+                                <!-- Project item end //-->
+                                <!-- Project item start //-->
+                                <div class="project-item">
+                                    <figure>
+                                        <img src="<?= IMG; ?>marcas/nestle.jpg" alt="">
+                                    </figure>
+                                    <div class="buttons">
+                                        <a href="#" class="m-btn" data-size="normal" data-color="primary" data-border><i class="glyphicon glyphicon-link"></i></a>
+                                    </div>
+                                    <p class="title"><a href="#">Lorem ipsum dolor sit amet</a></p>
+                                </div>
+                                <!-- Project item end //-->
                             </div>
-
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
-
         </div>
-
     </div>
-
 </section>
-
 <!-- Projects end //-->
-
 <!-- Blog posts nd testimonials start //-->
-
 <section>
 
     <div class="container">
 
         <div class="row">
 
-            <div class="col-lg-6 col-md-6">
+            <div class="col-lg-12 col-md-12">
 
                 <div class="plugin-container" id="posts">
 
-                    <h3><span class="float-left">latest blog posts</span> <div class="riva-insert-menu-here"></div></h3>
+                    <h3><span class="float-left">últimas publicaciones del blog</span> <div class="riva-insert-menu-here"></div></h3>
 
                     <!-- Post item start //-->
 
@@ -550,121 +502,7 @@
                 </div>
 
             </div>
-
             <div class="content-divider clearfix hidden-lg hidden-md"></div>
-
-            <div class="col-lg-6 col-md-6">
-
-                <div class="plugin-container" id="testimonials"> 
-
-                    <h3><span class="float-left">testimonials</span> <div class="riva-insert-menu-here"></div></h3>
-
-                    <!-- Testimonials item start //-->
-
-                    <div class="testimonials-item">
-
-                        <figure>
-
-                            <img src="<?= IMG; ?>team/12.jpg" alt="">
-
-                        </figure>
-
-                        <i class="fa fa-quote-left"></i>
-
-                        <div class="content">
-
-                            <p>Nulla vitae risus id quam dictum eleifend. In aliquet interdum tempus. Phasellus venenatis sapien vitae ligula mattis pharetra. Suspendisse potenti. Etiam auctor nisl ac fringilla pharetra...</p>
-
-                        </div>
-
-                        <p class="author">Jose G. Brown</p>
-
-                        <p class="position">World Radio, Receptionist</p>
-                    </div>
-
-                    <!-- Testimonials item end //-->
-
-                    <!-- Testimonials item start //-->
-
-                    <div class="testimonials-item">
-
-                        <figure>
-
-                            <img src="<?= IMG; ?>team/11.jpg" alt="">
-
-                        </figure>
-
-                        <i class="fa fa-quote-left"></i>
-
-                        <div class="content">
-
-                            <p>Proin fermentum, augue vel dignissim egestas.</p>
-
-                            <p>Maecenas feugiat enim volutpat magna sagittis, ut volutpat ex vulputate. In hac habitasse platea dictumst...</p>
-
-                        </div>
-
-                        <p class="author">Bryon K. Fulton</p>
-
-                        <p class="position">Shoe Kicks, Engine and other machine assembler</p>
-                    </div>
-
-                    <!-- Testimonials item end //-->
-
-                    <!-- Testimonials item start //-->
-
-                    <div class="testimonials-item">
-
-                        <figure>
-
-                            <img src="<?= IMG; ?>team/10.jpg" alt="">
-
-                        </figure>
-
-                        <i class="fa fa-quote-left"></i>
-
-                        <div class="content">
-
-                            <p>Ut est massa, aliquet vitae tortor sed, sollicitudin fringilla lacus...</p>
-
-                        </div>
-
-                        <p class="author">John L. Sullivan</p>
-
-                        <p class="position">Benesome, Pointer</p>
-                    </div>
-
-                    <!-- Testimonials item end //-->
-
-                    <!-- Testimonials item start //-->
-
-                    <div class="testimonials-item">
-
-                        <figure>
-
-                            <img src="<?= IMG; ?>team/9.jpg" alt="">
-
-                        </figure>
-
-                        <i class="fa fa-quote-left"></i>
-
-                        <div class="content">
-
-                            <p>Vestibulum vitae eleifend diam, non accumsan lorem. Suspendisse sit amet sem interdum, consectetur nunc ut, venenatis augue. Nullam quis lectus ipsum. Vestibulum egestas elementum sem, et sagittis tortor venenatis eu. Mauris et eros orci...</p>
-
-                        </div>
-
-                        <p class="author">Minnie J. Urbina</p>
-
-                        <p class="position">Enviro Architectural Designs, Directory assistance operator</p>
-                    </div>
-
-                    <!-- Testimonials item end //-->
-
-                </div>
-
-            </div>
-
         </div>
 
     </div>

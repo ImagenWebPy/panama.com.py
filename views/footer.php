@@ -2,28 +2,14 @@
 <footer role="contentinfo" class="site-footer">
     <div class="container">
         <div class="row">
-            <div class="col-lg-3">
-                <!-- Widget start //-->
-                <aside class="widget no-title">
-                    <div class="widget-content">
-                        <!-- Site logo start //-->
-                        <div class="site-logo">
-                            <a href="#" title="Magnis - Multipurpose HTML Template"><img src="<?= IMG; ?>site-logo-inverted.png" alt="Magnis - Multipurpose HTML Template"></a>
-                        </div>
-                        <!-- Site logo end //-->
-                        <div class="clearfix"></div>
-                        <p>In id lacinia dolor. Nam lectus quam, ultricies a rutrum in, mattis nec mi. Vestibulum at tempus arcu. Fusce sit amet velit vitae mauris tempus gravida. Nullam at felis a nisl iaculis sodales. Praesent euismod porttitor nibh, et dictum tellus accumsan sed.</p>
-                    </div>
-                </aside>
-                <!-- Widget end //-->
-            </div>
-            <div class="clearfix mobile-typo-fix hidden-lg"></div>
-            <div class="col-lg-3">
+            <div class="col-lg-6">
                 <!-- Widget start //-->
                 <aside class="widget widget-flickr">
-                    <h4 class="widget-title">flickr photos</h4>
+                    <h4 class="widget-title">marcas</h4>
                     <div class="widget-content">
-                        <script type="text/javascript" src="http://www.flickr.com/badge_code_v2.gne?count=9&amp;display=latest&amp;size=s&amp;layout=x&amp;source=user&amp;user=52617155@N08"></script>
+                        <ul>
+                            <li><a href="#">Ype</a></li>
+                        </ul>
                     </div>
 
                 </aside>
@@ -34,7 +20,7 @@
 
             <div class="clearfix mobile-typo-fix hidden-lg"></div>
 
-            <div class="col-lg-3">
+            <div class="col-lg-6">
 
                 <!-- Widget start //-->
 
@@ -98,7 +84,7 @@
 
                 <div class="col-lg-6 col-md-6 left">
 
-                    <p>© 2013 All rights reserved. Magnis Theme by <a href="http://themeforest.net/user/RivaThemes">Riva Themes</a></p>
+                    <p>Powered by <a href="https://imagenwebhq.com"><img src="<?= IMG; ?>logo-iweb-white.png" ></a></p>
 
                 </div>
 
@@ -106,15 +92,11 @@
 
                     <p>
 
-                        <a href="#">FAQ</a>
+                        <a href="#">Politica de Privacidad</a>
 
                         <span class="divider">/</span>
 
-                        <a href="#">Support</a>
-
-                        <span class="divider">/</span>
-
-                        <a href="#">Contacts</a>
+                        <a href="#">Contacto</a>
 
                     </p>
 
@@ -233,23 +215,6 @@
                     speed: 700,
                     ease: 'easeInBack'
                 });
-
-                $('#testimonials').rivaCarousel({
-                    style: 'vertical',
-                    navigation: 'buttons',
-                    navigation_class: 'section-header-nav',
-                    button_left_text: '<i class="glyphicon glyphicon-menu-down"></i>',
-                    button_right_text: '<i class="glyphicon glyphicon-menu-up"></i>',
-                    visible: 1,
-                    selector: 'testimonials-item',
-                    gutter: 0,
-                    infinite: 0,
-                    interval: 2000,
-                    autostart: 0,
-                    speed: 700,
-                    ease: 'easeInBack'
-                });
-
                 $("#open-project-gallery").click(function (e) {
                     e.preventDefault();
                     $.fancybox.open([

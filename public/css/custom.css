@@ -10,3 +10,10 @@ nav.header-nav ul#main-nav > li > a:hover{color: #D60006 !important;}
 nav.header-nav ul#main-nav > li ul {border-top: 3px solid #D60006 !important;}
 .header-soc-btns li a:hover { background:#D60006 !important; }
 nav.header-nav ul#main-nav > li { margin-right: 10px !important;}
+div.rivaCarouselNav a:hover {background:#D60006 !important; border: 1px solid #D60006 !important;}
+.section-header-nav a:hover:hover {border: 1px solid #D60006 !important; box-shadow: inset 0 0 0 2px #D60006 !important;}
+.post > .date {background:#D60006 !important;}
+.post > .date span.month {color:#c5d4d6 !important;}
+.newsletters-1 {background:#D60006 !important;}
+footer.site-footer a {color:#D60006 !important;}
+.color-primary{color:#D60006 !important;}
