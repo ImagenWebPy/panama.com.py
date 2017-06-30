@@ -1,22 +1,19 @@
+<?php
+$helper = new Helper();
+?>
 <div class="clearfix"></div>
 <!-- Site content start //-->
 <section class="homepage-banner">
     <div id="layerslider" class="layerslider1">
-        <!-- first slide -->
-        <div class="ls-slide" data-ls="slidedelay: 4500; transition2d: 16;">
-            <!-- slide contents goes here -->
-            <img src="<?= IMG; ?>layersliderimgs/banner-fidi_1367.jpg" class="ls-bg" alt="Slide background">
-        </div>
-        <!-- second slide -->
-        <div class="ls-slide" data-ls="slidedelay: 4500; transition2d: 17;">
-            <!-- slide contents goes here -->
-            <img src="<?= IMG; ?>layersliderimgs/banner_ype_1367.jpg" class="ls-bg" alt="Slide background">
-        </div>
-        <!-- third slide -->
-        <div class="ls-slide" data-ls="slidedelay: 4500; transition2d: 18;">
-            <!-- slide contents goes here -->
-            <img src="<?= IMG; ?>layersliderimgs/banner_variados_1367.jpg" class="ls-bg" alt="Slide background">
-        </div>
+        <?php foreach ($helper->getSlider() as $item): ?>
+            <div class="ls-slide" data-ls="slidedelay: 4500; transition2d: 16;">
+                <!-- slide contents goes here -->
+                <img src="<?= IMG; ?>layersliderimgs/<?= utf8_encode($item['descripcion']); ?>" class="ls-bg" alt="Slide background">
+                <?php if (!empty($item['url'])): ?>
+                    <p class="slide-desc-2 ls-l" style="top: 400px; left: 50px;" data-ls="delayin: 400; delayout: 400;  durationin: 2000;"><a href="<?= utf8_encode($item['url']); ?>" class="m-btn margin-left-30" data-size="normal" data-color="primary"><?= (!empty($item['texto_enlace'])) ? utf8_encode($item['texto_enlace']) : 'Descubre más' ?></a></p>
+                <?php endif; ?>
+            </div>
+        <?php endforeach; ?>
     </div>
 </section>
 <!-- Site content end //-->
@@ -42,69 +39,20 @@
 
         <div class="row">
 
-            <div class="col-lg-4 col-md-4">
+            <div class="col-lg-8 col-md-8">
                 <h2>Somos <span class="color-primary">Panamá</span></h2>
-                <p>Trading Company S.A. Panamá Representaciones, fundada en 1993, Importadora y Exportadora, con sede en la ciudad de Pedro Juan Caballero, está formada por profesionales en diversas áreas que buscan siempre mejorar la calidad de atención y prestación de servicios, así como la expansión de todas sus marcas de alta calidad y excelente aceptación en el mercado. Desde su fundación, la empresa viene aportando a la comunidad fuentes de trabajo, desarrollo profesional y satisfacción personal, tanto a sus colaboradores como a sus asociados.</p>
+                <?= utf8_encode($helper->getNosotrosIndex()[0]['contenido_portada']); ?>
             </div>
             <div class="col-lg-4 col-md-4">
                 <figure>
-                    <img src="<?= IMG; ?>mesa.png" alt="">
+                    <img src="<?= IMG . utf8_encode($helper->getNosotrosIndex()[0]['img_portada']); ?>" alt="La empresa">
                 </figure>
             </div>
-            <div class="col-lg-4 col-md-4">
-                <h2>Algunos de nuestros productos</h2>
-                <div class="icon-box-1">
-
-                    <i class="glyphicon glyphicon-heart"></i>
-
-                    <p class="title">Integer Lobortis Cursus</p>
-
-                    <p>Aliquam quis quam placerat, dignissim massa in, posuere mi.</p>
-
-                </div>
-
-                <div class="icon-box-1">
-
-                    <i class="glyphicon glyphicon-cog"></i>
-
-                    <p class="title">Quisque Dignissim Nisi Diam</p>
-
-                    <p>Quis egestas magna porttitor ac. Fusce at tellus laoreet, accumsan purus in.</p>
-
-                </div>
-
-                <div class="icon-box-1">
-
-                    <i class="glyphicon glyphicon-fire"></i>
-
-                    <p class="title">Nunc Pulvinar Pellentesque</p>
-
-                    <p>Duis mollis nisi sit amet dolor malesuada hendrerit.</p>
-
-                </div>
-
-                <div class="icon-box-1">
-
-                    <i class="glyphicon glyphicon-time"></i>
-
-                    <p class="title">magni dolores eos qui</p>
-
-                    <p>Neque porro quisquam est, qui dolorem ipsum.</p>
-
-                </div>
-
-            </div>
-
         </div>
-
     </div>
-
 </section>
-
 <!-- Intro end //-->
-
 <!-- Projects start //-->
-
 <section class="padding-top-0 padding-bottom-0">
 
     <div class="container">
@@ -123,105 +71,18 @@
                         </div>
                         <div class="col-lg-9">
                             <div class="w-100 float-left bg-secondary">
+                                <?php foreach($helper->getListadoMarcas() as $item): ?>
                                 <!-- Project item start //-->
                                 <div class="project-item">
                                     <figure>
-                                        <img src="<?= IMG; ?>marcas/ype.jpg" alt="">
+                                        <img src="<?= IMG; ?>marcas/<?= utf8_encode($item['img']) ?>" alt="">
                                     </figure>
                                     <div class="buttons">
                                         <a href="#" class="m-btn" data-size="normal" data-color="primary" data-border><i class="glyphicon glyphicon-link"></i></a>
                                     </div>
-                                    <p class="title"><a href="#">Lorem ipsum dolor sit amet</a></p>
                                 </div>
                                 <!-- Project item end //-->
-                                <!-- Project item start //-->
-                                <div class="project-item">
-                                    <figure>
-                                        <img src="<?= IMG; ?>marcas/brahma.jpg" alt="">
-                                    </figure>
-                                    <div class="buttons">
-                                        <a href="#" class="m-btn" data-size="normal" data-color="primary" data-border><i class="glyphicon glyphicon-link"></i></a>
-                                    </div>
-                                    <p class="title"><a href="#">Lorem ipsum dolor sit amet</a></p>
-                                </div>
-                                <!-- Project item end //-->
-                                <!-- Project item start //-->
-                                <div class="project-item">
-                                    <figure>
-                                        <img src="<?= IMG; ?>marcas/protex.jpg" alt="">
-                                    </figure>
-                                    <div class="buttons">
-                                        <a href="#" class="m-btn" data-size="normal" data-color="primary" data-border><i class="glyphicon glyphicon-link"></i></a>
-                                    </div>
-                                    <p class="title"><a href="#">Lorem ipsum dolor sit amet</a></p>
-                                </div>
-                                <!-- Project item end //-->
-                                <!-- Project item start //-->
-                                <div class="project-item">
-                                    <figure>
-                                        <img src="<?= IMG; ?>marcas/budweiser.jpg" alt="">
-                                    </figure>
-                                    <div class="buttons">
-                                        <a href="#" class="m-btn" data-size="normal" data-color="primary" data-border><i class="glyphicon glyphicon-link"></i></a>
-                                    </div>
-                                    <p class="title"><a href="#">Lorem ipsum dolor sit amet</a></p>
-                                </div>
-                                <!-- Project item end //-->
-                                <!-- Project item start //-->
-                                <div class="project-item">
-                                    <figure>
-                                        <img src="<?= IMG; ?>marcas/palmolive.jpg" alt="">
-                                    </figure>
-                                    <div class="buttons">
-                                        <a href="#" class="m-btn" data-size="normal" data-color="primary" data-border><i class="glyphicon glyphicon-link"></i></a>
-                                    </div>
-                                    <p class="title"><a href="#">Lorem ipsum dolor sit amet</a></p>
-                                </div>
-                                <!-- Project item end //-->
-                                <!-- Project item start //-->
-                                <div class="project-item">
-                                    <figure>
-                                        <img src="<?= IMG; ?>marcas/colgate.jpg" alt="">
-                                    </figure>
-                                    <div class="buttons">
-                                        <a href="#" class="m-btn" data-size="normal" data-color="primary" data-border><i class="glyphicon glyphicon-link"></i></a>
-                                    </div>
-                                    <p class="title"><a href="#">Lorem ipsum dolor sit amet</a></p>
-                                </div>
-                                <!-- Project item end //-->
-                                <!-- Project item start //-->
-                                <div class="project-item">
-                                    <figure>
-                                        <img src="<?= IMG; ?>marcas/ourofino.jpg" alt="">
-                                    </figure>
-                                    <div class="buttons">
-                                        <a href="#" class="m-btn" data-size="normal" data-color="primary" data-border><i class="glyphicon glyphicon-link"></i></a>
-                                    </div>
-                                    <p class="title"><a href="#">Lorem ipsum dolor sit amet</a></p>
-                                </div>
-                                <!-- Project item end //-->
-                                <!-- Project item start //-->
-                                <div class="project-item">
-                                    <figure>
-                                        <img src="<?= IMG; ?>marcas/fini.jpg" alt="">
-                                    </figure>
-                                    <div class="buttons">
-                                        <a href="#" class="m-btn" data-size="normal" data-color="primary" data-border><i class="glyphicon glyphicon-link"></i></a>
-                                    </div>
-                                    <p class="title"><a href="#">Lorem ipsum dolor sit amet</a></p>
-                                </div>
-                                <!-- Project item end //-->
-                                <!-- Project item start //-->
-                                <div class="project-item">
-                                    <figure>
-                                        <img src="<?= IMG; ?>marcas/nestle.jpg" alt="">
-                                    </figure>
-                                    <div class="buttons">
-                                        <a href="#" class="m-btn" data-size="normal" data-color="primary" data-border><i class="glyphicon glyphicon-link"></i></a>
-                                    </div>
-                                    <p class="title"><a href="#">Lorem ipsum dolor sit amet</a></p>
-                                </div>
-                                <!-- Project item end //-->
+                                <?php endforeach; ?>
                             </div>
                         </div>
                     </div>
@@ -233,21 +94,13 @@
 <!-- Projects end //-->
 <!-- Blog posts nd testimonials start //-->
 <section>
-
     <div class="container">
-
         <div class="row">
-
             <div class="col-lg-12 col-md-12">
-
                 <div class="plugin-container" id="posts">
-
                     <h3><span class="float-left">últimas publicaciones del blog</span> <div class="riva-insert-menu-here"></div></h3>
-
                     <!-- Post item start //-->
-
                     <article class="post" data-style="preview">
-
                         <figure>
 
                             <a href="#"><img src="<?= IMG; ?>posts/1.jpg" alt=""></a>
@@ -512,55 +365,29 @@
 <!-- Blog posts nd testimonials start //-->
 
 <!-- Newsletters start //-->
-
 <section class="newsletters-1">
-
     <div class="container">
-
         <div class="row">
-
-            <form action="http://rivathemes.net/html/magnis/v2/path/to/newsletter/ext.php?t=signup" method="post">   
-
+            <form action="#" method="post">   
                 <input type="hidden" name="last_name" value="default">
-
                 <div class="col-lg-4 col-md-3">
-
-                    <h3>subscribe to newsletters</h3>
-
-                    <p class="hidden-md">And stay informed about our news and events</p>
-
+                    <h3>Suscríbete a nuestro Newsletter </h3>
+                    <p class="hidden-md">Y manténgase informado sobre nuestras noticias y eventos</p>
                 </div>
-
                 <div class="clearfix visible-sm visible-xs margin-top-leading"></div>
-
                 <div class="col-lg-3 col-md-3">
-
-                    <input type="text" name="email" value="" placeholder="your email...">
-
+                    <input type="text" name="email" value="" placeholder="Ingresa tu E-mail...">
                 </div>
-
                 <div class="clearfix visible-sm visible-xs margin-top-leading"></div>
-
                 <div class="col-lg-3 col-md-3">
-
-                    <input type="text" name="first_name" value="" placeholder="your name...">
-
+                    <input type="text" name="first_name" value="" placeholder="Tu nombre...">
                 </div>
-
                 <div class="clearfix visible-sm visible-xs margin-top-leading"></div>
-
                 <div class="col-lg-2 col-md-3">
-
-                    <button type="submit" name="submit" class="m-btn" data-size="normal" data-color="white"><i class="glyphicon glyphicon-ok-sign"></i> subscribe me</button>
-
+                    <button type="submit" name="submit" class="m-btn" data-size="normal" data-color="white"><i class="glyphicon glyphicon-ok-sign"></i> Suscribirme</button>
                 </div>
-
             </form>
-
         </div>
-
     </div>
-
 </section>
-
 <!-- Newsletters end //-->

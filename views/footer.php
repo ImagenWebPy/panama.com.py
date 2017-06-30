@@ -1,3 +1,6 @@
+<?php
+$helper = new Helper();
+?>
 <!-- Site footer start //-->
 <footer role="contentinfo" class="site-footer">
     <div class="container">
@@ -8,7 +11,9 @@
                     <h4 class="widget-title">marcas</h4>
                     <div class="widget-content">
                         <ul>
-                            <li><a href="#">Ype</a></li>
+                            <?php foreach ($helper->getListadoMarcas() as $item): ?>
+                                <li><a href="#"><?= utf8_encode($item['descripcion']) ?></a></li>
+                            <?php endforeach; ?>
                         </ul>
                     </div>
 
@@ -21,59 +26,28 @@
             <div class="clearfix mobile-typo-fix hidden-lg"></div>
 
             <div class="col-lg-6">
-
                 <!-- Widget start //-->
-
                 <aside class="widget widget-contacts">
-
-                    <h4 class="widget-title">contact us</h4>
-
+                    <h4 class="widget-title">Encuéntranos en</h4>
                     <div class="widget-content">
-
                         <ul>
-
-                            <li>address</li>
-
-                            <li> 2004 Veltri Drive, Anchorage, AK 99502 </li>
-
+                            <li>dirección</li>
+                            <li>Ruta Eusebio Filemón Valdez, Km 2,5 camino a Capitán Bado - PJC</li>
                         </ul>
-
                         <ul>
-
-                            <li>phone</li>
-
-                            <li>+1 720 254 8917</li>
-
+                            <li>teléfono</li>
+                            <li>+595 336 274239 / +595 336 274738</li>
                         </ul>
-
                         <ul>
-
-                            <li>fax</li>
-
-                            <li>+1 720 254 8918</li>
-
-                        </ul>
-
-                        <ul>
-
                             <li>email</li>
-
-                            <li>support@magnis.com</li>
-
+                            <li>contacto@panama.com.py...</li>
                         </ul>
-
                     </div>
-
                 </aside>
-
                 <!-- Widget end //-->
-
             </div>
-
         </div>
-
     </div>
-
     <!-- Copyrights start //-->
 
     <div class="copyrights">

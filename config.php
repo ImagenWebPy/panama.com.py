@@ -10,21 +10,21 @@ switch ($host) {
     case '192.168.0.25':
         #CENTOS DESA
         define('URL', 'http://192.168.0.25/panama.com.py/');
-        define('DB_NAME', 'panamaDB');
+        define('DB_NAME', 'panama');
         define('DB_USER', 'root');
         define('DB_PASS', '2544386');
         break;
     case 'www.panama.com.py':
         define('URL', 'http://www.panama.com.py/');
-        define('DB_NAME', 'panamaDB');
+        define('DB_NAME', 'panama');
         define('DB_USER', 'root');
         define('DB_PASS', '2544386');
         break;
     case 'localhost':
         define('URL', 'http://localhost/panama.com.py/');
-        define('DB_NAME', 'panamaDB');
+        define('DB_NAME', 'panama');
         define('DB_USER', 'root');
-        define('DB_PASS', '2544386');
+        define('DB_PASS', '');
         break;
 }
 
