@@ -71,17 +71,17 @@ $helper = new Helper();
                         </div>
                         <div class="col-lg-9">
                             <div class="w-100 float-left bg-secondary">
-                                <?php foreach($helper->getListadoMarcas() as $item): ?>
-                                <!-- Project item start //-->
-                                <div class="project-item">
-                                    <figure>
-                                        <img src="<?= IMG; ?>marcas/<?= utf8_encode($item['img']) ?>" alt="">
-                                    </figure>
-                                    <div class="buttons">
-                                        <a href="#" class="m-btn" data-size="normal" data-color="primary" data-border><i class="glyphicon glyphicon-link"></i></a>
+                                <?php foreach ($helper->getListadoMarcas() as $item): ?>
+                                    <!-- Project item start //-->
+                                    <div class="project-item">
+                                        <figure>
+                                            <img src="<?= IMG; ?>marcas/<?= utf8_encode($item['img']) ?>" alt="">
+                                        </figure>
+                                        <div class="buttons">
+                                            <a href="#" class="m-btn" data-size="normal" data-color="primary" data-border><i class="glyphicon glyphicon-link"></i></a>
+                                        </div>
                                     </div>
-                                </div>
-                                <!-- Project item end //-->
+                                    <!-- Project item end //-->
                                 <?php endforeach; ?>
                             </div>
                         </div>
@@ -99,271 +99,41 @@ $helper = new Helper();
             <div class="col-lg-12 col-md-12">
                 <div class="plugin-container" id="posts">
                     <h3><span class="float-left">últimas publicaciones del blog</span> <div class="riva-insert-menu-here"></div></h3>
-                    <!-- Post item start //-->
-                    <article class="post" data-style="preview">
-                        <figure>
-
-                            <a href="#"><img src="<?= IMG; ?>posts/1.jpg" alt=""></a>
-
-                        </figure>
-
-                        <div class="date">
-
-                            <span class="day">07</span>
-
-                            <span class="month">jun</span>
-
-                        </div>
-
-                        <div class="type">
-
-                            <i class="glyphicon glyphicon-picture"></i>
-
-                        </div>
-
-                        <header>
-
-                            <p><a href="#">Scarecrow Western</a></p>
-
-                        </header>
-
-                        <div class="content">
-
-                            <p>Nunc sit amet convallis felis. Mauris venenatis et odio scelerisque sollicitudin. Quisque et hendrerit purus...</p>
-
-                        </div>
-
-                        <footer>
-
-                            <p>
-
-                                <i class="glyphicon glyphicon-tags"></i> <a href="#">web</a>, <a href="#">html</a>, <a href="#">css</a>
-
-                                <a href="#" class="read-more"><i class="glyphicon glyphicon-plus"></i> read more</a>
-                            </p>
-
-                        </footer>
-
-                    </article>
-
+                    <?php foreach ($helper->getListadoPost('id DESC', '4') as $item): ?>
+                        <!-- Post item start //-->
+                        <article class="post" data-style="preview">
+                            <figure>
+                                <a href="#"><img src="<?= IMG; ?>posts/1.jpg" alt=""></a>
+                            </figure>
+                            <div class="date">
+                                <span class="day"><?= date('d', strtotime($item['fecha'])); ?></span>
+                                <span class="month"><?= $helper->getMonth(date('F', strtotime($item['fecha'])), 'short'); ?></span>
+                            </div>
+                            <div class="type">
+                                <i class="glyphicon glyphicon-picture"></i>
+                            </div>
+                            <header>
+                                <p><a href="#"><?= $item['titulo']; ?></a></p>
+                            </header>
+                            <div class="content">
+                                <?= substr($item['contenido'], 0, 250); ?>
+                            </div>
+                            <footer>
+                                <p>
+                                    <i class="glyphicon glyphicon-tags"></i> <?= $helper->formatTags($item['tags']); ?>
+                                    <a href="#" class="read-more"><i class="glyphicon glyphicon-plus"></i> leer más</a>
+                                </p>
+                            </footer>
+                        </article>
+                    <?php endforeach; ?>
                     <!-- Post item end //-->
-
-                    <!-- Post item start //-->
-
-                    <article class="post" data-style="preview">
-
-                        <figure>
-
-                            <a href="#"><img src="<?= IMG; ?>posts/2.jpg" alt=""></a>
-
-                        </figure>
-
-                        <div class="date">
-
-                            <span class="day">09</span>
-
-                            <span class="month">jun</span>
-
-                        </div>
-
-                        <div class="type">
-
-                            <i class="glyphicon glyphicon-pencil"></i>
-
-                        </div>
-
-                        <header>
-
-                            <p><a href="#">Cheerful Essential Jupiter</a></p>
-
-                        </header>
-
-                        <div class="content">
-
-                            <p>Maecenas facilisis vel justo sit amet imperdiet. Nullam dictum nisl quis metus tincidunt rhoncus...</p>
-
-                        </div>
-
-                        <footer>
-
-                            <p>
-
-                                <i class="glyphicon glyphicon-tags"></i> <a href="#">web</a>, <a href="#">html</a>, <a href="#">css</a>
-
-                                <a href="#" class="read-more"><i class="glyphicon glyphicon-plus"></i> read more</a>
-                            </p>
-
-                        </footer>
-
-                    </article>
-
-                    <!-- Post item end //-->
-
-                    <!-- Post item start //-->
-
-                    <article class="post" data-style="preview">
-
-                        <figure>
-
-                            <a href="#"><img src="<?= IMG; ?>posts/3.jpg" alt=""></a>
-
-                        </figure>
-
-                        <div class="date">
-
-                            <span class="day">12</span>
-
-                            <span class="month">jun</span>
-
-                        </div>
-
-                        <div class="type">
-
-                            <i class="glyphicon glyphicon-picture"></i>
-
-                        </div>
-
-                        <header>
-
-                            <p><a href="#">Abandoned Mountain</a></p>
-
-                        </header>
-
-                        <div class="content">
-
-                            <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia...</p>
-
-                        </div>
-
-                        <footer>
-
-                            <p>
-
-                                <i class="glyphicon glyphicon-tags"></i> <a href="#">web</a>, <a href="#">html</a>, <a href="#">css</a>
-
-                                <a href="#" class="read-more"><i class="glyphicon glyphicon-plus"></i> read more</a>
-                            </p>
-
-                        </footer>
-
-                    </article>
-
-                    <!-- Post item end //-->
-
-                    <!-- Post item start //-->
-
-                    <article class="post" data-style="preview">
-
-                        <figure>
-
-                            <a href="#"><img src="<?= IMG; ?>posts/4.jpg" alt=""></a>
-
-                        </figure>
-
-                        <div class="date">
-
-                            <span class="day">15</span>
-
-                            <span class="month">jun</span>
-
-                        </div>
-
-                        <div class="type">
-
-                            <i class="glyphicon glyphicon-film"></i>
-
-                        </div>
-
-                        <header>
-
-                            <p><a href="#">Forsaken Butter</a></p>
-
-                        </header>
-
-                        <div class="content">
-
-                            <p>Donec efficitur, augue feugiat vestibulum fringilla, enim massa imperdiet ipsum...</p>
-
-                        </div>
-
-                        <footer>
-
-                            <p>
-
-                                <i class="glyphicon glyphicon-tags"></i> <a href="#">web</a>, <a href="#">html</a>, <a href="#">css</a>
-
-                                <a href="#" class="read-more"><i class="glyphicon glyphicon-plus"></i> read more</a>
-                            </p>
-
-                        </footer>
-
-                    </article>
-
-                    <!-- Post item end //-->
-
-                    <!-- Post item start //-->
-
-                    <article class="post" data-style="preview">
-
-                        <figure>
-
-                            <a href="#"><img src="<?= IMG; ?>posts/7.jpg" alt=""></a>
-
-                        </figure>
-
-                        <div class="date">
-
-                            <span class="day">22</span>
-
-                            <span class="month">jun</span>
-
-                        </div>
-
-                        <div class="type">
-
-                            <i class="glyphicon glyphicon-pencil"></i>
-
-                        </div>
-
-                        <header>
-
-                            <p><a href="#">Lonesome Plastic</a></p>
-
-                        </header>
-
-                        <div class="content">
-
-                            <p>Pellentesque hendrerit ipsum consequat lobortis placerat. Curabitur efficitur, erat ac dapibus aliquet...</p>
-
-                        </div>
-
-                        <footer>
-
-                            <p>
-
-                                <i class="glyphicon glyphicon-tags"></i> <a href="#">web</a>, <a href="#">html</a>, <a href="#">css</a>
-
-                                <a href="#" class="read-more"><i class="glyphicon glyphicon-plus"></i> read more</a>
-                            </p>
-
-                        </footer>
-
-                    </article>
-
-                    <!-- Post item end //-->
-
                 </div>
-
             </div>
             <div class="content-divider clearfix hidden-lg hidden-md"></div>
         </div>
-
     </div>
-
 </section>
-
 <!-- Blog posts nd testimonials start //-->
-
 <!-- Newsletters start //-->
 <section class="newsletters-1">
     <div class="container">
