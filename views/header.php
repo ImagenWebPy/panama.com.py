@@ -1,3 +1,7 @@
+<?php
+$helper = new Helper();
+$paginaActual = $helper->getPage();
+?>
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -118,9 +122,10 @@
                                         <ul id="main-nav">
                                             <li class="active"><a href="index.html">Inicio</a></li>
                                             <li>
-                                                <a href="#">La Empresa</a>
+                                                <a href="<?= URL; ?>empresa/">La Empresa</a>
                                                 <ul>
-                                                    <li><a href="#">Listado</a></li>
+                                                    <li><a href="<?= URL; ?>empresa/mision">Misión</a></li>
+                                                    <li><a href="<?= URL; ?>empresa/comprimiso_social">Compromiso Social</a></li>
                                                 </ul>
                                             </li>
                                             <li>

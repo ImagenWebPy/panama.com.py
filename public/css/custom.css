@@ -17,3 +17,25 @@ div.rivaCarouselNav a:hover {background:#D60006 !important; border: 1px solid #D
 .newsletters-1 {background:#D60006 !important;}
 footer.site-footer a {color:#D60006 !important;}
 .color-primary{color:#D60006 !important;}
+.page-title-bar .breadcrumbs a{color:#D60006 !important;}
+nav.header-nav ul#main-nav > li ul > li a:hover{color:#D60006 !important;}
+.m-btn[data-color="primary"] {background-color:#D60006 !important;}
+select:focus,
+textarea:focus,
+input[type="input"]:focus,
+input[type="text"]:focus,
+input[type="html"]:focus,
+input[type="password"]:focus,
+input[type="date"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="time"]:focus,
+input[type="url"]:focus,
+input[type="month"]:focus,
+input[type="week"]:focus {
+    border: 1px solid #D60006 !important;
+}
