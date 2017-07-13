@@ -6,6 +6,8 @@
  */
 // Always provide a TRAILING SLASH (/) AFTER A PATH
 $host = getHost();
+var_dump($host);
+die();
 switch ($host) {
     case '192.168.0.25':
         #CENTOS DESA
@@ -16,7 +18,7 @@ switch ($host) {
         break;
     case 'panama.imagenwebhq.com':
         #CENTOS DESA
-        define('URL', 'https://panama.imagenwebhq.com/panama.com.py/');
+        define('URL', 'http://panama.imagenwebhq.com/panama.com.py/');
         define('DB_NAME', 'raulimag_panama');
         define('DB_USER', 'raulimag_panama');
         define('DB_PASS', 'E0DQiK2fSB^%EZC+');
