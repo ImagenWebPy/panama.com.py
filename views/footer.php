@@ -1,6 +1,7 @@
 <?php
 $helper = new Helper;
 $paginaActual = $helper->getPage();
+$siteInfo = $helper->getSiteConfig();
 ?>
 <!-- Site footer start //-->
 <footer role="contentinfo" class="site-footer">
@@ -28,15 +29,15 @@ $paginaActual = $helper->getPage();
                     <div class="widget-content">
                         <ul>
                             <li>dirección</li>
-                            <li>Ruta Eusebio Filemón Valdez, Km 2,5 camino a Capitán Bado - PJC</li>
+                            <li><?= utf8_encode($siteInfo['direccion']); ?></li>
                         </ul>
                         <ul>
                             <li>teléfono</li>
-                            <li>+595 336 274239 / +595 336 274738</li>
+                            <li><?= $siteInfo['telefono_footer']; ?></li>
                         </ul>
                         <ul>
                             <li>email</li>
-                            <li>contacto@panama.com.py...</li>
+                            <li><?= $siteInfo['email_footer']; ?>.</li>
                         </ul>
                     </div>
                 </aside>
@@ -132,7 +133,6 @@ $paginaActual = $helper->getPage();
 <script src="<?= JS; ?>tipso.min.js" type="text/javascript"></script>
 <script src="<?= JS; ?>magnis.js" type="text/javascript"></script>
 <?php
-var_dump($paginaActual[0]);
 switch ($paginaActual[0]):
     case 'empresa':
         ?>
@@ -144,6 +144,56 @@ switch ($paginaActual[0]):
                     var $container = $('body'),
                             $preload = $('#riva-preload');
                     $container.imagesLoaded(function () {
+                        $preload.hide();
+                    });
+                });
+            })(jQuery);
+        </script>
+        <?php break; ?>
+    <?php case 'marca': ?>
+        <script>
+            (function ($) {
+                "use strict";
+                /* Preload Images */
+                $('document').ready(function () {
+                    var $container = $('body'),
+                            $preload = $('#riva-preload');
+                    $container.imagesLoaded(function () {
+                        $preload.hide();
+                    });
+                });
+            })(jQuery);
+        </script>
+        <?php break; ?>
+    <?php case 'contacto': ?>
+        <!-- Google Maps -->
+        <script src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
+        <!-- Mapster JS -->
+        <script src="<?= JS; ?>mapster.js" type="text/javascript"></script>
+        <script src="<?= JS; ?>map-options.js" type="text/javascript"></script>
+        <script>
+            (function (window, mapster) {
+                // map options
+                var options = mapster.MAP_OPTIONS,
+                        element = document.getElementById('map-canvas'),
+                        // map
+                        map = new mapster.create(element, options);
+                var marker = map.addMarker({
+                    lat: 37.791350,
+                    lng: -122.435883,
+                    content: 'Magnis Office',
+                    icon: 'img/office-building.png'
+                });
+            }(window, window.Mapster || (window.Mapster = {})));
+            (function ($) {
+                "use strict";
+                /* Preload Images */
+                $('document').ready(function () {
+                    var $container = $('body'),
+                            $preload = $('#riva-preload');
+                    $container.imagesLoaded(function () {
+                        /* PLACE YOUR JAVASCRIPT CODE HERE */
+                        $('#pages-contact-form').load("<?= URL; ?>contacto/formulario");
                         $preload.hide();
                     });
                 });

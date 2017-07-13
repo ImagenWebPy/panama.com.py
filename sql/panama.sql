@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50714
 File Encoding         : 65001
 
-Date: 2017-06-30 22:39:50
+Date: 2017-07-12 22:16:52
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -39,6 +39,27 @@ INSERT INTO `blog` VALUES ('3', 'Neque porro quisquam est qui dolorem ipsum quia
 INSERT INTO `blog` VALUES ('4', 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus porta metus at mauris iaculis ultrices. Aenean tincidunt ligula sapien, dapibus finibus lorem fermentum id. Sed libero quam, pharetra at blandit nec, congue nec eros. Praesent in libero ante. Nullam justo erat, volutpat ut dignissim eu, ullamcorper sed lectus. Fusce vulputate lacinia tempus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut finibus pharetra pulvinar. Praesent nisi dui, sollicitudin vitae justo nec, rutrum ornare libero. Suspendisse suscipit ex orci, vel lacinia urna mollis vel. Vivamus condimentum ex et nunc feugiat faucibus.</p>', '4.jpg', 'post,contenido,blog,panama', '2017-06-30 20:54:14', '1');
 
 -- ----------------------------
+-- Table structure for `compromiso_social`
+-- ----------------------------
+DROP TABLE IF EXISTS `compromiso_social`;
+CREATE TABLE `compromiso_social` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `img_header` varchar(60) DEFAULT NULL,
+  `contenido` text,
+  `img_contenido` varchar(60) DEFAULT NULL,
+  `mostrar_contratar` int(1) unsigned DEFAULT '1',
+  `titulo_contratar` varchar(120) DEFAULT NULL,
+  `contenido_contratar` text,
+  `boton_contratar` varchar(60) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of compromiso_social
+-- ----------------------------
+INSERT INTO `compromiso_social` VALUES ('1', '2.jpg', '<p>Trading Company S.A., es una empresa joven que prioriza la calidad en sus servicios en el mercado paraguayo, siguiendo los parámetros internacionales de sus proveedores, asumiendo un rol formador de conciencia, tanto en las personas que conforman nuestro día-a-día como aquellas a quienes apuntamos siempre como la razón del trabajo arduo: el consumidor final. Aportando en la formación profesional de los agentes de transformación que forman la Familia Panamá, es nuestro ideal que esta tendencia de búsqueda del bienestar general de las personas y del cuidado al medio ambiente sea siempre la meta y la prioridad en el desarrollo de nuestras labores.</p>', null, '1', 'Trabajá con Nosotros', '<p>Formá parte de la base de datos de empleos de Panamá</p>', 'Enviá tu CV');
+
+-- ----------------------------
 -- Table structure for `la_empresa`
 -- ----------------------------
 DROP TABLE IF EXISTS `la_empresa`;
@@ -49,13 +70,17 @@ CREATE TABLE `la_empresa` (
   `img_portada` varchar(60) DEFAULT NULL,
   `contenido` text,
   `img_contenido` varchar(60) DEFAULT NULL,
+  `mostrar_contratar` int(1) unsigned DEFAULT '1',
+  `titulo_contratar` varchar(120) DEFAULT NULL,
+  `contenido_contratar` text,
+  `boton_contratar` varchar(60) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of la_empresa
 -- ----------------------------
-INSERT INTO `la_empresa` VALUES ('1', null, '<p>Trading Company S.A. Panamá Representaciones, fundada en 1993, Importadora y Exportadora, con sede en la ciudad de Pedro Juan Caballero, está formada por profesionales en diversas áreas que buscan siempre mejorar la calidad de atención y prestación de servicios, así como la expansión de todas sus marcas de alta calidad y excelente aceptación en el mercado. Desde su fundación, la empresa viene aportando a la comunidad fuentes de trabajo, desarrollo profesional y satisfacción personal, tanto a sus colaboradores como a sus asociados.</p>\r\n<p>Representa con exclusividad en el Paraguay la Marca YPÉ, línea completa de productos de higiene y limpieza, que ha alcanzado los primeros lugares en el mercado brasileño y que ahora obtiene el mismo ranking en el mercado paraguayo, logrando conquistar a las amas de casa, cuidando del hogar con cariño y dedicación para el bienestar de todas las familias.</p>', 'mesa.png', '<p>Trading Company S.A. Panamá Representaciones, fundada en 1993, Importadora y Exportadora, con sede en la ciudad de Pedro Juan Caballero, está formada por profesionales en diversas áreas que buscan siempre mejorar la calidad de atención y prestación de servicios, así como la expansión de todas sus marcas de alta calidad y excelente aceptación en el mercado. Desde su fundación, la empresa viene aportando a la comunidad fuentes de trabajo, desarrollo profesional y satisfacción personal, tanto a sus colaboradores como a sus asociados.</p>\r\n<p>Representa con exclusividad en el Paraguay la Marca YPÉ, línea completa de productos de higiene y limpieza, que ha alcanzado los primeros lugares en el mercado brasileño y que ahora obtiene el mismo ranking en el mercado paraguayo, logrando conquistar a las amas de casa, cuidando del hogar con cariño y dedicación para el bienestar de todas las familias.</p>\r\n<p>También somos representante exclusivo en Paraguay de la Marca de golosinas FINI, que es la marca líder en mercado brasileño en caramelo de gelatina, marshmallow, chicles y regaliz.</p>\r\n<p>Distribuimos exclusivamente la Marca Nestlé y la línea de higiene bucal Colgate para todo el norte del país, manteniendo el mismo sistema de distribución mundial, con dinamismo y confiabilidad que caracterizan a la marca.</p>\r\n<p>La empresa tiene el compromiso de ser una referencia entre los distribuidores del país en la calidad de productos, atención al cliente y trabajo en equipo con los Sub-Distribuidores localizados en puntos estratégicos de todo el territorio nacional.</p>\r\n<p>Capacidad de planificación, programa de desarrollo, estructura logística, capacitación constante del personal y compromiso con el medio ambiente, son diferenciales que hacen de Panamá Representaciones una empresa seria, sólida, en constante crecimiento y que logra estar entre las empresas más destacadas y reconocidas, que respeta a las personas y a la naturaleza, ofreciendo satisfacción a las necesidades de los consumidores de una forma cordial, honesta, rápida y responsable.</p>', null);
+INSERT INTO `la_empresa` VALUES ('1', '2.jpg', '<p>Trading Company S.A. Panamá Representaciones, fundada en 1993, Importadora y Exportadora, con sede en la ciudad de Pedro Juan Caballero, está formada por profesionales en diversas áreas que buscan siempre mejorar la calidad de atención y prestación de servicios, así como la expansión de todas sus marcas de alta calidad y excelente aceptación en el mercado. Desde su fundación, la empresa viene aportando a la comunidad fuentes de trabajo, desarrollo profesional y satisfacción personal, tanto a sus colaboradores como a sus asociados.</p>\r\n<p>Representa con exclusividad en el Paraguay la Marca YPÉ, línea completa de productos de higiene y limpieza, que ha alcanzado los primeros lugares en el mercado brasileño y que ahora obtiene el mismo ranking en el mercado paraguayo, logrando conquistar a las amas de casa, cuidando del hogar con cariño y dedicación para el bienestar de todas las familias.</p>', 'mesa.png', '<p>Trading Company S.A. Panamá Representaciones, fundada en 1993, Importadora y Exportadora, con sede en la ciudad de Pedro Juan Caballero, está formada por profesionales en diversas áreas que buscan siempre mejorar la calidad de atención y prestación de servicios, así como la expansión de todas sus marcas de alta calidad y excelente aceptación en el mercado. Desde su fundación, la empresa viene aportando a la comunidad fuentes de trabajo, desarrollo profesional y satisfacción personal, tanto a sus colaboradores como a sus asociados.</p>\r\n<p>Representa con exclusividad en el Paraguay la Marca YPÉ, línea completa de productos de higiene y limpieza, que ha alcanzado los primeros lugares en el mercado brasileño y que ahora obtiene el mismo ranking en el mercado paraguayo, logrando conquistar a las amas de casa, cuidando del hogar con cariño y dedicación para el bienestar de todas las familias.</p>\r\n<p>También somos representante exclusivo en Paraguay de la Marca de golosinas FINI, que es la marca líder en mercado brasileño en caramelo de gelatina, marshmallow, chicles y regaliz.</p>\r\n<p>Distribuimos exclusivamente la Marca Nestlé y la línea de higiene bucal Colgate para todo el norte del país, manteniendo el mismo sistema de distribución mundial, con dinamismo y confiabilidad que caracterizan a la marca.</p>\r\n<p>La empresa tiene el compromiso de ser una referencia entre los distribuidores del país en la calidad de productos, atención al cliente y trabajo en equipo con los Sub-Distribuidores localizados en puntos estratégicos de todo el territorio nacional.</p>\r\n<p>Capacidad de planificación, programa de desarrollo, estructura logística, capacitación constante del personal y compromiso con el medio ambiente, son diferenciales que hacen de Panamá Representaciones una empresa seria, sólida, en constante crecimiento y que logra estar entre las empresas más destacadas y reconocidas, que respeta a las personas y a la naturaleza, ofreciendo satisfacción a las necesidades de los consumidores de una forma cordial, honesta, rápida y responsable.</p>', null, '1', 'Trabajá con Nosotros', '<p>Formá parte de la base de datos de empleos de Panamá</p>', 'Enviá tu CV');
 
 -- ----------------------------
 -- Table structure for `marca`
@@ -83,22 +108,48 @@ INSERT INTO `marca` VALUES ('8', 'Protex', 'protex.jpg', '1');
 INSERT INTO `marca` VALUES ('9', 'Ype', 'ype.jpg', '1');
 
 -- ----------------------------
+-- Table structure for `mision`
+-- ----------------------------
+DROP TABLE IF EXISTS `mision`;
+CREATE TABLE `mision` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `img_header` varchar(60) DEFAULT NULL,
+  `contenido` text,
+  `img_contenido` varchar(60) DEFAULT NULL,
+  `mostrar_contratar` int(1) unsigned DEFAULT '1',
+  `titulo_contratar` varchar(120) DEFAULT NULL,
+  `contenido_contratar` text,
+  `boton_contratar` varchar(60) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of mision
+-- ----------------------------
+INSERT INTO `mision` VALUES ('1', '2.jpg', '<p>La Misión de Panamá Representaciones, es poner a disposición de los consumidores de la comunidad y del país, productos de consumo masivo que, por su calidad, garantía de presencia permanente y respaldo de sus marcas, puedan satisfacer plenamente todas sus necesidades. Por esto, la empresa comercializa productos acabados y servicios que le permitan crear, desarrollar y mejorar los servicios y atención ya conocidos, buscando el permanente liderazgo a través de la conquista del gusto y preferencia de los consumidores. Construyendo una imagen de confiabilidad y afianzando los valores morales, éticos, de honestidad y seriedad en la relación con los proveedores, socios y funcionarios dependientes, trabajando con profesionalismo y desarrollando vínculos sostenibles con clientes en la búsqueda constante del progreso. Con el ideal de acompañar la evolución del mercado y aprovechar las oportunidades, movidos por una constante vocación de crecimiento, la empresa se desarrolla en base a la capitalización de las habilidades distintivas de sus colaboradores. Se propone a seguir creciendo en los negocios actuales y enaltecer las marcas que representa, diversificando las estrategias de trabajo, con el afán de lograr mayores dividendos a sus accionistas, mejorar la calidad de vida de sus colabores y sus familiar y contribuir al progreso del país.</p>', null, '1', 'Trabajá con Nosotros', '<p>Formá parte de la base de datos de empleos de Panamá</p>', 'Enviá tu CV');
+
+-- ----------------------------
 -- Table structure for `site_config`
 -- ----------------------------
 DROP TABLE IF EXISTS `site_config`;
 CREATE TABLE `site_config` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `direccion` varchar(255) DEFAULT NULL,
-  `telefono_header` varchar(45) DEFAULT NULL,
+  `telefono_header` varchar(60) DEFAULT NULL,
   `telefono_footer` varchar(60) DEFAULT NULL,
   `email_footer` varchar(60) DEFAULT NULL,
   `email_contacto` varchar(60) DEFAULT NULL,
+  `lunes_viernes` varchar(30) DEFAULT NULL,
+  `sabado` varchar(30) DEFAULT NULL,
+  `domingo` varchar(30) DEFAULT NULL,
+  `mostrar_horario` int(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of site_config
 -- ----------------------------
+INSERT INTO `site_config` VALUES ('1', 'Ruta Eusebio Filemón Valdez, Km 2,5 camino a Capitán Bado - PJC', '+595 336 274238/9', '+595 336 274239 / +595 336 274738', 'contacto@panama.com.py', 'contacto@panama.com.py', '08:00 a 18:00', '08:00 a 12:00', 'Cerrado', '1');
 
 -- ----------------------------
 -- Table structure for `slider`

@@ -1,6 +1,7 @@
 <?php
 $helper = new Helper();
 $paginaActual = $helper->getPage();
+$marcas = $helper->getMarcas();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -120,7 +121,7 @@ $paginaActual = $helper->getPage();
                                     <!-- Navigation start //-->
                                     <nav role="navigation" class="header-nav visible-lg visible-md">
                                         <ul id="main-nav">
-                                            <li class="active"><a href="index.html">Inicio</a></li>
+                                            <li class="active"><a href="<?= URL; ?>">Inicio</a></li>
                                             <li>
                                                 <a href="<?= URL; ?>empresa/">La Empresa</a>
                                                 <ul>
@@ -129,15 +130,21 @@ $paginaActual = $helper->getPage();
                                                 </ul>
                                             </li>
                                             <li>
-                                                <a href="#">Productos</a>
+                                                <a href="<?= URL; ?>marca">Productos</a>
                                                 <ul>
-                                                    <li><a href="#">Opciones</a></li>
+                                                    <?php foreach ($marcas as $item): ?>
+                                                        <?php
+                                                        $id = $item['id'];
+                                                        $enlace = $helper->cleanUrl(strtolower(utf8_encode($item['descripcion'])));
+                                                        ?>
+                                                        <li><a href="<?= URL; ?>marca/<?= $id; ?>/<?= $enlace; ?>"><?= utf8_encode($item['descripcion']); ?></a></li>
+                                                    <?php endforeach; ?>
                                                 </ul>
                                             </li>
                                             <li><a href="#">Sucursales</a></li>
                                             <li><a href="#">blog</a></li>
                                             <li><a href="#">Trabaja con Nosotros</a></li>
-                                            <li><a href="#">Contacto</a></li>
+                                            <li><a href="<?= URL; ?>contacto">Contacto</a></li>
                                         </ul>
                                     </nav>
                                     <!-- Navigation end //-->

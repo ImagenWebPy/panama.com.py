@@ -309,4 +309,14 @@ class Helper {
         return $result;
     }
 
+    public function getSiteConfig() {
+        $sql = $this->db->select("select * from site_config where id = 1");
+        return $sql[0];
+    }
+
+    public function getMarcas() {
+        $sql = $this->db->select("select * from marca where estado = 1 order by descripcion asc");
+        return $sql;
+    }
+
 }
