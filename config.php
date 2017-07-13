@@ -14,9 +14,9 @@ switch ($host) {
         define('DB_USER', 'root');
         define('DB_PASS', '2544386');
         break;
-    case 'panama.imagenwebhq.com':
+    case 'imagenwebhq.com':
         #CENTOS DESA
-        define('URL', 'http://panama.imagenwebhq.com/');
+        define('URL', 'https://imagenwebhq.com/panama/');
         define('DB_NAME', 'raulimag_panama');
         define('DB_USER', 'raulimag_panama');
         define('DB_PASS', 'E0DQiK2fSB^%EZC+');
