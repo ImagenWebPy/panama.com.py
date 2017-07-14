@@ -27,6 +27,12 @@ switch ($host) {
         define('DB_USER', 'root');
         define('DB_PASS', '2544386');
         break;
+    case '13.58.71.6':
+        define('URL', 'http://13.58.71.6/panama.com.py/');
+        define('DB_NAME', 'panama');
+        define('DB_USER', 'web_desa');
+        define('DB_PASS', 'DesaIWEB123321');
+        break;
     case 'localhost':
         define('URL', 'http://localhost/panama.com.py/');
         define('DB_NAME', 'panama');
