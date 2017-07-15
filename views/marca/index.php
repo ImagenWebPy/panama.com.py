@@ -7,11 +7,11 @@ $marcas = $this->marcas;
         <div class="row">
             <div class="col-lg-12">
                 <div class="page-title-bar-wrapper">
-                    <p class="title">Categorías</p>
+                    <p class="title">Marcas</p>
                     <div class="breadcrumbs">
                         <a href="<?= URL; ?>">Inicio</a>
                         <span class="divider"><i class="glyphicon glyphicon-triangle-right"></i></span>
-                        <span class="last">Categorías</span>
+                        <span class="last">Marcas</span>
                     </div>
                     <div class="search">
                         <form>
@@ -37,7 +37,7 @@ $marcas = $this->marcas;
                             <?php
                             $id = $item['id'];
                             $enlace = $helper->cleanUrl(strtolower(utf8_encode($item['descripcion'])));
-                            $href = URL . 'marca/' . $id . '/' . $enlace;
+                            $href = URL . 'marca/categorias/' . $id . '/' . $enlace;
                             $img = $item['img'];
                             ?>
                             <div class="col-lg-4">

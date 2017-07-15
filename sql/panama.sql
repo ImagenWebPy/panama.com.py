@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50714
 File Encoding         : 65001
 
-Date: 2017-07-12 22:16:52
+Date: 2017-07-15 11:45:21
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -37,6 +37,51 @@ INSERT INTO `blog` VALUES ('1', 'Neque porro quisquam est qui dolorem ipsum quia
 INSERT INTO `blog` VALUES ('2', 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus porta metus at mauris iaculis ultrices. Aenean tincidunt ligula sapien, dapibus finibus lorem fermentum id. Sed libero quam, pharetra at blandit nec, congue nec eros. Praesent in libero ante. Nullam justo erat, volutpat ut dignissim eu, ullamcorper sed lectus. Fusce vulputate lacinia tempus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut finibus pharetra pulvinar. Praesent nisi dui, sollicitudin vitae justo nec, rutrum ornare libero. Suspendisse suscipit ex orci, vel lacinia urna mollis vel. Vivamus condimentum ex et nunc feugiat faucibus.</p>', '2.jpg', 'post,contenido,blog,panama', '2017-06-30 20:54:14', '1');
 INSERT INTO `blog` VALUES ('3', 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus porta metus at mauris iaculis ultrices. Aenean tincidunt ligula sapien, dapibus finibus lorem fermentum id. Sed libero quam, pharetra at blandit nec, congue nec eros. Praesent in libero ante. Nullam justo erat, volutpat ut dignissim eu, ullamcorper sed lectus. Fusce vulputate lacinia tempus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut finibus pharetra pulvinar. Praesent nisi dui, sollicitudin vitae justo nec, rutrum ornare libero. Suspendisse suscipit ex orci, vel lacinia urna mollis vel. Vivamus condimentum ex et nunc feugiat faucibus.</p>', '3.jpg', 'post,contenido,blog,panama', '2017-06-30 20:54:14', '1');
 INSERT INTO `blog` VALUES ('4', 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus porta metus at mauris iaculis ultrices. Aenean tincidunt ligula sapien, dapibus finibus lorem fermentum id. Sed libero quam, pharetra at blandit nec, congue nec eros. Praesent in libero ante. Nullam justo erat, volutpat ut dignissim eu, ullamcorper sed lectus. Fusce vulputate lacinia tempus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut finibus pharetra pulvinar. Praesent nisi dui, sollicitudin vitae justo nec, rutrum ornare libero. Suspendisse suscipit ex orci, vel lacinia urna mollis vel. Vivamus condimentum ex et nunc feugiat faucibus.</p>', '4.jpg', 'post,contenido,blog,panama', '2017-06-30 20:54:14', '1');
+
+-- ----------------------------
+-- Table structure for `categoria`
+-- ----------------------------
+DROP TABLE IF EXISTS `categoria`;
+CREATE TABLE `categoria` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id_marca` int(11) NOT NULL,
+  `descripcion` varchar(60) NOT NULL,
+  `imagen` varchar(120) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of categoria
+-- ----------------------------
+INSERT INTO `categoria` VALUES ('1', '9', 'Jabón en Barra ', 'ype_jabon_en_barra_250x250.png');
+INSERT INTO `categoria` VALUES ('2', '9', 'Detergente ', 'ype_detergente_250x250.png');
+INSERT INTO `categoria` VALUES ('3', '9', 'Jabón en Polvo ', 'ype_jabon_en_polvo.png');
+INSERT INTO `categoria` VALUES ('4', '9', 'Agua Sanitária y Alvejante ', 'ype_agua_sanitaria.png');
+INSERT INTO `categoria` VALUES ('5', '9', 'Desinfectante ', 'ype_desinfectante.png');
+INSERT INTO `categoria` VALUES ('6', '9', 'Jabón Liquido ', 'ype_jabon_liquido.png');
+INSERT INTO `categoria` VALUES ('7', '9', 'Línea Cosmética ', 'ype_linea_cosmetica.png');
+INSERT INTO `categoria` VALUES ('8', '9', 'Lustra Muebles ', 'ype_lustra_muebles.png');
+INSERT INTO `categoria` VALUES ('9', '9', 'Suavizante de ropas ', 'ype_suavizante_ropas.png');
+INSERT INTO `categoria` VALUES ('10', '9', 'Assolan', 'ype_assolan.png');
+INSERT INTO `categoria` VALUES ('11', '9', 'Multi-Uso', 'ype_multi_uso.png');
+INSERT INTO `categoria` VALUES ('12', '9', 'Perfex - Paños y Esponja Multiuso', 'ype_panos.png');
+
+-- ----------------------------
+-- Table structure for `categoria_header`
+-- ----------------------------
+DROP TABLE IF EXISTS `categoria_header`;
+CREATE TABLE `categoria_header` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id_marca` int(11) unsigned NOT NULL,
+  `img` varchar(120) DEFAULT NULL,
+  `contenido` text,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of categoria_header
+-- ----------------------------
+INSERT INTO `categoria_header` VALUES ('1', '9', 'ype_header.jpg', '<p>Nuestros productos son desarrollados para  contribuir con el movimiento diario, facilitar y  proporcionar  comodidad  en  la realización  de diversas tareas.  Al  crearlos,  nuestro objetivo es  satisfacer  las necesidades  de las personas que  conocen  el  valor de  una  casa  bien cuidada, de una ropa limpia y suave.Para corresponder a la confianza depositada por usted, privilegiamos  procesos que utilizan materia prima seleccionada y dan como resultado una excelente relación costo-beneficio, que sólo aquellos que utilizan Ypê saben.</p>');
 
 -- ----------------------------
 -- Table structure for `compromiso_social`
