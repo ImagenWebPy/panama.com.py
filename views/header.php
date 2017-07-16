@@ -137,7 +137,7 @@ $marcas = $helper->getMarcas();
                                                         $id = $item['id'];
                                                         $enlace = $helper->cleanUrl(strtolower(utf8_encode($item['descripcion'])));
                                                         ?>
-                                                        <li><a href="<?= URL; ?>marca/<?= $id; ?>/<?= $enlace; ?>"><?= utf8_encode($item['descripcion']); ?></a></li>
+                                                        <li><a href="<?= URL; ?>marca/categorias/<?= $id; ?>/<?= $enlace; ?>"><?= utf8_encode($item['descripcion']); ?></a></li>
                                                     <?php endforeach; ?>
                                                 </ul>
                                             </li>

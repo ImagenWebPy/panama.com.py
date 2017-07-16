@@ -39,4 +39,4 @@ input[type="month"]:focus,
 input[type="week"]:focus {
     border: 1px solid #D60006 !important;
 }
-.page-title-bar .breadcrumbs a:hover {color:#D60006 !important;}
+.listadoImagenes{width: 250px; height: 170px;}
