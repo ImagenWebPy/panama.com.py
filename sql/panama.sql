@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50714
 File Encoding         : 65001
 
-Date: 2017-07-15 11:45:21
+Date: 2017-07-16 18:05:03
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -47,24 +47,25 @@ CREATE TABLE `categoria` (
   `id_marca` int(11) NOT NULL,
   `descripcion` varchar(60) NOT NULL,
   `imagen` varchar(120) DEFAULT NULL,
+  `estado` int(10) unsigned DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of categoria
 -- ----------------------------
-INSERT INTO `categoria` VALUES ('1', '9', 'Jabón en Barra ', 'ype_jabon_en_barra_250x250.png');
-INSERT INTO `categoria` VALUES ('2', '9', 'Detergente ', 'ype_detergente_250x250.png');
-INSERT INTO `categoria` VALUES ('3', '9', 'Jabón en Polvo ', 'ype_jabon_en_polvo.png');
-INSERT INTO `categoria` VALUES ('4', '9', 'Agua Sanitária y Alvejante ', 'ype_agua_sanitaria.png');
-INSERT INTO `categoria` VALUES ('5', '9', 'Desinfectante ', 'ype_desinfectante.png');
-INSERT INTO `categoria` VALUES ('6', '9', 'Jabón Liquido ', 'ype_jabon_liquido.png');
-INSERT INTO `categoria` VALUES ('7', '9', 'Línea Cosmética ', 'ype_linea_cosmetica.png');
-INSERT INTO `categoria` VALUES ('8', '9', 'Lustra Muebles ', 'ype_lustra_muebles.png');
-INSERT INTO `categoria` VALUES ('9', '9', 'Suavizante de ropas ', 'ype_suavizante_ropas.png');
-INSERT INTO `categoria` VALUES ('10', '9', 'Assolan', 'ype_assolan.png');
-INSERT INTO `categoria` VALUES ('11', '9', 'Multi-Uso', 'ype_multi_uso.png');
-INSERT INTO `categoria` VALUES ('12', '9', 'Perfex - Paños y Esponja Multiuso', 'ype_panos.png');
+INSERT INTO `categoria` VALUES ('1', '9', 'Jabón en Barra', 'ype_jabon_en_barra.png', '1');
+INSERT INTO `categoria` VALUES ('2', '9', 'Detergente ', 'ype_detergentes.jpg', '1');
+INSERT INTO `categoria` VALUES ('3', '9', 'Jabón en Polvo', 'ype_jabon_en_polvo.jpg', '1');
+INSERT INTO `categoria` VALUES ('4', '9', 'Agua Sanitária y Alvejante', 'ype_agua_sanitaria.png', '1');
+INSERT INTO `categoria` VALUES ('5', '9', 'Desinfectante', 'ype_desinfectante.jpg', '1');
+INSERT INTO `categoria` VALUES ('6', '9', 'Jabón Liquido', 'ype_jabon_liquido.jpg', '1');
+INSERT INTO `categoria` VALUES ('7', '9', 'Línea Cosmética', 'ype_linea_cosmetica.jpg', '1');
+INSERT INTO `categoria` VALUES ('8', '9', 'Lustra Muebles', 'ype_lustra_muebles.jpg', '1');
+INSERT INTO `categoria` VALUES ('9', '9', 'Suavizante de ropas', 'ype_suavizante_de_ropa.jpg', '1');
+INSERT INTO `categoria` VALUES ('10', '9', 'Assolan', 'ype_assolan.jpg', '1');
+INSERT INTO `categoria` VALUES ('11', '9', 'Multi-Uso', 'ype_multi_uso.jpg', '1');
+INSERT INTO `categoria` VALUES ('12', '9', 'Perfex - Paños y Esponja Multiuso', 'ype_panos_y_esponjas.jpg', '1');
 
 -- ----------------------------
 -- Table structure for `categoria_header`
@@ -72,7 +73,7 @@ INSERT INTO `categoria` VALUES ('12', '9', 'Perfex - Paños y Esponja Multiuso',
 DROP TABLE IF EXISTS `categoria_header`;
 CREATE TABLE `categoria_header` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `id_marca` int(11) unsigned NOT NULL,
+  `id_categoria` int(11) unsigned NOT NULL,
   `img` varchar(120) DEFAULT NULL,
   `contenido` text,
   PRIMARY KEY (`id`)
@@ -81,7 +82,7 @@ CREATE TABLE `categoria_header` (
 -- ----------------------------
 -- Records of categoria_header
 -- ----------------------------
-INSERT INTO `categoria_header` VALUES ('1', '9', 'ype_header.jpg', '<p>Nuestros productos son desarrollados para  contribuir con el movimiento diario, facilitar y  proporcionar  comodidad  en  la realización  de diversas tareas.  Al  crearlos,  nuestro objetivo es  satisfacer  las necesidades  de las personas que  conocen  el  valor de  una  casa  bien cuidada, de una ropa limpia y suave.Para corresponder a la confianza depositada por usted, privilegiamos  procesos que utilizan materia prima seleccionada y dan como resultado una excelente relación costo-beneficio, que sólo aquellos que utilizan Ypê saben.</p>');
+INSERT INTO `categoria_header` VALUES ('1', '1', 'ype_header_jabon_en_barra.jpg', 'Él es el verdadero \"multiusos\", ya que  proporciona la limpieza en diversas situaciones, lava más y gasta menos. Es insustituible en la limpieza de la casa ,la ropa y los platos. Hecho con las materias primas más puras, proporciona firmeza ,rendimiento y alta durabilidad. Además,el jabón Ypê es glicerinado, que garantiza la transparencia y pureza. Probado por dermatólogos, se puede utilizar de muchas maneras diferentes y también asegura la preservación del medio ambiente, ya que es 100% biodegradable.');
 
 -- ----------------------------
 -- Table structure for `compromiso_social`
@@ -153,6 +154,23 @@ INSERT INTO `marca` VALUES ('8', 'Protex', 'protex.jpg', '1');
 INSERT INTO `marca` VALUES ('9', 'Ype', 'ype.jpg', '1');
 
 -- ----------------------------
+-- Table structure for `marca_header`
+-- ----------------------------
+DROP TABLE IF EXISTS `marca_header`;
+CREATE TABLE `marca_header` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id_marca` int(11) unsigned NOT NULL,
+  `img` varchar(120) DEFAULT NULL,
+  `contenido` text,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of marca_header
+-- ----------------------------
+INSERT INTO `marca_header` VALUES ('1', '9', 'ype_header.jpg', '<p>Nuestros productos son desarrollados para  contribuir con el movimiento diario, facilitar y  proporcionar  comodidad  en  la realización  de diversas tareas.  Al  crearlos,  nuestro objetivo es  satisfacer  las necesidades  de las personas que  conocen  el  valor de  una  casa  bien cuidada, de una ropa limpia y suave.Para corresponder a la confianza depositada por usted, privilegiamos  procesos que utilizan materia prima seleccionada y dan como resultado una excelente relación costo-beneficio, que sólo aquellos que utilizan Ypê saben.</p>');
+
+-- ----------------------------
 -- Table structure for `mision`
 -- ----------------------------
 DROP TABLE IF EXISTS `mision`;
@@ -172,6 +190,59 @@ CREATE TABLE `mision` (
 -- Records of mision
 -- ----------------------------
 INSERT INTO `mision` VALUES ('1', '2.jpg', '<p>La Misión de Panamá Representaciones, es poner a disposición de los consumidores de la comunidad y del país, productos de consumo masivo que, por su calidad, garantía de presencia permanente y respaldo de sus marcas, puedan satisfacer plenamente todas sus necesidades. Por esto, la empresa comercializa productos acabados y servicios que le permitan crear, desarrollar y mejorar los servicios y atención ya conocidos, buscando el permanente liderazgo a través de la conquista del gusto y preferencia de los consumidores. Construyendo una imagen de confiabilidad y afianzando los valores morales, éticos, de honestidad y seriedad en la relación con los proveedores, socios y funcionarios dependientes, trabajando con profesionalismo y desarrollando vínculos sostenibles con clientes en la búsqueda constante del progreso. Con el ideal de acompañar la evolución del mercado y aprovechar las oportunidades, movidos por una constante vocación de crecimiento, la empresa se desarrolla en base a la capitalización de las habilidades distintivas de sus colaboradores. Se propone a seguir creciendo en los negocios actuales y enaltecer las marcas que representa, diversificando las estrategias de trabajo, con el afán de lograr mayores dividendos a sus accionistas, mejorar la calidad de vida de sus colabores y sus familiar y contribuir al progreso del país.</p>', null, '1', 'Trabajá con Nosotros', '<p>Formá parte de la base de datos de empleos de Panamá</p>', 'Enviá tu CV');
+
+-- ----------------------------
+-- Table structure for `producto`
+-- ----------------------------
+DROP TABLE IF EXISTS `producto`;
+CREATE TABLE `producto` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id_categoria` int(11) unsigned NOT NULL,
+  `nombre` varchar(120) DEFAULT NULL,
+  `codigo` varchar(120) DEFAULT NULL,
+  `contenido` text,
+  `estado` int(1) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of producto
+-- ----------------------------
+INSERT INTO `producto` VALUES ('1', '1', 'Jabón en Barra NEUTRO', null, null, '1');
+INSERT INTO `producto` VALUES ('2', '1', 'Jabón en Barra NEUTRO 200 g', null, null, '1');
+INSERT INTO `producto` VALUES ('3', '1', 'Jabón en Barra Glicerinado Perfumado MULTIACTIVO', null, null, '1');
+INSERT INTO `producto` VALUES ('4', '1', 'Jabón en Barra MULTIACTIVO 200 g', null, null, '1');
+INSERT INTO `producto` VALUES ('5', '1', 'Jabón en Barra Glicerinado Perfumado FLORES Y FRUTAS', null, null, '1');
+INSERT INTO `producto` VALUES ('6', '1', 'Jabón en Barra Glicerinado Perfumado FLORES Y FRUTAS 200 g', null, null, '1');
+INSERT INTO `producto` VALUES ('7', '1', 'Jabón en Barra Glicerinado Perfumado FRESH', null, null, '1');
+INSERT INTO `producto` VALUES ('8', '1', 'Jabón en Barra Glicerinado Perfumado FRESH 200 g', null, null, '1');
+INSERT INTO `producto` VALUES ('9', '1', 'Jabón en Barra COCO con toque de avena', null, null, '1');
+
+-- ----------------------------
+-- Table structure for `producto_imagen`
+-- ----------------------------
+DROP TABLE IF EXISTS `producto_imagen`;
+CREATE TABLE `producto_imagen` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id_producto` int(11) NOT NULL,
+  `imagen` varchar(120) DEFAULT NULL,
+  `principal` int(11) DEFAULT '0',
+  `estado` int(11) DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of producto_imagen
+-- ----------------------------
+INSERT INTO `producto_imagen` VALUES ('1', '1', 'ype_producto_jabon_en_barra_neutro.jpg', '1', '1');
+INSERT INTO `producto_imagen` VALUES ('2', '2', 'ype_jabon_en_barra_neutro_200g.jpg', '1', '1');
+INSERT INTO `producto_imagen` VALUES ('3', '3', 'ype_jabon_en_barra_glicerinado_perfumado_multiactivo.jpg', '1', '1');
+INSERT INTO `producto_imagen` VALUES ('4', '4', 'ype_jabon_en_barra_multiactivo_200g.jpg', '1', '1');
+INSERT INTO `producto_imagen` VALUES ('5', '5', 'ype_jabon_en_barra_glicerinado_perfumado_flores_y_frutas.jpg', '1', '1');
+INSERT INTO `producto_imagen` VALUES ('6', '6', 'ype_jabon_en_barra_glicerinado_perfumado_flores_y_frutas_200g.jpg', '1', '1');
+INSERT INTO `producto_imagen` VALUES ('7', '7', 'ype_jabon_en_barra_glicerinado_perfumado_fresh.jpg', '1', '1');
+INSERT INTO `producto_imagen` VALUES ('8', '8', 'ype_jabon_en_barra_glicerinado_perfumado_fresh_200g.jpg', '1', '1');
+INSERT INTO `producto_imagen` VALUES ('9', '9', 'ype_jabon_en_barra_coco_con_toque_de_avena.jpg', '1', '1');
 
 -- ----------------------------
 -- Table structure for `site_config`
