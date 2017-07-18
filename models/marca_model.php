@@ -61,4 +61,40 @@ class Marca_Model extends Model {
         return $data;
     }
 
+    public function datosProducto($id_producto) {
+        $data['datos'] = array();
+        $data['imagenes'] = array();
+        $sqlProducto = $this->db->select("select p.id,
+                                                p.nombre,
+                                                p.codigo,
+                                                p.contenido,
+                                                c.id as id_categoria,
+                                                c.descripcion as categoria,
+                                                m.id as id_marca,
+                                                m.descripcion as marca
+                                        from producto p 
+                                        LEFT JOIN categoria c on c.id = p.id_categoria
+                                        LEFT JOIN marca m on m.id = c.id_marca
+                                        where p.id = $id_producto");
+        $sqlImagen = $this->db->select("SELECT * from producto_imagen pi WHERE pi.id_producto = $id_producto and estado = 1;");
+        foreach ($sqlProducto as $item) {
+            array_push($data['datos'], array(
+                'id_producto' => $id_producto,
+                'nombre' => utf8_encode($item['nombre']),
+                'contenido' => utf8_encode($item['contenido']),
+                'id_categoria' => utf8_encode($item['id_categoria']),
+                'categoria' => utf8_encode($item['categoria']),
+                'id_marca' => utf8_encode($item['id_marca']),
+                'marca' => $this->helper->cleanUrl(utf8_encode($item['marca']))
+            ));
+        }
+        foreach ($sqlImagen as $item) {
+            array_push($data['imagenes'], array(
+                'imagen' => utf8_encode($item['imagen']),
+                'principal' => $item['principal']
+            ));
+        }
+        return $data;
+    }
+
 }

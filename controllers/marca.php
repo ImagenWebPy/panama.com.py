@@ -42,6 +42,11 @@ class Marca extends Controller {
     
     public function producto(){
         $url = $this->helper->getUrl();
-        var_dump($url);
+        $id_producto = $url[2];
+        $this->view->datosProducto = $this->model->datosProducto($id_producto);
+        $this->view->title = $this->view->datosProducto['datos'][0]['categoria'];
+        $this->view->render('header');
+        $this->view->render('marca/producto');
+        $this->view->render('footer');
     }
 }

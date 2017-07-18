@@ -150,6 +150,78 @@ switch ($paginaActual[0]):
             })(jQuery);
         </script>
         <?php break; ?>
+    <?php case 'producto': ?>
+        <script>
+            (function ($) {
+                "use strict";
+                /* Preload Images */
+                $('document').ready(function () {
+                    var $container = $('body'),
+                            tweetsTimer,
+                            $preload = $('#riva-preload');
+                    $container.imagesLoaded(function () {
+                        /* PLACE YOUR JAVASCRIPT CODE HERE */
+                        $('#images').rivaCarousel({
+                            style: 'horizontal',
+                            navigation: 'bullets',
+                            navigation_class: 'bullets-nav-1 center',
+                            visible: 1,
+                            selector: 'project-img',
+                            gutter: 0,
+                            interval: 1200,
+                            autostart: 0,
+                            speed: 350,
+                            ease: 'easeInBack'
+                        });
+                        $('#projects').rivaCarousel({
+                            style: 'horizontal',
+                            navigation: 'buttons',
+                            navigation_class: 'section-header-nav margin-top-5',
+                            button_left_text: '<i class="glyphicon glyphicon-menu-left"></i>',
+                            button_right_text: '<i class="glyphicon glyphicon-menu-right"></i>',
+                            visible: 3,
+                            selector: 'shop-item',
+                            gutter: 30,
+                            infinite: 0,
+                            interval: 2000,
+                            autostart: 0,
+                            speed: 350,
+                            ease: 'easeInBack'
+                        });
+                        $('#qty_id').on('change', function () {
+                            $('#price_id').html('$' + $('#price_id').attr('data-price') * $(this).val());
+                        });
+                        $('#tweets').twittie({
+                            dateFormat: '%b. %d, %Y',
+                            template: '<div class="tweet"><span class="content">{{tweet}}</span><span class="date">{{date}}</span></div>',
+                            count: 5,
+                            loadingText: 'Loading tweets...'
+                        }, function () {
+                            $('<div class="riva-insert-menu-here"></div>').appendTo($('#tweets'));
+                            $('#tweets').find('.tweet').each(function () {
+                                $(this).unwrap('li');
+                                $('<i class="fa fa-twitter"></i>').appendTo($(this));
+                            }).unwrap('ul');
+                            $('#tweets').rivaCarousel({
+                                style: 'horizontal',
+                                navigation: 'bullets',
+                                navigation_class: 'bullets-nav-1 light',
+                                visible: 1,
+                                selector: 'tweet',
+                                gutter: 0,
+                                interval: 1200,
+                                autostart: 0,
+                                speed: 350,
+                                ease: 'easeInBack'
+                            });
+                        });
+                        $preload.hide();
+                    });
+                    clearTimeout(tweetsTimer);
+                });
+            })(jQuery);
+        </script>
+        <?php break; ?>
     <?php case 'marca': ?>
         <script>
             (function ($) {

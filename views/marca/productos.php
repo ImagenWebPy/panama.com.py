@@ -51,7 +51,7 @@ $productosCategoria = $this->productosCategoria;
                             <?php foreach ($productosCategoria as $item): ?>
                                 <?php
                                 $id = $item['id_producto'];
-                                $enlace = $helper->cleanUrl(strtolower(utf8_encode($item['nombre'])));
+                                $enlace = $helper->cleanUrl(strtolower($item['nombre']));
                                 $href = URL . 'marca/producto/' . $id . '/' . $enlace;
                                 $img = $item['imagen'];
                                 ?>
