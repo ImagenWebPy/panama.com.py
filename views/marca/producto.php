@@ -9,54 +9,31 @@ $datosProducto = $this->datosProducto;
                 <div class="page-title-bar-wrapper">
                     <p class="title"><?= $datosProducto['datos'][0]['categoria'] ?></p>
                     <div class="breadcrumbs">
-
                         <a href="<?= URL; ?>">Inicio</a>
-
                         <span class="divider"><i class="glyphicon glyphicon-triangle-right"></i></span>
-
                         <a href="<?= URL; ?>marcas">Marcas</a>
-
                         <span class="divider"><i class="glyphicon glyphicon-triangle-right"></i></span>
-
                         <a href="<?= URL; ?>marca/categorias/<?= $datosProducto['datos'][0]['id_marca'] ?>/<?= $datosProducto['datos'][0]['marca'] ?>">Categorías</a>
-
                         <span class="divider"><i class="glyphicon glyphicon-triangle-right"></i></span>
-
                         <a href="<?= URL; ?>marca/productos/<?= $datosProducto['datos'][0]['id_categoria'] ?>/<?= $datosProducto['datos'][0]['categoria'] ?>">Productos</a>
                         <span class="divider"><i class="glyphicon glyphicon-triangle-right"></i></span>
                         <span class="last"><?= $datosProducto['datos'][0]['categoria'] ?></span>
                     </div>
-
                     <div class="search">
-
                         <form>
-
                             <input type="search" placeholder="Buscar aquí...">
-
                             <button type="submit" class="m-btn" data-size="normal" data-color="primary"><i class="glyphicon glyphicon-search"></i></button>
-
                         </form>
-
                     </div>
-
                 </div>
-
             </div>
-
         </div>
-
     </div>
-
 </section>
-
 <!-- Page title end //-->
-
 <!-- Site content start //-->
-
 <div class="container">
-
     <div class="row">
-
         <div class="col-lg-9 col-md-8">
 
             <!-- Page content start //-->
@@ -68,101 +45,42 @@ $datosProducto = $this->datosProducto;
                     <div class="col-lg-5 col-lmd-6">
 
                         <div class="plugin-container margin-top-leading single-product-images" id="images">
-
-                            <a href="img/shop/single/1.jpg" class="project-img fancybox"><img src="img/shop/single/1.jpg"></a>
-
-                            <a href="img/shop/single/2.jpg" class="project-img fancybox"><img src="img/shop/single/2.jpg"></a>
-
-                            <a href="img/shop/single/3.jpg" class="project-img fancybox"><img src="img/shop/single/3.jpg"></a>
-
-                            <a href="img/shop/single/4.jpg" class="project-img fancybox"><img src="img/shop/single/4.jpg"></a>
-
-                            <a href="img/shop/single/5.jpg" class="project-img fancybox"><img src="img/shop/single/5.jpg"></a>
-
-                            <a href="img/shop/single/6.jpg" class="project-img fancybox"><img src="img/shop/single/6.jpg"></a>
-
+                            <?php foreach ($datosProducto['imagenes'] as $item): ?>
+                                <a href="<?= IMG; ?>marcas/productos/<?= $item['imagen']; ?>" class="project-img fancybox"><img src="<?= IMG; ?>marcas/productos/<?= $item['imagen']; ?>"></a>
+                            <?php endforeach; ?>
                             <div class="riva-insert-menu-here"></div>
-
                         </div>
 
                     </div>
 
                     <div class="col-lg-7 col-lmd-6">
 
-                        <p class="product-title">Cloudy Minimum Space</p>
-
-                        <p class="stf">#11342</p>
-
-                        <p class="price">
-
-                            <span class="old">$99.00</span>
-
-                            <span id="price_id" data-price="79.00">$79.00</span>
-
-                        </p>
-
-                        <p>
-
-                            <input type="number" id="qty_id" value="1" min="1" max="99">
-
-                        </p>
-
-                        <p>Donec varius, turpis vitae commodo fringilla, tellus sem facilisis felis, lobortis scelerisque lectus quam ut felis. Curabitur at tellus in turpis interdum lacinia. Mauris odio quam, suscipit nec risus at, posuere laoreet quam. Vestibulum velit velit, consequat vel bibendum vel, ultricies quis nulla.</p>
-
-                        <p>
-
-                            <a href="#" class="m-btn" data-size="normal" data-color="primary"><i class="glyphicon glyphicon-plus"></i> add to the cart</a>
-
-                            <a href="#" class="m-btn" data-size="normal" data-color="primary" data-border><i class="glyphicon glyphicon-shopping-cart"></i> buy now!</a>
-
-                        </p>
-
+                        <p class="product-title"><?= $datosProducto['datos'][0]['nombre']; ?></p>
+                        <?php if (!empty($datosProducto['datos'][0]['codigo'])): ?>
+                            <p class="stf"><?= $datosProducto['datos'][0]['codigo']; ?></p>
+                        <?php endif; ?>
+                        <?php
+                        if (!empty($datosProducto['datos'][0]['contenido'])) {
+                            echo $datosProducto['datos'][0]['contenido'];
+                        }
+                        ?>
                     </div>
 
                 </div>
-
-                <div class="row">
-
-                    <div class="col-lg-12">
-
-                        <div class="m-tabs" data-active="2">
-
-                            <header>
-
-                                <span><i class="glyphicon glyphicon-globe"></i> Flaming Logbook</span>
-
-                                <span><i class="glyphicon glyphicon-tower"></i> Rough Scarecrow</span>
-
-                                <span><i class="glyphicon glyphicon-warning-sign"></i> Bitter Waterbird</span>
-
-                            </header>
-
-                            <section>
-
-                                <p>Aenean vitae lorem tempor enim pretium gravida a id eros. Integer vitae magna eget libero rhoncus ultricies at vel nunc. </p>
-
-                            </section>
-
-                            <section>
-
-                                <p>Curabitur mi arcu, euismod tempus purus et, sagittis porta elit. Quisque ut augue et mi molestie posuere. Duis eget tincidunt odio.</p>
-
-                                <p>Donec et leo hendrerit, venenatis massa eu, commodo ligula. Maecenas quis quam porttitor, accumsan nunc in, ornare felis. Quisque mauris nibh, molestie eu leo in, vestibulum faucibus diam. Sed vitae metus augue. Aliquam quis tellus ut tortor consequat dictum sit amet at lacus.</p>
-
-                            </section>
-
-                            <section>
-
-                                <p>Duis finibus iaculis mi, in vestibulum nisl euismod sit amet. Maecenas at nisl posuere augue pulvinar consequat quis sed ipsum. Fusce vestibulum purus in fringilla tincidunt. Nam interdum vel enim eu blandit. Morbi at nulla orci.</p>
-
-                            </section>
-
+                <?php if (!empty($datosProducto['datos'][0]['contenido_largo'])): ?>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="m-tabs" data-active="1">
+                                <header>
+                                    <span><i class="glyphicon glyphicon-globe"></i> Contenido</span>
+                                </header>
+                                <section>
+                                    <?= $datosProducto['datos'][0]['contenido_largo']; ?>
+                                </section>
+                            </div>
                         </div>
-
-                        </diiv>
-
                     </div>
-
+                <?php endif; ?>
             </section>
         </div>
         <div class="col-lg-3 col-md-4">

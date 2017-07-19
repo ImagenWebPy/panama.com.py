@@ -68,6 +68,7 @@ class Marca_Model extends Model {
                                                 p.nombre,
                                                 p.codigo,
                                                 p.contenido,
+                                                p.contenido_largo,
                                                 c.id as id_categoria,
                                                 c.descripcion as categoria,
                                                 m.id as id_marca,
@@ -81,6 +82,7 @@ class Marca_Model extends Model {
             array_push($data['datos'], array(
                 'id_producto' => $id_producto,
                 'nombre' => utf8_encode($item['nombre']),
+                'codigo' => utf8_encode($item['codigo']),
                 'contenido' => utf8_encode($item['contenido']),
                 'id_categoria' => utf8_encode($item['id_categoria']),
                 'categoria' => utf8_encode($item['categoria']),
