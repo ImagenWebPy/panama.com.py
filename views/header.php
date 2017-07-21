@@ -141,9 +141,9 @@ $marcas = $helper->getMarcas();
                                                     <?php endforeach; ?>
                                                 </ul>
                                             </li>
-                                            <li><a href="#">Sucursales</a></li>
-                                            <li><a href="#">blog</a></li>
-                                            <li><a href="#">Trabaja con Nosotros</a></li>
+                                            <li><a href="<?= URL; ?>sucursales">Sucursales</a></li>
+                                            <li><a href="<?= URL; ?>blog">blog</a></li>
+                                            <li><a href="<?= URL; ?>trabaja_con_nosotros">Trabaja con Nosotros</a></li>
                                             <li><a href="<?= URL; ?>contacto">Contacto</a></li>
                                         </ul>
                                     </nav>

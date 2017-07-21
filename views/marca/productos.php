@@ -15,7 +15,7 @@ $productosCategoria = $this->productosCategoria;
                         <span class="divider"><i class="glyphicon glyphicon-triangle-right"></i></span>
                         <a href="<?= URL; ?>marca">Marcas</a>
                         <span class="divider"><i class="glyphicon glyphicon-triangle-right"></i></span>
-                        <a href="<?= URL; ?>marca/categorias/">Categorias</a>
+                        <a href="<?= URL; ?>marca/categorias/<?= $categoriaHeader['id_marca']; ?>/<?= $helper->cleanUrl($categoriaHeader['marca']); ?>/">Categorias</a>
                         <span class="divider"><i class="glyphicon glyphicon-triangle-right"></i></span>
                         <span class="last">Productos - <?= utf8_encode($categoriaHeader['categoria']); ?></span>
                     </div>

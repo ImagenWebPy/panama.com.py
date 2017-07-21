@@ -33,11 +33,15 @@ class Marca_Model extends Model {
     }
 
     public function categoriaHeader($id_categoria) {
-        $sql = $this->db->select("SELECT ch.img as imagen, 
+        $sql = $this->db->select("SELECT c.id as id_categoria,
+                                        m.id as id_marca,
+                                        ch.img as imagen, 
                                         ch.contenido,
-                                        c.descripcion as categoria
+                                        c.descripcion as categoria,
+                                        m.descripcion as marca
                                 FROM categoria_header ch 
                                 LEFT JOIN categoria c on c.id = ch.id_categoria
+                                LEFT JOIN marca m on m.id = c.id_marca
                                 where id_categoria = $id_categoria;");
         return $sql[0];
     }
@@ -97,6 +101,13 @@ class Marca_Model extends Model {
             ));
         }
         return $data;
+    }
+
+    public function getProductos($id_producto) {
+        $sqlIdCategoria = $this->db->select("SELECT id_categoria FROM producto where id = $id_producto;");
+        $idCategoria = $sqlIdCategoria[0]['id_categoria'];
+        $sqlProductos = $this->db->select("SELECT id, nombre FROM producto where id_categoria = $idCategoria and estado = 1;");
+        return $sqlProductos;
     }
 
 }

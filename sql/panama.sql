@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50714
 File Encoding         : 65001
 
-Date: 2017-07-16 18:05:03
+Date: 2017-07-20 21:25:51
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -202,21 +202,22 @@ CREATE TABLE `producto` (
   `codigo` varchar(120) DEFAULT NULL,
   `contenido` text,
   `estado` int(1) unsigned DEFAULT NULL,
+  `contenido_largo` text,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of producto
 -- ----------------------------
-INSERT INTO `producto` VALUES ('1', '1', 'Jabón en Barra NEUTRO', null, null, '1');
-INSERT INTO `producto` VALUES ('2', '1', 'Jabón en Barra NEUTRO 200 g', null, null, '1');
-INSERT INTO `producto` VALUES ('3', '1', 'Jabón en Barra Glicerinado Perfumado MULTIACTIVO', null, null, '1');
-INSERT INTO `producto` VALUES ('4', '1', 'Jabón en Barra MULTIACTIVO 200 g', null, null, '1');
-INSERT INTO `producto` VALUES ('5', '1', 'Jabón en Barra Glicerinado Perfumado FLORES Y FRUTAS', null, null, '1');
-INSERT INTO `producto` VALUES ('6', '1', 'Jabón en Barra Glicerinado Perfumado FLORES Y FRUTAS 200 g', null, null, '1');
-INSERT INTO `producto` VALUES ('7', '1', 'Jabón en Barra Glicerinado Perfumado FRESH', null, null, '1');
-INSERT INTO `producto` VALUES ('8', '1', 'Jabón en Barra Glicerinado Perfumado FRESH 200 g', null, null, '1');
-INSERT INTO `producto` VALUES ('9', '1', 'Jabón en Barra COCO con toque de avena', null, null, '1');
+INSERT INTO `producto` VALUES ('1', '1', 'Jabón en Barra NEUTRO', null, null, '1', null);
+INSERT INTO `producto` VALUES ('2', '1', 'Jabón en Barra NEUTRO 200 g', null, null, '1', null);
+INSERT INTO `producto` VALUES ('3', '1', 'Jabón en Barra Glicerinado Perfumado MULTIACTIVO', null, null, '1', null);
+INSERT INTO `producto` VALUES ('4', '1', 'Jabón en Barra MULTIACTIVO 200 g', null, null, '1', null);
+INSERT INTO `producto` VALUES ('5', '1', 'Jabón en Barra Glicerinado Perfumado FLORES Y FRUTAS', null, null, '1', null);
+INSERT INTO `producto` VALUES ('6', '1', 'Jabón en Barra Glicerinado Perfumado FLORES Y FRUTAS 200 g', null, null, '1', null);
+INSERT INTO `producto` VALUES ('7', '1', 'Jabón en Barra Glicerinado Perfumado FRESH', null, null, '1', null);
+INSERT INTO `producto` VALUES ('8', '1', 'Jabón en Barra Glicerinado Perfumado FRESH 200 g', null, null, '1', null);
+INSERT INTO `producto` VALUES ('9', '1', 'Jabón en Barra COCO con toque de avena', null, null, '1', null);
 
 -- ----------------------------
 -- Table structure for `producto_imagen`

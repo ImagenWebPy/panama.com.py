@@ -237,6 +237,36 @@ switch ($paginaActual[0]):
             })(jQuery);
         </script>
         <?php break; ?>
+    <?php case 'trabaja_con_nosotros': ?>
+        <script>
+            (function ($) {
+                "use strict";
+                /* Preload Images */
+                $('document').ready(function () {
+                    var $container = $('body'),
+                            $preload = $('#riva-preload');
+                    $container.imagesLoaded(function () {
+                        $preload.hide();
+                    });
+                });
+            })(jQuery);
+        </script>
+        <?php break; ?>
+    <?php case 'blog': ?>
+        <script>
+            (function ($) {
+                "use strict";
+                /* Preload Images */
+                $('document').ready(function () {
+                    var $container = $('body'),
+                            $preload = $('#riva-preload');
+                    $container.imagesLoaded(function () {
+                        $preload.hide();
+                    });
+                });
+            })(jQuery);
+        </script>
+        <?php break; ?>
     <?php case 'contacto': ?>
         <!-- Google Maps -->
         <script src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
