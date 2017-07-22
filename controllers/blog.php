@@ -20,4 +20,15 @@ class Blog extends Controller {
         $this->view->render('footer');
     }
 
+    public function detalle() {
+        $url = $this->helper->getUrl();
+        $idBlog = $url[2];
+        $this->view->detalle = $this->model->detalle($idBlog);
+        $this->view->ultimasPublicaciones = $this->model->ultimasPublicaciones(3);
+        $this->view->title = 'Detalle';
+        $this->view->render('header');
+        $this->view->render('blog/detalle');
+        $this->view->render('footer');
+    }
+
 }

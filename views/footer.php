@@ -267,6 +267,38 @@ switch ($paginaActual[0]):
             })(jQuery);
         </script>
         <?php break; ?>
+    <?php case 'detalle': ?>
+        <script>
+            (function ($) {
+                "use strict";
+                /* Preload Images */
+                $('document').ready(function () {
+                    var $container = $('body'),
+                            $preload = $('#riva-preload');
+                    $container.imagesLoaded(function () {
+                        /* PLACE YOUR JAVASCRIPT CODE HERE */
+                        $('#posts').rivaCarousel({
+                            style: 'horizontal',
+                            navigation: 'buttons',
+                            navigation_class: 'section-header-nav',
+                            button_left_text: '<i class="glyphicon glyphicon-menu-left"></i>',
+                            button_right_text: '<i class="glyphicon glyphicon-menu-right"></i>',
+                            visible: 3,
+                            selector: 'post',
+                            gutter: 30,
+                            infinite: 0,
+                            interval: 2000,
+                            autostart: 0,
+                            speed: 700,
+                            ease: 'easeInBack'
+                        });
+                        $preload.hide();
+                    });
+                    clearTimeout(tweetsTimer);
+                });
+            })(jQuery);
+        </script>
+        <?php break; ?>
     <?php case 'contacto': ?>
         <!-- Google Maps -->
         <script src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
