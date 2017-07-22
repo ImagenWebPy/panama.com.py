@@ -142,7 +142,7 @@ $marcas = $helper->getMarcas();
                                                 </ul>
                                             </li>
                                             <li><a href="<?= URL; ?>sucursales">Sucursales</a></li>
-                                            <li><a href="<?= URL; ?>blog">blog</a></li>
+                                            <li><a href="<?= URL; ?>blog/listado">blog</a></li>
                                             <li><a href="<?= URL; ?>trabaja_con_nosotros">Trabaja con Nosotros</a></li>
                                             <li><a href="<?= URL; ?>contacto">Contacto</a></li>
                                         </ul>

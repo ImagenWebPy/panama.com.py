@@ -6,7 +6,10 @@ class Blog extends Controller {
         parent::__construct();
     }
 
-    public function index() {
+    public function listado() {
+        $url = $this->helper->getUrl();
+        $pagina = $url[2];
+        $this->view->listado = $this->model->listado($pagina);
         $this->view->title = 'Blog';
         $this->view->render('header');
         $this->view->render('blog/index');

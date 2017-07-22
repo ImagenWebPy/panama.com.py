@@ -134,7 +134,7 @@ class Helper {
         foreach ($query as $row) {
             if ($field != $row["Field"])
                 continue;
-            //check if enum type 
+//check if enum type 
             if (preg_match('/enum.(.*)./', $row['Type'], $match)) {
                 $opts = explode(',', $match[1]);
                 foreach ($opts as $item)
@@ -317,6 +317,94 @@ class Helper {
     public function getMarcas() {
         $sql = $this->db->select("select * from marca where estado = 1 order by descripcion asc");
         return $sql;
+    }
+    
+    /**
+     * 
+     * @param int $per_page
+     * @param int $page
+     * @param string $table (tabla a obtener el maximo de registros)
+     * @param string $section (ruta del mvc a paginar)
+     * @return string
+     */
+    public function mostrarPaginador($per_page, $page, $table, $section) {
+        $query = $this->db->select("SELECT COUNT(*) as totalCount FROM $table where estado = 1");
+        $total = $query[0]['totalCount'];
+        $adjacents = "2";
+
+        $page = ($page == 0 ? 1 : $page);
+        $start = ($page - 1) * $per_page;
+
+        $prev = $page - 1;
+        $next = $page + 1;
+        $setLastpage = ceil($total / $per_page);
+        $lpm1 = $setLastpage - 1;
+
+        $paging = "";
+        if ($setLastpage > 1) {
+            $paging .= "<ul class='m-pagination'>";
+            $paging .= "<li class='active'>Página $page de $setLastpage</li>";
+            if ($setLastpage < 7 + ($adjacents * 2)) {
+                for ($counter = 1; $counter <= $setLastpage; $counter++) {
+                    if ($counter == $page)
+                        $paging .= "<li class='active'>$counter</li>";
+                    else
+                        $paging .= '<li><a class="m-btn" href="' . URL . $section . '/' . $counter . '" data-size="small" data-color="secondary" data-border>' . $counter . '</a></li>';
+                }
+            }
+            elseif ($setLastpage > 5 + ($adjacents * 2)) {
+                if ($page < 1 + ($adjacents * 2)) {
+                    for ($counter = 1; $counter < 4 + ($adjacents * 2); $counter++) {
+                        if ($counter == $page)
+                            $paging .= '<li class="active">' . $counter . '</li>';
+                        else
+                            $paging .= '<li><a class="m-btn" href="' . URL . $section . '/' . $counter . '" data-size="small" data-color="secondary" data-border>' . $counter . '</a></li>';
+                    }
+                    $paging .= "<li class='dot'>...</li>";
+                    $paging .= '<li><a class="m-btn" href="' . URL . $section . '/' . $lpm1 . '" data-size="small" data-color="secondary" data-border>' . $lpm1 . '</a></li>';
+                    $paging .= '<li><a class="m-btn" href ="' . URL . $section . '/' . $setLastpage . '" data-size="small" data-color="secondary" data-border>' . $setLastpage . '</a></li>';
+                }
+                elseif ($setLastpage - ($adjacents * 2) > $page && $page > ($adjacents * 2)) {
+                    $paging .= '<li><a class="m-btn" href ="' . URL . $section . '/1' . '" data-size="small" data-color="secondary" data-border>1</a></li>';
+                    $paging .= '<li><a class="m-btn" href ="' . URL . $section . '/2' . '" data-size="small" data-color="secondary" data-border>2</a></li>';
+                    $paging .= "<li class = 'dot'>...</li>";
+                    for ($counter = $page - $adjacents; $counter <= $page + $adjacents; $counter++) {
+                        if ($counter == $page)
+                            $paging .= "<li class='active'>$counter</li>"
+                            ;
+                        else
+                            $paging .= '<li><a class="m-btn" href ="' . URL . $section . '/' . $counter . '" data-size="small" data-color="secondary" data-border>' . $counter . '</a></li>';
+                    }
+                    $paging .= "<li class='dot'>..</li>";
+                    $paging .= '<li><a class="m-btn" href="' . URL . $section . '/' . $lpm1 . '" data-size="small" data-color="secondary" data-border>' . $lpm1 . '</a></li>';
+                    $paging .= '<li><a class="m-btn" href="' . URL . $section . '/' . $setLastpage . '" data-size="small" data-color="secondary" data-border>' . $setLastpage . '</a></li>';
+                }
+                else {
+                    $paging .= '<li><a class="m-btn" href ="' . URL . $section . '/1' . '" data-size="small" data-color="secondary" data-border>1</a></li>';
+                    $paging .= '<li><a class="m-btn" href ="' . URL . $section . '/2' . '" data-size="small" data-color="secondary" data-border>2</a></li>';
+                    $paging .= "<li class = 'dot'>..</li>";
+                    for ($counter = $setLastpage - (2 + ($adjacents * 2)); $counter <= $setLastpage; $counter++) {
+                        if ($counter == $page)
+                            $paging .= "<li class='active'>$counter</li>"
+                            ;
+                        else
+                            $paging .= '<li><a class="m-btn" href="' . URL . $section . '/' . $counter . '" data-size="small" data-color="secondary" data-border>' . $counter . '</a></li>';
+                    }
+                }
+            }
+
+            if ($page < $counter - 1) {
+                $paging .= '<li><a class="m-btn" href="' . URL . $section . '/' . $next . '" data-size="small" data-color="secondary" data-border >Siguiente</a></li>';
+                $paging .= '<li><a class="m-btn" href="' . URL . $section . '/' . $setLastpage . '" data-size="small" data-color="secondary" data-border>Ultima</a></li>';
+            } else {
+                $paging .= "<li class='active'>Siguiente</li>";
+                $paging .= "<li class='active'>Ultima</li>";
+            }
+
+            $paging .= "</ul>";
+        }
+
+        return $paging;
     }
 
 }

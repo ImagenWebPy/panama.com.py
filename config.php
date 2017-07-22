@@ -59,6 +59,7 @@ define('SITE_TITLE', 'Panamá Representaciones :: ');
 define('IMG', URL . 'public/img/');
 define('CSS', URL . 'public/css/');
 define('JS', URL . 'public/js/');
+define('REG', 20); //cantidad de registros por pagina
 
 /**
  * Funcion que obtiene el host (SERVER URL)
