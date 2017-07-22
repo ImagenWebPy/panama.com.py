@@ -8,7 +8,11 @@ class Blog extends Controller {
 
     public function listado() {
         $url = $this->helper->getUrl();
-        $pagina = $url[2];
+        if (!empty($url[2])) {
+            $pagina = $url[2];
+        } else {
+            $pagina = 1;
+        }
         $this->view->listado = $this->model->listado($pagina);
         $this->view->title = 'Blog';
         $this->view->render('header');
