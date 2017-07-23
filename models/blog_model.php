@@ -27,8 +27,8 @@ class Blog_Model extends Model {
         return $sql[0];
     }
 
-    public function ultimasPublicaciones($cant) {
-        $sql = $this->db->select("select id, titulo, contenido, imagen, tags, fecha from blog ORDER BY fecha DESC LIMIT $cant");
+    public function ultimasPublicaciones($cant , $idActual) {
+        $sql = $this->db->select("select id, titulo, contenido, imagen, tags, fecha from blog where id != $idActual ORDER BY fecha DESC LIMIT $cant");
         return $sql;
     }
 

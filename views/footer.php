@@ -46,41 +46,23 @@ $siteInfo = $helper->getSiteConfig();
         </div>
     </div>
     <!-- Copyrights start //-->
-
     <div class="copyrights">
-
         <div class="container">
-
             <div class="row">
-
                 <div class="col-lg-6 col-md-6 left">
-
-                    <p>Powered by <a href="https://imagenwebhq.com"><img src="<?= IMG; ?>logo-iweb-white.png" ></a></p>
-
+                    <p>Powered by <a href="https://imagenwebhq.com"><img src="<?= IMG; ?>logo-iweb-white.png" style="width: 60px;" ></a></p>
                 </div>
-
                 <div class="col-lg-6 col-md-6 right">
-
                     <p>
-
                         <a href="#">Politica de Privacidad</a>
-
                         <span class="divider">/</span>
-
                         <a href="#">Contacto</a>
-
                     </p>
-
                 </div>
-
             </div>
-
         </div>
-
     </div>
-
     <!-- Copyrights end //-->
-
 </footer>
 
 <!-- Site footer end //-->
@@ -237,6 +219,23 @@ switch ($paginaActual[0]):
             })(jQuery);
         </script>
         <?php break; ?>
+    <?php case 'sucursales': ?>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwncHAgzJNmPsM9B3vjYk7y0tjoKR7tkg&callback=initMap"
+        async defer></script>
+        <script>
+            (function ($) {
+                "use strict";
+                /* Preload Images */
+                $('document').ready(function () {
+                    var $container = $('body'),
+                            $preload = $('#riva-preload');
+                    $container.imagesLoaded(function () {
+                        $preload.hide();
+                    });
+                });
+            })(jQuery);
+        </script>
+        <?php break; ?>
     <?php case 'trabaja_con_nosotros': ?>
         <script>
             (function ($) {
@@ -300,25 +299,8 @@ switch ($paginaActual[0]):
         </script>
         <?php break; ?>
     <?php case 'contacto': ?>
-        <!-- Google Maps -->
-        <script src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
         <!-- Mapster JS -->
-        <script src="<?= JS; ?>mapster.js" type="text/javascript"></script>
-        <script src="<?= JS; ?>map-options.js" type="text/javascript"></script>
         <script>
-            (function (window, mapster) {
-                // map options
-                var options = mapster.MAP_OPTIONS,
-                        element = document.getElementById('map-canvas'),
-                        // map
-                        map = new mapster.create(element, options);
-                var marker = map.addMarker({
-                    lat: 37.791350,
-                    lng: -122.435883,
-                    content: 'Magnis Office',
-                    icon: 'img/office-building.png'
-                });
-            }(window, window.Mapster || (window.Mapster = {})));
             (function ($) {
                 "use strict";
                 /* Preload Images */
@@ -419,4 +401,22 @@ switch ($paginaActual[0]):
         </script>
         <?php break; ?>
 <?php endswitch; ?>
+<?php
+#cargamos los js de las vistas
+if (isset($this->external_js)) {
+    foreach ($this->external_js as $external) {
+        echo '<script async defer src="' . $external . '"></script>';
+    }
+}
+if (isset($this->public_js)) {
+    foreach ($this->public_js as $public_js) {
+        echo '<script type="text/javascript" src="' . URL . 'public/' . $public_js . '"></script>';
+    }
+}
+if (isset($this->js)) {
+    foreach ($this->js as $js) {
+        echo '<script type="text/javascript" src="' . URL . 'views/' . $js . '"></script>';
+    }
+}
+?>
 </html>

@@ -24,8 +24,9 @@ class Blog extends Controller {
         $url = $this->helper->getUrl();
         $idBlog = $url[2];
         $this->view->detalle = $this->model->detalle($idBlog);
-        $this->view->ultimasPublicaciones = $this->model->ultimasPublicaciones(3);
-        $this->view->title = 'Detalle';
+        $idActual = $this->view->detalle['id'];
+        $this->view->ultimasPublicaciones = $this->model->ultimasPublicaciones(3, $idActual);
+        $this->view->title = utf8_encode($this->view->detalle['titulo']);
         $this->view->render('header');
         $this->view->render('blog/detalle');
         $this->view->render('footer');

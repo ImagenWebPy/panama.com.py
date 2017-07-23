@@ -39,8 +39,8 @@ class Marca extends Controller {
         $this->view->render('marca/productos');
         $this->view->render('footer');
     }
-    
-    public function producto(){
+
+    public function producto() {
         $url = $this->helper->getUrl();
         $id_producto = $url[2];
         $this->view->datosProducto = $this->model->datosProducto($id_producto);
@@ -50,4 +50,5 @@ class Marca extends Controller {
         $this->view->render('marca/producto');
         $this->view->render('footer');
     }
+
 }

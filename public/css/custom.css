@@ -40,3 +40,5 @@ input[type="week"]:focus {
     border: 1px solid #D60006 !important;
 }
 .listadoImagenes{width: 250px; height: 170px;}
+.pricing-3 thead th {border-bottom: 3px solid #D60006 !important;}
+.map{ width: 250px; height: 250px;}

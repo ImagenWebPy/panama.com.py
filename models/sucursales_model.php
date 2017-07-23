@@ -6,4 +6,9 @@ class Sucursales_Model extends Model {
         parent::__construct();
     }
 
+    public function sucursales() {
+        $sql = $this->db->select("select * from sucursal where estado = 1");
+        return $sql;
+    }
+
 }

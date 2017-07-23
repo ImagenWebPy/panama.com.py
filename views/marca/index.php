@@ -1,6 +1,8 @@
 <?php
 $helper = new Helper();
 $marcas = $this->marcas;
+$cant = count($marcas);
+$i = 1;
 ?>
 <section class="page-title-bar bg-img-2" data-background="parallax" data-transparent="secondary">
     <div class="container">
@@ -32,35 +34,51 @@ $marcas = $this->marcas;
             <!-- Page content start //-->
             <section>
                 <div class="shop-listing">
-                    <div class="row">
-                        <?php foreach ($marcas as $item): ?>
-                            <?php
-                            $id = $item['id'];
-                            $enlace = $helper->cleanUrl(strtolower(utf8_encode($item['descripcion'])));
-                            $href = URL . 'marca/categorias/' . $id . '/' . $enlace;
-                            $img = $item['img'];
-                            ?>
-                            <div class="col-lg-4">
-                                <!-- Shop item start //-->
-                                <div class="shop-item">
-                                    <figure>
-                                        <a href="<?= $href; ?>"><img src="<?= IMG; ?>marcas/<?= $img; ?>" alt=""></a>
-                                        <div class="buttons">
-                                            <a href="<?= IMG; ?>marcas/<?= $img; ?>" class="m-btn link fancybox" data-size="normal" data-color="primary" data-border><i class="glyphicon glyphicon-fullscreen"></i></a>
-                                            <a href="<?= $href; ?>" class="m-btn" data-size="normal" data-color="primary" data-border><i class="glyphicon glyphicon-link"></i></a>
-                                        </div>
-                                    </figure>
-                                    <div class="details">
-                                        <p><a href="<?= $href; ?>"><?= utf8_encode($item['descripcion']); ?></a></p>
-                                        <p>
-                                            <a href="<?= $href; ?>" class="m-btn" data-size="small" data-color="secondary">ver productos</a>
-                                        </p>
+                    <?php foreach ($marcas as $item): ?>
+                        <?php
+                        $id = $item['id'];
+                        $enlace = $helper->cleanUrl(strtolower(utf8_encode($item['descripcion'])));
+                        $href = URL . 'marca/categorias/' . $id . '/' . $enlace;
+                        $img = $item['img'];
+                        ?>
+                        <?php
+                        if ($i == 1) {
+                            echo '<div class="row">';
+                        }
+                        ?>
+                        <div class="col-lg-4">
+                            <!-- Shop item start //-->
+                            <div class="shop-item">
+                                <figure>
+                                    <a href="<?= $href; ?>"><img src="<?= IMG; ?>marcas/<?= $img; ?>" alt=""></a>
+                                    <div class="buttons">
+                                        <a href="<?= IMG; ?>marcas/<?= $img; ?>" class="m-btn link fancybox" data-size="normal" data-color="primary" data-border><i class="glyphicon glyphicon-fullscreen"></i></a>
+                                        <a href="<?= $href; ?>" class="m-btn" data-size="normal" data-color="primary" data-border><i class="glyphicon glyphicon-link"></i></a>
                                     </div>
+                                </figure>
+                                <div class="details">
+                                    <p><a href="<?= $href; ?>"><?= utf8_encode($item['descripcion']); ?></a></p>
+                                    <p>
+                                        <a href="<?= $href; ?>" class="m-btn" data-size="small" data-color="secondary">ver productos</a>
+                                    </p>
                                 </div>
-                                <!-- Shop item end //-->
                             </div>
-                        <?php endforeach; ?>
-                    </div>
+                            <!-- Shop item end //-->
+                        </div>
+                        <?php
+                        if ($i == 3) {
+                            echo '</div>';
+                            $i = 1;
+                        } else {
+                            $i++;
+                        }
+                        ?>
+                    <?php endforeach; ?>
+                    <?php
+                    if (($cant % 3) != 0) {
+                        echo '</div><!--FINAL-->';
+                    }
+                    ?>
                 </div>
                 <div class="clearfix"></div>
             </section>
