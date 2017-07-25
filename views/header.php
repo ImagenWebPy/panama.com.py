@@ -73,6 +73,28 @@ $marcas = $helper->getMarcas();
           <script src="<?= JS; ?>html5shiv.min.js"></script>
           <script src="<?= JS; ?>respond.min.js"></script>
         <![endif]-->
+        <?php
+        #cargamos los css de las vistas
+        if (isset($this->css)) {
+            foreach ($this->css as $css) {
+                echo '<link rel="stylesheet" href="' . URL . 'views/' . $css . '" type="text/css">';
+            }
+        }
+        if (isset($this->public_css)) {
+            foreach ($this->public_css as $public_css) {
+                echo '<link rel="stylesheet" href="' . URL . 'public/' . $public_css . '" type="text/css">';
+            }
+        }
+        ?>
+        <script src="<?= JS; ?>jquery-1.11.2.min.js" type="text/javascript"></script>
+        <?php
+        if (isset($this->publicHeader_js)) {
+            foreach ($this->publicHeader_js as $public_js) {
+                echo '<script type="text/javascript" src="' . URL . 'public/' . $public_js . '"></script>';
+            }
+        }
+        ?>
+        
     </head>
     <body>
         <div id="page" data-background="image">

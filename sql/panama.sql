@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50714
 File Encoding         : 65001
 
-Date: 2017-07-23 16:44:46
+Date: 2017-07-24 22:39:14
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -313,3 +313,23 @@ CREATE TABLE `sucursal` (
 INSERT INTO `sucursal` VALUES ('1', 'Casa Central', 'Ruta Eusebio Filemón Valdez, Km 2,5 camino a Capitán Bado', '+595 336 274239 / +595 336 274738', 'Pedro Juan Caballero', 'Paraguay', '-25.295470', '-57.587789', '<p>Lunes a Viernes: 08:00 a 18:00<br> Sabados: 08:00 a 12:00</p>', '1');
 INSERT INTO `sucursal` VALUES ('2', 'Sucursal Concepción', 'Av. Boquerón esq. Sargento Pirelli - Barrio Itacurubi', '+595 331 241311', 'Concepción ', 'Paraguay', '-25.295470', '-57.587789', '<p>Lunes a Viernes: 08:00 a 18:00<br> Sabados: 08:00 a 12:00</p>', '1');
 INSERT INTO `sucursal` VALUES ('3', 'Sucursal Yby Yaú', 'Ruta 3 c/ Av. San Juan - Barrio San Juan', '+595 039 210367', 'Yby Yaú', 'Paraguay', '-25.295470', '-57.587789', '<p>Lunes a Viernes: 08:00 a 18:00<br> Sabados: 08:00 a 12:00</p>', '1');
+
+-- ----------------------------
+-- Table structure for `trabaja`
+-- ----------------------------
+DROP TABLE IF EXISTS `trabaja`;
+CREATE TABLE `trabaja` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(120) DEFAULT NULL,
+  `email` varchar(120) DEFAULT NULL,
+  `telefono` varchar(60) DEFAULT NULL,
+  `mensaje` text,
+  `archivo` varchar(160) DEFAULT NULL,
+  `fecha` datetime DEFAULT NULL,
+  `estado` int(10) unsigned DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of trabaja
+-- ----------------------------

@@ -83,7 +83,7 @@ $siteInfo = $helper->getSiteConfig();
 
 </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="<?= JS; ?>jquery-1.11.2.min.js" type="text/javascript"></script>
+
 <script src="<?= JS; ?>jquery-ui.min.js" type="text/javascript"></script>
 <script src="<?= JS; ?>modernizr-2.6.2-respond-1.1.0.min.js" type="text/javascript"></script>
 <!-- Less.js -->
@@ -401,6 +401,24 @@ switch ($paginaActual[0]):
         </script>
         <?php break; ?>
 <?php endswitch; ?>
+<?php
+#cargamos los js de las vistas
+if (isset($this->external_js)) {
+    foreach ($this->external_js as $external) {
+        echo '<script async defer src="' . $external . '"></script>';
+    }
+}
+if (isset($this->public_js)) {
+    foreach ($this->public_js as $public_js) {
+        echo '<script type="text/javascript" src="' . URL . 'public/' . $public_js . '"></script>';
+    }
+}
+if (isset($this->js)) {
+    foreach ($this->js as $js) {
+        echo '<script type="text/javascript" src="' . URL . 'views/' . $js . '"></script>';
+    }
+}
+?>
 <?php
 #cargamos los js de las vistas
 if (isset($this->external_js)) {

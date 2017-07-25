@@ -31,20 +31,38 @@ $generalInfo = $helper->getSiteConfig();
         <div class="row">
             <div class="col-lg-9 col-md-8">
                 <!-- Page content start //-->
+                <?php
+                if (!empty($_SESSION['result'])) {
+                    echo $_SESSION['result']['message'];
+                }
+                ?>
                 <h2>Envíanos tus datos y adjuntá tu CV</h2>
                 <!-- Simplex Ajax Contact Form Pro start //-->
-                <form name="simplexform" id="simplexform" class="simplexform" action="http://rivathemes.net/html/magnis/v2/inc/inc/config-page-contact-form.php" method="post" enctype="multipart/form-data">
+                <form id="simplexform" class="simplexform" role="form" action="<?= URL; ?>trabaja_con_nosotros/subir_datos" method="post" enctype="multipart/form-data">
                     <div id="result"></div>
                     <div class="form-elements form-page-contact-form">
                         <div class="fields-group-0 groups">
                             <div class="group-title">Información Personal</div><div class="acm-field"><label for="cname">Tu Nombre</label><div id="cname" class="form-input text "><input class="text short" name="cname" type="text" value="" placeholder="Tu Nombre" /><span class="required"></span></div>
-                            </div><div class="acm-field"><label for="email">Email</label><div id="email" class="form-input text "><input class="text short" name="email" type="text" value="" placeholder="Tu Email" /><span class="required"></span></div>
-                            </div><div class="acm-field"><label for="phone">Teléfono</label><div id="phone" class="form-input text "><input class="text short" name="phone" type="text" value="" placeholder="Número de Teléfono" /></div>
-                            </div></div>
+                            </div>
+                            <div class="acm-field"><label for="email">Email</label><div id="email" class="form-input text "><input class="text short" name="email" type="text" value="" placeholder="Tu Email" /><span class="required"></span></div>
+                            </div>
+                            <div class="acm-field"><label for="phone">Teléfono</label><div id="phone" class="form-input text "><input class="text short" name="phone" type="text" value="" placeholder="Número de Teléfono" /></div>
+                            </div>
+                            <div class="acm-field"><label for="message">Mensaje</label><div id="message" class="form-input textarea "><textarea class="text short" name="message" placeholder="Tu Mensaje"></textarea><span class="required"></span></div>
+                            </div>
+                        </div>
                         <div class="fields-group-1 groups ">
                             <div class="group-title">Archivo</div>
-                            				
+                            <div class="form-group">
+                                <label>File 1:</label>
+                                <div class="html5fileupload demo_form" data-url="html5fileupload.php" data-form="true" data-max-filesize="2048000" data-valid-extensions="doc,docx,xlsx,xls,pdf,pptx,jpg,jpeg,DOC,DOCX,PDF,JPG,JPEG,XLS,XLSX,ppt,pptx,PPT,PPTX" style="width: 100%;">
+                                    <input type="file" name="file_1" required="required" />
+                                </div>
+                            </div>
                         </div>
+                        <script>
+                            $('.html5fileupload.demo_form').html5fileupload();
+                        </script> 
                         <br />
                         <div class="acm-field submitbtn">
                             <button type="submit" name="submit" id="submit"><i class="glyphicon glyphicon-envelope"></i> Enviar</button>

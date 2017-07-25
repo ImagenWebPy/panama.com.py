@@ -33,7 +33,7 @@ class Helper {
         $String = str_replace("ý", "y", $String);
 
         $String = str_replace("'", "", $String);
-        $String = str_replace(".", "_", $String);
+        //$String = str_replace(".", "_", $String);
         $String = str_replace(" ", "_", $String);
         $String = str_replace("/", "_", $String);
 
