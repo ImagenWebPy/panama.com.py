@@ -177,6 +177,20 @@ class Helper {
         }
     }
 
+    /**
+     * Funcion que envia un correo a travez de la funcion mail de PHP.
+     * @param string $para
+     * @param string $asunto
+     * @param string $mensaje
+     */
+    public function sendMail($para, $asunto, $mensaje) {
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+        $headers .= 'From: Garden Intranet <noresponder@panama.com.py>' . "\r\n";
+        $headers .= 'Reply-To: noresponder@panama.com.py' . "\r\n";
+        mail($para, $asunto, $mensaje, $headers);
+    }
+
     public function getSlider() {
         $sql = $this->db->select("select * from slider where estado = 1 order by orden asc");
         return $sql;
@@ -318,7 +332,7 @@ class Helper {
         $sql = $this->db->select("select * from marca where estado = 1 order by descripcion asc");
         return $sql;
     }
-    
+
     /**
      * 
      * @param int $per_page
@@ -405,6 +419,28 @@ class Helper {
         }
 
         return $paging;
+    }
+
+    public function getRedes() {
+        $sql = $this->db->select("select descripcion,
+                                        imagen_fav,
+                                        enlace
+                                    from redes WHERE estado = 1");
+        return $sql;
+    }
+
+    public function getFormularioContacto() {
+        $sql = $this->db->select("SELECT id,
+                                        descripcion,
+                                        email
+                                FROM contacto_formulario 
+                                where estado = 1;");
+        return $sql;
+    }
+
+    public function obtenerSeccion($id) {
+        $sql = $this->db->select("select * from contacto_formulario where id = $id");
+        return $sql[0];
     }
 
 }

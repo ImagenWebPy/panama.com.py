@@ -60,7 +60,7 @@ class Trabaja_con_nosotros extends Controller {
         } else {
             $data = array(
                 'type' => 'error',
-                'message' => 'Lo sentimos ha ocurrido un error, por favor vuelva a intertarlos'
+                'message' => $this->helper->messageAlert('error', 'Lo sentimos ha ocurrido un error, por favor vuelva a intertarlo')
             );
         }
         Session::set('result', $data);

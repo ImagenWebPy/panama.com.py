@@ -2,6 +2,7 @@
 $helper = new Helper();
 $paginaActual = $helper->getPage();
 $marcas = $helper->getMarcas();
+$redes = $helper->getRedes();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -94,7 +95,7 @@ $marcas = $helper->getMarcas();
             }
         }
         ?>
-        
+
     </head>
     <body>
         <div id="page" data-background="image">
@@ -124,11 +125,9 @@ $marcas = $helper->getMarcas();
                                     <a href="#mobile-menu" class="mobile-menu-btn hidden-lg hidden-md"><i class="glyphicon glyphicon-align-justify"></i></a>
                                     <!-- Social icons start //-->
                                     <ul class="header-soc-btns to-slide">
-                                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-youtube"></i></a></li>
+                                        <?php foreach ($redes as $item): ?>
+                                            <li><a href="<?= utf8_encode($item['enlace']); ?>" title="<?= utf8_encode($item['descripcion']); ?>"><i class="<?= utf8_encode($item['imagen_fav']); ?>"></i></a></li>
+                                        <?php endforeach; ?>
                                     </ul>
                                     <!-- Social icons end //-->
                                     <div class="clearfix hidden-lg hidden-md"></div>

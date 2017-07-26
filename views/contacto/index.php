@@ -30,6 +30,11 @@ $generalInfo = $helper->getSiteConfig();
     <div class="container">
         <div class="row">
             <div class="col-lg-9 col-md-8">
+                <?php
+                if (!empty($_SESSION['result'])) {
+                    echo $_SESSION['result']['message'];
+                }
+                ?>
                 <!-- Page content start //-->
                 <h2>Envianos un mensaje</h2>
                 <!-- Simplex Ajax Contact Form Pro start //-->

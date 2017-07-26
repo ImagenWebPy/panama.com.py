@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50714
 File Encoding         : 65001
 
-Date: 2017-07-24 22:39:14
+Date: 2017-07-25 21:28:14
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -106,6 +106,46 @@ CREATE TABLE `compromiso_social` (
 INSERT INTO `compromiso_social` VALUES ('1', '2.jpg', '<p>Trading Company S.A., es una empresa joven que prioriza la calidad en sus servicios en el mercado paraguayo, siguiendo los parámetros internacionales de sus proveedores, asumiendo un rol formador de conciencia, tanto en las personas que conforman nuestro día-a-día como aquellas a quienes apuntamos siempre como la razón del trabajo arduo: el consumidor final. Aportando en la formación profesional de los agentes de transformación que forman la Familia Panamá, es nuestro ideal que esta tendencia de búsqueda del bienestar general de las personas y del cuidado al medio ambiente sea siempre la meta y la prioridad en el desarrollo de nuestras labores.</p>', null, '1', 'Trabajá con Nosotros', '<p>Formá parte de la base de datos de empleos de Panamá</p>', 'Enviá tu CV');
 
 -- ----------------------------
+-- Table structure for `contacto`
+-- ----------------------------
+DROP TABLE IF EXISTS `contacto`;
+CREATE TABLE `contacto` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(60) NOT NULL,
+  `email` varchar(60) DEFAULT NULL,
+  `telefono` varchar(60) DEFAULT NULL,
+  `id_contacto_formulario` int(11) unsigned DEFAULT NULL,
+  `mensaje` text,
+  `fecha` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of contacto
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `contacto_formulario`
+-- ----------------------------
+DROP TABLE IF EXISTS `contacto_formulario`;
+CREATE TABLE `contacto_formulario` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `descripcion` varchar(60) NOT NULL,
+  `email` varchar(60) NOT NULL,
+  `estado` int(1) unsigned NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of contacto_formulario
+-- ----------------------------
+INSERT INTO `contacto_formulario` VALUES ('1', 'Ventas', 'ventas@panama.com.py', '1');
+INSERT INTO `contacto_formulario` VALUES ('2', 'Soporte', 'soporte@panama.com.py', '1');
+INSERT INTO `contacto_formulario` VALUES ('3', 'Cobranzas', 'cobranzas@panama.com.py', '1');
+INSERT INTO `contacto_formulario` VALUES ('4', 'Marketing', 'marketing@panama.com.py', '1');
+INSERT INTO `contacto_formulario` VALUES ('5', 'Otro', 'contacto@panama.com.py', '1');
+
+-- ----------------------------
 -- Table structure for `la_empresa`
 -- ----------------------------
 DROP TABLE IF EXISTS `la_empresa`;
@@ -192,6 +232,22 @@ CREATE TABLE `mision` (
 INSERT INTO `mision` VALUES ('1', '2.jpg', '<p>La Misión de Panamá Representaciones, es poner a disposición de los consumidores de la comunidad y del país, productos de consumo masivo que, por su calidad, garantía de presencia permanente y respaldo de sus marcas, puedan satisfacer plenamente todas sus necesidades. Por esto, la empresa comercializa productos acabados y servicios que le permitan crear, desarrollar y mejorar los servicios y atención ya conocidos, buscando el permanente liderazgo a través de la conquista del gusto y preferencia de los consumidores. Construyendo una imagen de confiabilidad y afianzando los valores morales, éticos, de honestidad y seriedad en la relación con los proveedores, socios y funcionarios dependientes, trabajando con profesionalismo y desarrollando vínculos sostenibles con clientes en la búsqueda constante del progreso. Con el ideal de acompañar la evolución del mercado y aprovechar las oportunidades, movidos por una constante vocación de crecimiento, la empresa se desarrolla en base a la capitalización de las habilidades distintivas de sus colaboradores. Se propone a seguir creciendo en los negocios actuales y enaltecer las marcas que representa, diversificando las estrategias de trabajo, con el afán de lograr mayores dividendos a sus accionistas, mejorar la calidad de vida de sus colabores y sus familiar y contribuir al progreso del país.</p>', null, '1', 'Trabajá con Nosotros', '<p>Formá parte de la base de datos de empleos de Panamá</p>', 'Enviá tu CV');
 
 -- ----------------------------
+-- Table structure for `newsletter`
+-- ----------------------------
+DROP TABLE IF EXISTS `newsletter`;
+CREATE TABLE `newsletter` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(120) DEFAULT NULL,
+  `email` varchar(120) NOT NULL,
+  `fecha` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of newsletter
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for `producto`
 -- ----------------------------
 DROP TABLE IF EXISTS `producto`;
@@ -244,6 +300,34 @@ INSERT INTO `producto_imagen` VALUES ('6', '6', 'ype_jabon_en_barra_glicerinado_
 INSERT INTO `producto_imagen` VALUES ('7', '7', 'ype_jabon_en_barra_glicerinado_perfumado_fresh.jpg', '1', '1');
 INSERT INTO `producto_imagen` VALUES ('8', '8', 'ype_jabon_en_barra_glicerinado_perfumado_fresh_200g.jpg', '1', '1');
 INSERT INTO `producto_imagen` VALUES ('9', '9', 'ype_jabon_en_barra_coco_con_toque_de_avena.jpg', '1', '1');
+
+-- ----------------------------
+-- Table structure for `redes`
+-- ----------------------------
+DROP TABLE IF EXISTS `redes`;
+CREATE TABLE `redes` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `descripcion` varchar(60) NOT NULL,
+  `imagen_fav` varchar(80) NOT NULL,
+  `enlace` varchar(120) NOT NULL,
+  `estado` int(1) unsigned NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of redes
+-- ----------------------------
+INSERT INTO `redes` VALUES ('1', 'Facebbok', 'fa fa-facebook', '#', '1');
+INSERT INTO `redes` VALUES ('2', 'Twitter', 'fa fa-twitter', '#', '1');
+INSERT INTO `redes` VALUES ('3', 'Instagram', 'fa fa-instagram', '#', '1');
+INSERT INTO `redes` VALUES ('4', 'Linkedin', 'fa fa-linkedin', '#', '0');
+INSERT INTO `redes` VALUES ('5', 'YouTube', 'fa fa-youtube', '#', '0');
+INSERT INTO `redes` VALUES ('6', 'Google Plus', 'fa fa-google-plus', '#', '0');
+INSERT INTO `redes` VALUES ('7', 'Flickr', 'fa fa-flickr', '#', '0');
+INSERT INTO `redes` VALUES ('8', 'Foursquare', 'fa fa-foursquare', '#', '0');
+INSERT INTO `redes` VALUES ('9', 'DropBox', 'fa fa-dropbox', '#', '0');
+INSERT INTO `redes` VALUES ('10', 'Pinterest', 'fa fa-pinterest', '#', '0');
+INSERT INTO `redes` VALUES ('11', 'Vimeo', 'fa fa-vimeo-square', '#', '0');
 
 -- ----------------------------
 -- Table structure for `site_config`
