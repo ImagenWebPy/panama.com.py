@@ -36,7 +36,16 @@ $generalInfo = $helper->getSiteConfig();
                     echo $_SESSION['result']['message'];
                 }
                 ?>
-                <h2>Envíanos tus datos y adjuntá tu CV</h2>
+                <h2 id="h2EnviaCV">Envíanos tus datos y adjuntá tu CV</h2>
+                <div class="col-lg-7 col-md-7" style="padding: 15px;" id="displayErrorsContact">
+                    <ul class="no-style" id="listErrorsContact">
+                        <li id="liErrorNombre" style="display: none;"><i class="glyphicon glyphicon-ok-sign color-primary"></i> Por favor ingrese su nombre.</li>
+                        <li id="liErrorEmail" style="display: none;"><i class="glyphicon glyphicon-ok-sign color-primary"></i> Por favor ingrese su email.</li>
+                        <li id="liErrorEmailCorrect" style="display: none;"><i class="glyphicon glyphicon-ok-sign color-primary"></i> Por favor ingrese una dirección de email válida. </li>
+                        <li id="liErrorMensaje" style="display: none;"><i class="glyphicon glyphicon-ok-sign color-primary"></i> Por favor ingrese un Mensaje. </li>
+                        <li id="liErrorArchivo" style="display: none;"><i class="glyphicon glyphicon-ok-sign color-primary"></i> Por favor agregue su C.V. </li>
+                    </ul>
+                </div>
                 <!-- Simplex Ajax Contact Form Pro start //-->
                 <form id="simplexform" class="simplexform" role="form" action="<?= URL; ?>trabaja_con_nosotros/subir_datos" method="post" enctype="multipart/form-data">
                     <div id="result"></div>
@@ -65,7 +74,7 @@ $generalInfo = $helper->getSiteConfig();
                         </script> 
                         <br />
                         <div class="acm-field submitbtn">
-                            <button type="submit" name="submit" id="submit"><i class="glyphicon glyphicon-envelope"></i> Enviar</button>
+                            <button type="submit" id="btn-SubmitCV"><i class="glyphicon glyphicon-envelope"></i> Enviar</button>
                             <div class="loader"></div>
                         </div>
                     </div>
@@ -85,17 +94,11 @@ $generalInfo = $helper->getSiteConfig();
                             </p>
                             <p>
                                 <i class="glyphicon glyphicon-earphone"></i>
-
                                 <?= utf8_encode($generalInfo['telefono_footer']); ?>
-
                             </p>
-
                             <p>
-
                                 <i class="glyphicon glyphicon-envelope"></i>
-
                                 <?= utf8_encode($generalInfo['email_footer']); ?>
-
                             </p>
                         </div>
                     </aside>
@@ -124,3 +127,51 @@ $generalInfo = $helper->getSiteConfig();
         </div>
     </div>
 </section>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#btn-SubmitCV").click(function (e) {
+            if (e.handled !== true) // This will prevent event triggering more then once
+            {
+                e.preventDefault();
+                var nombre = $("input[name=cname]");
+                var email = $("input[name=email]");
+                var mensaje = $("textarea[name=message]");
+                var archivo = $("input[name=file_1]");
+                if (nombre.val().trim().length == 0) {
+                    $("#liErrorNombre").css('display', 'block');
+                    navigationFn.goToSection('#h2EnviaCV');
+                } else {
+                    $("#liErrorNombre").css('display', 'none');
+                }
+                if (email.val().trim().length == 0) {
+                    $("#liErrorEmail").css('display', 'block');
+                } else {
+                    $("#liErrorEmail").css('display', 'none');
+                    navigationFn.goToSection('#h2EnviaCV');
+                }
+
+                if (archivo.val().trim().length == 0) {
+                    $("#liErrorArchivo").css('display', 'block');
+                    navigationFn.goToSection('#h2EnviaCV');
+                } else {
+                    $("#liErrorArchivo").css('display', 'none');
+                }
+                if (mensaje.val().trim().length == 0) {
+                    $("#liErrorMensaje").css('display', 'block');
+                    navigationFn.goToSection('#h2EnviaCV');
+                } else {
+                    $("#liErrorMensaje").css('display', 'none');
+                }
+                if (nombre.val().trim().length > 0 && email.val().trim().length > 0 && archivo.val().trim().length > 0 && mensaje.val().trim().length > 0) {
+                    var existeEmail = isEmail(email.val());
+                    if (existeEmail == true) {
+                        $('form#simplexform').submit();
+                    } else {
+                        $("#liErrorEmailCorrect").css('display', 'block');
+                    }
+                }
+            }
+            e.handled = true;
+        });
+    });
+</script>

@@ -42,3 +42,5 @@ input[type="week"]:focus {
 .listadoImagenes{width: 250px; height: 170px;}
 .pricing-3 thead th {border-bottom: 3px solid #D60006 !important;}
 .map{ width: 250px; height: 250px;}
+#listErrorsContact { padding: 30px;}
+#listErrorsContact li { font-weight: bold; color: red;}

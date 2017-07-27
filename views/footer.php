@@ -114,6 +114,7 @@ $siteInfo = $helper->getSiteConfig();
 <!-- Tipso JS-->
 <script src="<?= JS; ?>tipso.min.js" type="text/javascript"></script>
 <script src="<?= JS; ?>magnis.js" type="text/javascript"></script>
+<script src="<?= JS; ?>custom.js" type="text/javascript"></script>
 <?php
 switch ($paginaActual[0]):
     case 'empresa':

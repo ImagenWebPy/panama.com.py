@@ -2,9 +2,14 @@
 $helper = new Helper();
 $datosSelect = $helper->getFormularioContacto();
 ?>
-<div class="col-lg-6 col-md-6" style="padding: 15px;" id="displayErrorsContact">
+<div class="col-lg-7 col-md-7" style="padding: 15px;" id="displayErrorsContact">
+    <input type="hidden" id="topInput" value="focus">
     <ul class="no-style" id="listErrorsContact">
-
+        <li id="liErrorNombre" style="display: none;"><i class="glyphicon glyphicon-ok-sign color-primary"></i> Por favor ingrese su nombre.</li>
+        <li id="liErrorEmail" style="display: none;"><i class="glyphicon glyphicon-ok-sign color-primary"></i> Por favor ingrese su email.</li>
+        <li id="liErrorEmailCorrect" style="display: none;"><i class="glyphicon glyphicon-ok-sign color-primary"></i> Por favor ingrese una dirección de email válida. </li>
+        <li id="liErrorSeccion" style="display: none;"><i class="glyphicon glyphicon-ok-sign color-primary"></i> Por favor seleccione una sección a la cual contactar. </li>
+        <li id="liErrorMensaje" style="display: none;"><i class="glyphicon glyphicon-ok-sign color-primary"></i> Por favor ingrese un Mensaje. </li>
     </ul>
 </div>
 <form name="simplexform" id="simplexform" class="simplexform" action="<?= URL; ?>contacto/enviar" method="post" enctype="multipart/form-data">
@@ -54,7 +59,7 @@ $datosSelect = $helper->getFormularioContacto();
         </div>
         <br />
         <div class="acm-field submitbtn">
-            <button type="submit" name="submit" id="btn_frmContacto"><i class="glyphicon glyphicon-envelope"></i> Enviar</button>
+            <button type="submit" id="btn_frmContacto"><i class="glyphicon glyphicon-envelope"></i> Enviar</button>
             <div class="loader"></div>
         </div>
     </div>
@@ -68,32 +73,40 @@ $datosSelect = $helper->getFormularioContacto();
                 var nombre = $("input[name=cname]");
                 var email = $("input[name=email]");
                 var telefono = $("input[name=phone]");
-                var seccion = $("input[name=subject]");
-                var mensaje = $("input[name=message]");
-                var validacion = $("#listErrorsContact");
-                var error = $("#displayErrorsContact");
+                var seccion = $("select[name=subject]");
+                var mensaje = $("textarea[name=message]");
                 if (nombre.val().trim().length == 0) {
-                    error.focus();
-                    validacion.append('<li id="liErrorNombre"><i class="glyphicon glyphicon-ok-sign color-primary"></i> Por favor complete su nombre</li>');
+                    $("#liErrorNombre").css('display', 'block');
+                    navigationFn.goToSection('#h2EnviarMensaje');
                 } else {
-                    $("#liErrorNombre").remove();
+                    $("#liErrorNombre").css('display', 'none');
                 }
                 if (email.val().trim().length == 0) {
-                    error.focus();
-                    validacion.append('<li id="liErrorEmail"><i class="glyphicon glyphicon-ok-sign color-primary"></i> Por favor complete su Email</li>');
+                    $("#liErrorEmail").css('display', 'block');
                 } else {
-                    $("#liErrorEmail").remove();
+                    $("#liErrorEmail").css('display', 'none');
+                    navigationFn.goToSection('#h2EnviarMensaje');
                 }
-                if (seccion.val().trim().length == 0) {
 
+                if (seccion.val().trim().length == 0) {
+                    $("#liErrorSeccion").css('display', 'block');
+                    navigationFn.goToSection('#h2EnviarMensaje');
                 } else {
-                    seccion.css("border", "1px solid #ededed;");
+                    $("#liErrorSeccion").css('display', 'none');
                 }
                 if (mensaje.val().trim().length == 0) {
-                    mensaje.css("border", "3px solid red;");
-                    mensaje.focus();
+                    $("#liErrorMensaje").css('display', 'block');
+                    navigationFn.goToSection('#h2EnviarMensaje');
                 } else {
-                    mensaje.css("border", "1px solid #ededed;");
+                    $("#liErrorMensaje").css('display', 'none');
+                }
+                if (nombre.val().trim().length > 0 && email.val().trim().length > 0 && seccion.val().trim().length > 0 && mensaje.val().trim().length > 0) {
+                    var existeEmail = isEmail(email.val());
+                    if (existeEmail == true) {
+                        $('form#simplexform').submit();
+                    } else {
+                        $("#liErrorEmailCorrect").css('display', 'block');
+                    }
                 }
             }
             e.handled = true;

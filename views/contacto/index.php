@@ -36,7 +36,7 @@ $generalInfo = $helper->getSiteConfig();
                 }
                 ?>
                 <!-- Page content start //-->
-                <h2>Envianos un mensaje</h2>
+                <h2 id="h2EnviarMensaje">Envianos un mensaje</h2>
                 <!-- Simplex Ajax Contact Form Pro start //-->
                 <div class="simplexformelements" id="pages-contact-form"></div>
                 <!-- Simplex Ajax Contact Form Pro end //-->
