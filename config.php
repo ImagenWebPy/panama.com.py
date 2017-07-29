@@ -10,6 +10,7 @@ switch ($host) {
     case '192.168.0.25':
         #CENTOS DESA
         define('URL', 'http://192.168.0.25/panama.com.py/');
+        define('URL_ADMIN', 'http://192.168.0.25/panama.com.py/admin/dashboard/');
         define('DB_NAME', 'panamaDB');
         define('DB_USER', 'root');
         define('DB_PASS', '2544386');
@@ -17,24 +18,28 @@ switch ($host) {
     case 'imagenwebhq.com':
         #CENTOS DESA
         define('URL', 'https://imagenwebhq.com/panama/');
+        define('URL_ADMIN', 'https://imagenwebhq.com/panama/admin/dashboard/');
         define('DB_NAME', 'raulimag_panama');
         define('DB_USER', 'raulimag_panama');
         define('DB_PASS', 'E0DQiK2fSB^%EZC+');
         break;
     case 'www.panama.com.py':
         define('URL', 'http://www.panama.com.py/');
+        define('URL_ADMIN', 'http://www.panama.com.py/admin/dashboard/');
         define('DB_NAME', 'panama');
         define('DB_USER', 'root');
         define('DB_PASS', '2544386');
         break;
     case '13.58.71.6':
         define('URL', 'http://13.58.71.6/panama.com.py/');
+        define('URL_ADMIN', 'http://13.58.71.6/panama.com.py/admin/dashboard/');
         define('DB_NAME', 'panama');
         define('DB_USER', 'web_desa');
         define('DB_PASS', 'DesaIWEB123321');
         break;
     case 'localhost':
         define('URL', 'http://localhost/panama.com.py/');
+        define('URL_ADMIN', 'http://localhost/panama.com.py/admin/dashboard/');
         define('DB_NAME', 'panama');
         define('DB_USER', 'root');
         define('DB_PASS', '');
@@ -56,9 +61,11 @@ define('HASH_PASSWORD_KEY', '!@123456789ABCDEFGHIJKLMNOPRSTWYZ[¿]{?}<->');
 
 //CONFIGURACIONES VARIAS DEL SITIO
 define('SITE_TITLE', 'Panamá Representaciones :: ');
+define('ADMIN_TITLE', 'Administrador :: ');
 define('IMG', URL . 'public/img/');
 define('CSS', URL . 'public/css/');
 define('JS', URL . 'public/js/');
+define('ADMIN', URL . 'public/admin/');
 define('REG', 20); //cantidad de registros por pagina
 
 /**
