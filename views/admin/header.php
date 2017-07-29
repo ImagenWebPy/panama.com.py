@@ -9,10 +9,11 @@
         <!-- Bootstrap 3.3.6 -->
         <link rel="stylesheet" href="<?= ADMIN; ?>bootstrap/css/bootstrap.min.css">
         <!-- Font Awesome -->
-        <link rel="stylesheet" href="<?= CSS; ?>font-awesome.min.css">
+        <link rel="stylesheet" href="<?= ADMIN; ?>plugins/font-awesome/css/font-awesome.min.css">
         <!-- Theme style -->
         <link rel="stylesheet" href="<?= ADMIN; ?>dist/css/AdminLTE.min.css">
         <link rel="stylesheet" href="<?= ADMIN; ?>dist/css/skins/skin-blue.min.css">
+        <link rel="stylesheet" href="<?= ADMIN; ?>dist/css/custom.css">
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -37,35 +38,37 @@
                     <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
                         <span class="sr-only">Toggle navigation</span>
                     </a>
+                    <div class="col-xs-2">
+                        <span><img src="<?= IMG; ?>logo.png" class="logoHeader"></span>
+                    </div>  
                     <div class="navbar-custom-menu">
                         <ul class="nav navbar-nav">
                             <!-- User Account: style can be found in dropdown.less -->
                             <li class="dropdown user user-menu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                                    <span class="hidden-xs">Alexander Pierce</span>
+                                    <?php
+                                    $user_img = (!empty($_SESSION['usuario']['imagen'])) ? $_SESSION['usuario']['imagen'] : 'profile-icon.jpg';
+                                    ?>
+                                    <img src="<?= IMG . $user_img; ?>" class="user-image" alt="User Image">
+                                    <span class="hidden-xs"><?= $_SESSION['usuario']['nombre']; ?></span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <!-- User image -->
                                     <li class="user-header">
-                                        <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-                                        <p>Alexander Pierce - Web Developer</p>
+                                        <img src="<?= IMG . $user_img; ?>" class="img-circle" alt="User Image">
+                                        <p><?= $_SESSION['usuario']['nombre'] . ' - ' . $_SESSION['usuario']['permiso'] ?></p>
                                     </li>
                                     <!-- Menu Body -->
                                     <!-- Menu Footer-->
                                     <li class="user-footer">
                                         <div class="pull-left">
-                                            <a href="#" class="btn btn-default btn-flat">Perfil</a>
+                                            <a href="#" class="btn btn-default btn-flat"><i class="fa fa-user" aria-hidden="true"></i> Perfil</a>
                                         </div>
                                         <div class="pull-right">
-                                            <a href="#" class="btn btn-default btn-flat">Salir</a>
+                                            <a href="<?= URL; ?>login/salir" class="btn btn-danger btn-flat"><i class="fa fa-sign-out" aria-hidden="true"></i> Salir</a>
                                         </div>
                                     </li>
                                 </ul>
-                            </li>
-                            <!-- Control Sidebar Toggle Button -->
-                            <li>
-                                <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
                             </li>
                         </ul>
                     </div>
@@ -78,7 +81,28 @@
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu">
                         <li class="header">NAVEGACION PRINCIPAL</li>
-                        <li class="active"><a href="#"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+                        <li class="active"><a href="<?= URL_ADMIN; ?>"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+                        <li class="treeview">
+                            <a href="#"><i class="fa fa-building" aria-hidden="true"></i></i><span>Empresa</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
+                            <ul class="treeview-menu">
+                                <li><a href="#"><i class="fa fa-circle-o"></i> La Empresa</a></li>
+                                <li><a href="#"><i class="fa fa-circle-o"></i> Misión</a></li>
+                                <li><a href="#"><i class="fa fa-circle-o"></i> Compromiso Social</a></li>
+                            </ul>
+                        </li>
+                        <li class="treeview">
+                            <a href="#"><i class="fa fa-shopping-bag" aria-hidden="true"></i></i><span>Productos</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
+                            <ul class="treeview-menu">
+                                <li><a href="#"><i class="fa fa-circle-o"></i> Marcas</a></li>
+                                <li><a href="#"><i class="fa fa-circle-o"></i> Categorías</a></li>
+                                <li><a href="#"><i class="fa fa-circle-o"></i> Productos</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#"><i class="fa fa-map-marker"></i> <span>Sucursales</span></a></li>
+                        <li><a href="#"><i class="fa fa-rss"></i> <span>Blog</span></a></li>
+                        <li><a href="#"><i class="fa fa-users"></i> <span>Trabaja con Nosotros</span></a></li>
+                        <li><a href="#"><i class="fa fa-envelope-o"></i> <span>Contacto</span></a></li>
+                        <li><a href="#"><i class="fa fa-user"></i> <span>Usuarios</span></a></li>
                     </ul>
                 </section>
                 <!-- /.sidebar -->

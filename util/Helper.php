@@ -443,4 +443,12 @@ class Helper {
         return $sql[0];
     }
 
+    public function getPermisosUsuario($id) {
+        $sql = $this->db->select("SELECT aup.id_permiso, ap.descripcion as permiso
+                                FROM admin_usuario_permiso aup 
+                                LEFT JOIN admin_permiso ap on ap.id = aup.id_permiso
+                                where id_usuario = $id;");
+        return $sql[0];
+    }
+
 }

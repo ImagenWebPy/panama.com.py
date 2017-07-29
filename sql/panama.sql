@@ -10,10 +10,67 @@ Target Server Type    : MYSQL
 Target Server Version : 50714
 File Encoding         : 65001
 
-Date: 2017-07-25 21:28:14
+Date: 2017-07-29 12:55:03
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for `admin_permiso`
+-- ----------------------------
+DROP TABLE IF EXISTS `admin_permiso`;
+CREATE TABLE `admin_permiso` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `descripcion` varchar(80) NOT NULL,
+  `estado` int(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of admin_permiso
+-- ----------------------------
+INSERT INTO `admin_permiso` VALUES ('1', 'Administrador', '1');
+INSERT INTO `admin_permiso` VALUES ('2', 'Editor', '1');
+INSERT INTO `admin_permiso` VALUES ('3', 'Redactor', '1');
+
+-- ----------------------------
+-- Table structure for `admin_usuario`
+-- ----------------------------
+DROP TABLE IF EXISTS `admin_usuario`;
+CREATE TABLE `admin_usuario` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(80) DEFAULT NULL,
+  `email` varchar(120) NOT NULL,
+  `password` varchar(120) NOT NULL,
+  `imagen` varchar(145) DEFAULT NULL,
+  `estado` int(1) unsigned NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of admin_usuario
+-- ----------------------------
+INSERT INTO `admin_usuario` VALUES ('1', 'Raúl Ramírez', 'raul.ramirez@imagenwebhq.com', '35077063093736d9c00a46b7325ebc968179dab0dea4c8387ff65a9b4848c15e', null, '1');
+
+-- ----------------------------
+-- Table structure for `admin_usuario_permiso`
+-- ----------------------------
+DROP TABLE IF EXISTS `admin_usuario_permiso`;
+CREATE TABLE `admin_usuario_permiso` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id_usuario` int(11) unsigned NOT NULL,
+  `id_permiso` int(11) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_id_usuario_up` (`id_usuario`),
+  KEY `fk_id_permiso` (`id_permiso`),
+  CONSTRAINT `fk_id_permiso` FOREIGN KEY (`id_permiso`) REFERENCES `admin_permiso` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `fk_id_usuario_up` FOREIGN KEY (`id_usuario`) REFERENCES `admin_usuario` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of admin_usuario_permiso
+-- ----------------------------
+INSERT INTO `admin_usuario_permiso` VALUES ('1', '1', '1');
 
 -- ----------------------------
 -- Table structure for `blog`
@@ -28,7 +85,7 @@ CREATE TABLE `blog` (
   `fecha` datetime DEFAULT NULL,
   `estado` int(1) unsigned DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of blog
@@ -117,6 +174,7 @@ CREATE TABLE `contacto` (
   `id_contacto_formulario` int(11) unsigned DEFAULT NULL,
   `mensaje` text,
   `fecha` datetime DEFAULT NULL,
+  `estado` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
