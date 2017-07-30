@@ -10,13 +10,30 @@
 </div>
 <!-- ./wrapper -->
 
-<!-- jQuery 2.2.3 -->
-<script src="<?= ADMIN; ?>plugins/jQuery/jquery-2.2.3.min.js"></script>
+
 <!-- Bootstrap 3.3.6 -->
 <script src="<?= ADMIN; ?>bootstrap/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
 <script src="<?= ADMIN; ?>dist/js/app.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?= ADMIN; ?>dist/js/demo.js"></script>
+<?php
+#cargamos los js de las vistas
+if (isset($this->external_js)) {
+    foreach ($this->external_js as $external) {
+        echo '<script async defer src="' . $external . '"></script>';
+    }
+}
+if (isset($this->public_js)) {
+    foreach ($this->public_js as $public_js) {
+        echo '<script type="text/javascript" src="' . URL . 'public/admin/' . $public_js . '"></script>';
+    }
+}
+if (isset($this->js)) {
+    foreach ($this->js as $js) {
+        echo '<script type="text/javascript" src="' . URL . 'views/admin' . $js . '"></script>';
+    }
+}
+?>
 </body>
 </html>

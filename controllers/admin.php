@@ -18,4 +18,29 @@ class Admin extends Controller {
         $this->view->render('admin/dashboard/index');
         $this->view->render('admin/footer');
     }
+    
+     public function portada() {
+        $this->view->public_css = array("plugins/html5fileupload/html5fileupload.css");
+        $this->view->publicHeader_js = array("plugins/html5fileupload/html5fileupload.min.js");
+        $this->view->public_js = array("plugins/ckeditor/ckeditor.js", "plugins/html5fileupload/html5fileupload.min.js");
+        $this->view->getLaEmpresa = $this->model->getLaEmpresa();
+        $this->view->title = 'Pagina de Inicio';
+        $this->view->render('admin/header');
+        $this->view->render('admin/portada/index');
+        $this->view->render('admin/footer');
+    }
+    
+    public function laempresa() {
+        $this->view->public_css = array("plugins/html5fileupload/html5fileupload.css");
+        $this->view->publicHeader_js = array("plugins/html5fileupload/html5fileupload.min.js");
+        $this->view->public_js = array("plugins/ckeditor/ckeditor.js", "plugins/html5fileupload/html5fileupload.min.js");
+        $this->view->getLaEmpresa = $this->model->getLaEmpresa();
+        $this->view->title = 'La Empresa';
+        $this->view->render('admin/header');
+        $this->view->render('admin/laempresa/index');
+        $this->view->render('admin/footer');
+    }
+    
+   
+
 }

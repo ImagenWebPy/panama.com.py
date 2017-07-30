@@ -420,22 +420,4 @@ if (isset($this->js)) {
     }
 }
 ?>
-<?php
-#cargamos los js de las vistas
-if (isset($this->external_js)) {
-    foreach ($this->external_js as $external) {
-        echo '<script async defer src="' . $external . '"></script>';
-    }
-}
-if (isset($this->public_js)) {
-    foreach ($this->public_js as $public_js) {
-        echo '<script type="text/javascript" src="' . URL . 'public/' . $public_js . '"></script>';
-    }
-}
-if (isset($this->js)) {
-    foreach ($this->js as $js) {
-        echo '<script type="text/javascript" src="' . URL . 'views/' . $js . '"></script>';
-    }
-}
-?>
 </html>

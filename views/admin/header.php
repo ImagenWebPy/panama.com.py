@@ -20,6 +20,29 @@
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
+        <?php
+        #cargamos los css de las vistas
+        if (isset($this->css)) {
+            foreach ($this->css as $css) {
+                echo '<link rel="stylesheet" href="' . URL . 'views/admin/' . $css . '" type="text/css">';
+            }
+        }
+        if (isset($this->public_css)) {
+            foreach ($this->public_css as $public_css) {
+                echo '<link rel="stylesheet" href="' . URL . 'public/admin/' . $public_css . '" type="text/css">';
+            }
+        }
+        ?>
+        <!-- jQuery 2.2.3 -->
+        <script src="<?= ADMIN; ?>plugins/jQuery/jquery-2.2.3.min.js"></script>
+        <?php
+        if (isset($this->publicHeader_js)) {
+            foreach ($this->publicHeader_js as $public_js) {
+                echo '<script type="text/javascript" src="' . URL . 'public/admin/' . $public_js . '"></script>';
+            }
+        }
+        ?>
+
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
         <div class="wrapper">
@@ -82,10 +105,11 @@
                     <ul class="sidebar-menu">
                         <li class="header">NAVEGACION PRINCIPAL</li>
                         <li class="active"><a href="<?= URL_ADMIN; ?>"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+                        <li><a href="<?= URL_ADMIN; ?>portada"><i class="fa fa-home"></i> <span>Inicio</span></a></li>
                         <li class="treeview">
                             <a href="#"><i class="fa fa-building" aria-hidden="true"></i></i><span>Empresa</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
                             <ul class="treeview-menu">
-                                <li><a href="#"><i class="fa fa-circle-o"></i> La Empresa</a></li>
+                                <li><a href="<?= URL_ADMIN ?>laempresa"><i class="fa fa-circle-o"></i> La Empresa</a></li>
                                 <li><a href="#"><i class="fa fa-circle-o"></i> Misión</a></li>
                                 <li><a href="#"><i class="fa fa-circle-o"></i> Compromiso Social</a></li>
                             </ul>
