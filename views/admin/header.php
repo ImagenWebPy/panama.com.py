@@ -110,23 +110,23 @@
                             <a href="#"><i class="fa fa-building" aria-hidden="true"></i></i><span>Empresa</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
                             <ul class="treeview-menu">
                                 <li><a href="<?= URL_ADMIN ?>laempresa"><i class="fa fa-circle-o"></i> La Empresa</a></li>
-                                <li><a href="#"><i class="fa fa-circle-o"></i> Misión</a></li>
-                                <li><a href="#"><i class="fa fa-circle-o"></i> Compromiso Social</a></li>
+                                <li><a href="<?= URL_ADMIN ?>mision"><i class="fa fa-circle-o"></i> Misión</a></li>
+                                <li><a href="<?= URL_ADMIN ?>comprimiso_social"><i class="fa fa-circle-o"></i> Compromiso Social</a></li>
                             </ul>
                         </li>
                         <li class="treeview">
                             <a href="#"><i class="fa fa-shopping-bag" aria-hidden="true"></i></i><span>Productos</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
                             <ul class="treeview-menu">
-                                <li><a href="#"><i class="fa fa-circle-o"></i> Marcas</a></li>
-                                <li><a href="#"><i class="fa fa-circle-o"></i> Categorías</a></li>
-                                <li><a href="#"><i class="fa fa-circle-o"></i> Productos</a></li>
+                                <li><a href="<?= URL_ADMIN ?>marcas"><i class="fa fa-circle-o"></i> Marcas</a></li>
+                                <li><a href="<?= URL_ADMIN ?>categorias"><i class="fa fa-circle-o"></i> Categorías</a></li>
+                                <li><a href="<?= URL_ADMIN ?>productos"><i class="fa fa-circle-o"></i> Productos</a></li>
                             </ul>
                         </li>
-                        <li><a href="#"><i class="fa fa-map-marker"></i> <span>Sucursales</span></a></li>
-                        <li><a href="#"><i class="fa fa-rss"></i> <span>Blog</span></a></li>
-                        <li><a href="#"><i class="fa fa-users"></i> <span>Trabaja con Nosotros</span></a></li>
-                        <li><a href="#"><i class="fa fa-envelope-o"></i> <span>Contacto</span></a></li>
-                        <li><a href="#"><i class="fa fa-user"></i> <span>Usuarios</span></a></li>
+                        <li><a href="<?= URL_ADMIN ?>sucursales"><i class="fa fa-map-marker"></i> <span>Sucursales</span></a></li>
+                        <li><a href="<?= URL_ADMIN ?>blog"><i class="fa fa-rss"></i> <span>Blog</span></a></li>
+                        <li><a href="<?= URL_ADMIN ?>trabaja"><i class="fa fa-users"></i> <span>Trabaja con Nosotros</span></a></li>
+                        <li><a href="<?= URL_ADMIN ?>contacto"><i class="fa fa-envelope-o"></i> <span>Contacto</span></a></li>
+                        <li><a href="<?= URL_ADMIN ?>usuario"><i class="fa fa-user"></i> <span>Usuarios</span></a></li>
                     </ul>
                 </section>
                 <!-- /.sidebar -->

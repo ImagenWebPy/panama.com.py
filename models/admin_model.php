@@ -47,4 +47,28 @@ class Admin_Model extends Model {
         return $sql[0];
     }
 
+    public function getMision() {
+        $sql = $this->db->select("select * from mision where id = 1");
+        return $sql[0];
+    }
+
+    public function getCompromiso() {
+        $sql = $this->db->select("select * from compromiso_social where id = 1");
+        return $sql[0];
+    }
+
+    public function cargarDTMarcas() {
+        $datos = array();
+        $sql = $this->db->select('select * from marca');
+        foreach ($sql as $item) {
+            array_push($datos, array(
+                'descripcion' => utf8_encode($item['descripcion']),
+                'img' => utf8_encode($item['img']),
+                'accion' => utf8_encode($item['id'])
+            ));
+        }
+        $json = '{"data": ' . json_encode($datos) . '}';
+        return $json;
+    }
+
 }

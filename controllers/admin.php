@@ -5,7 +5,6 @@ class Admin extends Controller {
     function __construct() {
         parent::__construct();
         Auth::handleLogin();
-        //echo Hash::create('sha256', '25443raul.chucky', HASH_PASSWORD_KEY);
     }
 
     public function index() {
@@ -18,8 +17,8 @@ class Admin extends Controller {
         $this->view->render('admin/dashboard/index');
         $this->view->render('admin/footer');
     }
-    
-     public function portada() {
+
+    public function portada() {
         $this->view->public_css = array("plugins/html5fileupload/html5fileupload.css");
         $this->view->publicHeader_js = array("plugins/html5fileupload/html5fileupload.min.js");
         $this->view->public_js = array("plugins/ckeditor/ckeditor.js", "plugins/html5fileupload/html5fileupload.min.js");
@@ -29,7 +28,7 @@ class Admin extends Controller {
         $this->view->render('admin/portada/index');
         $this->view->render('admin/footer');
     }
-    
+
     public function laempresa() {
         $this->view->public_css = array("plugins/html5fileupload/html5fileupload.css");
         $this->view->publicHeader_js = array("plugins/html5fileupload/html5fileupload.min.js");
@@ -40,7 +39,42 @@ class Admin extends Controller {
         $this->view->render('admin/laempresa/index');
         $this->view->render('admin/footer');
     }
+
+    public function mision() {
+        $this->view->public_css = array("plugins/html5fileupload/html5fileupload.css");
+        $this->view->publicHeader_js = array("plugins/html5fileupload/html5fileupload.min.js");
+        $this->view->public_js = array("plugins/ckeditor/ckeditor.js", "plugins/html5fileupload/html5fileupload.min.js");
+        $this->view->getMision = $this->model->getMision();
+        $this->view->title = 'La Empresa';
+        $this->view->render('admin/header');
+        $this->view->render('admin/laempresa/mision');
+        $this->view->render('admin/footer');
+    }
+
+    public function comprimiso_social() {
+        $this->view->public_css = array("plugins/html5fileupload/html5fileupload.css");
+        $this->view->publicHeader_js = array("plugins/html5fileupload/html5fileupload.min.js");
+        $this->view->public_js = array("plugins/ckeditor/ckeditor.js", "plugins/html5fileupload/html5fileupload.min.js");
+        $this->view->getCompromiso = $this->model->getCompromiso();
+        $this->view->title = 'La Empresa';
+        $this->view->render('admin/header');
+        $this->view->render('admin/laempresa/compromiso');
+        $this->view->render('admin/footer');
+    }
+
+    public function marcas() {
+        $this->view->public_css = array("plugins/datatables/dataTables.bootstrap.css");
+        $this->view->public_js = array("plugins/datatables/jquery.dataTables.min.js", "plugins/datatables/dataTables.bootstrap.min.js");
+        $this->view->title = 'Marcas';
+        $this->view->render('admin/header');
+        $this->view->render('admin/marcas/index');
+        $this->view->render('admin/footer');
+    }
     
-   
+    public function cargarDTMarcas(){
+        header('Content-type: application/json; charset=utf-8');
+        $data = $this->model->cargarDTMarcas();
+        echo $data;
+    }
 
 }

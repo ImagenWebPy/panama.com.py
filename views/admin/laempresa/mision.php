@@ -1,16 +1,16 @@
 <?php
-$laEmpresa = $this->getLaEmpresa;
+$mision = $this->getMision;
 ?>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            La Empresa
+            Misión
             <small>Editar Contenido</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="<?= URL_ADMIN; ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-            <li class="active">La Empresa</li>
+            <li class="active">Misión</li>
         </ol>
     </section>
 
@@ -20,8 +20,8 @@ $laEmpresa = $this->getLaEmpresa;
             <div class="col-md-12">
                 <div class="box box-info">
                     <div class="box-header">
-                        <h3 class="box-title">Contenido Resumido
-                            <small>Pagina de Inicio</small>
+                        <h3 class="box-title">Imagen de la página
+                            <small>Página</small>
                         </h3>
                         <!-- tools box -->
                         <div class="pull-right box-tools">
@@ -32,20 +32,13 @@ $laEmpresa = $this->getLaEmpresa;
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body pad">
-                        <div class="col-md-6">
-                            <form>
-                                <textarea id="editor1" name="resumido" rows="10" cols="80">
-                                    <?= utf8_encode($laEmpresa['contenido_portada']) ?>          
-                                </textarea>
-                            </form>
-                        </div>
-                        <div class="cold-md-6">
+                        <div class="cold-md-12">
                             <form method="POST" action="">
                                 <div class="fields-group-1 groups ">
                                     <div class="group-title">Sube el archivo</div>
                                     <div class="form-group">
-                                        <div class="html5fileupload demo_form uploadFileInput" data-url="<?= URL; ?>admin/upload_image" data-max-filesize="2048000" data-valid-extensions="jpg,jpeg,JPG,JPEG,png,PNG" style="width: 100%;">
-                                            <input type="file" name="resumido" required="required" />
+                                        <div class="html5fileupload demo_form" data-url="<?= URL; ?>admin/upload_image" data-section="laempresa_header" data-max-filesize="2048000" data-valid-extensions="jpg,jpeg,JPG,JPEG,png,PNG" style="width: 100%;">
+                                            <input type="file" name="contenido "required="required" />
                                         </div>
                                     </div>
                                 </div>
@@ -55,7 +48,7 @@ $laEmpresa = $this->getLaEmpresa;
                             </script>
                             <p>&nbsp;</p>
                             <h3>Imagen Actual</h3>
-                            <img src="<?= IMG . $laEmpresa['img_portada']; ?>"style="width: 20% !important;" id="imgPortada">
+                            <img src="<?= IMG . 'bgs/'.$mision['img_header']; ?>"style="width: 100% !important;" id="imgPortada">
                         </div>
                     </div>
                 </div>
@@ -63,6 +56,34 @@ $laEmpresa = $this->getLaEmpresa;
             </div>
             <!-- /.col-->
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-info">
+                    <div class="box-header">
+                        <h3 class="box-title">Contenido Principal
+                            <small>Pagina Misión</small>
+                        </h3>
+                        <!-- tools box -->
+                        <div class="pull-right box-tools">
+                            <button type="button" class="btn btn-info btn-sm" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                <i class="fa fa-minus"></i></button>
+                        </div>
+                        <!-- /. tools -->
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body pad">
+                        <form>
+                            <textarea id="editor1" name="contenido" rows="10" cols="80">
+                                <?= utf8_encode($mision['contenido']) ?>          
+                            </textarea>
+                        </form>
+                    </div>
+                </div>
+                <!-- /.box -->
+            </div>
+            <!-- /.col-->
+        </div>
+        <!-- ./row -->
     </section>
     <!-- /.content -->
 </div>
@@ -70,6 +91,6 @@ $laEmpresa = $this->getLaEmpresa;
     $(function () {
         // Replace the <textarea id="editor1"> with a CKEditor
         // instance, using default configuration.
-        CKEDITOR.replace('resumido');
+        CKEDITOR.replace('contenido');
     });
 </script>
