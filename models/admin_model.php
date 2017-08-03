@@ -61,14 +61,28 @@ class Admin_Model extends Model {
         $datos = array();
         $sql = $this->db->select('select * from marca');
         foreach ($sql as $item) {
+            $id = $item['id'];
+            $img = '<img src="' . IMG . 'marcas/' . $item['img'] . '" class="img-responsive" style="width: 150px;">';
+            $btn = '<a class="btn btn-app pointer btnEditarMarca" data-id="' . $item['id'] . '"><i class="fa fa-edit"></i> Editar</a>';
+            if ($item['estado'] == 1) {
+                $estado = '<a class="pointer btnCambiarEstado" data-id="' . $id . '" data-estado="1"><span class="label label-success">Activo</span></a>';
+            } else {
+                $estado = '<a class="pointer btnCambiarEstado" data-id="' . $id . '" data-estado="0"><span class="label label-danger">Inactivo</span></a>';
+            }
             array_push($datos, array(
                 'descripcion' => utf8_encode($item['descripcion']),
-                'img' => utf8_encode($item['img']),
+                'img' => $img,
+                'estado' => $estado,
                 'accion' => utf8_encode($item['id'])
             ));
         }
         $json = '{"data": ' . json_encode($datos) . '}';
         return $json;
+    }
+
+    public function getSlider() {
+        $sql = $this->db->select("select * from slider order by orden ASC");
+        return $sql;
     }
 
 }

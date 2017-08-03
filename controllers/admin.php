@@ -23,6 +23,7 @@ class Admin extends Controller {
         $this->view->publicHeader_js = array("plugins/html5fileupload/html5fileupload.min.js");
         $this->view->public_js = array("plugins/ckeditor/ckeditor.js", "plugins/html5fileupload/html5fileupload.min.js");
         $this->view->getLaEmpresa = $this->model->getLaEmpresa();
+        $this->view->getSlider = $this->model->getSlider();
         $this->view->title = 'Pagina de Inicio';
         $this->view->render('admin/header');
         $this->view->render('admin/portada/index');

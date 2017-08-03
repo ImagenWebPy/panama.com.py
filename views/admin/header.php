@@ -1,3 +1,69 @@
+<?php
+$helper = new Helper();
+$pagina = $helper->getPage();
+$activeDashboard = '';
+$activePortada = '';
+$activeEmpresa = '';
+$activeMision = '';
+$activeCompromiso = '';
+$activeLaEmpresa = '';
+$activeMarcas = '';
+$activeCategorias = '';
+$activeProductos = '';
+$activeProducto = '';
+$activeSucursales = '';
+$activeBlog = '';
+$activeTrabaja = '';
+$activeContacto = '';
+$activeUsuario = '';
+$seccionActual = (!empty($pagina[1])) ? $pagina[1] : '';
+switch ($seccionActual) {
+    case 'portada':
+        $activePortada = 'active';
+        break;
+    case 'laempresa':
+        $activeEmpresa = 'active';
+        break;
+    case 'mision':
+        $activeEmpresa = 'active';
+        $activeMision = 'active';
+        break;
+    case 'comprimiso_social':
+        $activeLaEmpresa = 'active';
+        $activeCompromiso = 'active';
+        break;
+    case 'marcas':
+        $activeMarcas = 'active';
+        $activeProductos = 'active';
+        break;
+    case 'categorias':
+        $activeCategorias = 'active';
+        $activeProductos = 'active';
+        break;
+    case 'productos':
+        $activeProducto = 'active';
+        $activeProductos = 'active';
+        break;
+    case 'sucursales':
+        $activeSucursales = 'active';
+        break;
+    case 'blog':
+        $activeBlog = 'active';
+        break;
+    case 'trabaja':
+        $activeTrabaja = 'active';
+        break;
+    case 'contacto':
+        $activeContacto = 'active';
+        break;
+    case 'usuario':
+        $activeUsuario = 'active';
+        break;
+    default :
+        $activeDashboard = 'active';
+        break;
+}
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -104,29 +170,29 @@
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu">
                         <li class="header">NAVEGACION PRINCIPAL</li>
-                        <li class="active"><a href="<?= URL_ADMIN; ?>"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+                        <li class="<?= $activeDashboard; ?>"><a href="<?= URL_ADMIN; ?>"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
                         <li><a href="<?= URL_ADMIN; ?>portada"><i class="fa fa-home"></i> <span>Inicio</span></a></li>
-                        <li class="treeview">
+                        <li class="treeview <?= $activeEmpresa; ?>">
                             <a href="#"><i class="fa fa-building" aria-hidden="true"></i></i><span>Empresa</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
                             <ul class="treeview-menu">
-                                <li><a href="<?= URL_ADMIN ?>laempresa"><i class="fa fa-circle-o"></i> La Empresa</a></li>
-                                <li><a href="<?= URL_ADMIN ?>mision"><i class="fa fa-circle-o"></i> Misión</a></li>
-                                <li><a href="<?= URL_ADMIN ?>comprimiso_social"><i class="fa fa-circle-o"></i> Compromiso Social</a></li>
+                                <li class="<?= $activeLaEmpresa; ?>"><a href="<?= URL_ADMIN ?>laempresa"><i class="fa fa-circle-o"></i> La Empresa</a></li>
+                                <li class="<?= $activeMision; ?>"><a href="<?= URL_ADMIN ?>mision"><i class="fa fa-circle-o"></i> Misión</a></li>
+                                <li class="<?= $activeCompromiso; ?>"><a href="<?= URL_ADMIN ?>comprimiso_social"><i class="fa fa-circle-o"></i> Compromiso Social</a></li>
                             </ul>
                         </li>
                         <li class="treeview">
                             <a href="#"><i class="fa fa-shopping-bag" aria-hidden="true"></i></i><span>Productos</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
-                            <ul class="treeview-menu">
-                                <li><a href="<?= URL_ADMIN ?>marcas"><i class="fa fa-circle-o"></i> Marcas</a></li>
-                                <li><a href="<?= URL_ADMIN ?>categorias"><i class="fa fa-circle-o"></i> Categorías</a></li>
-                                <li><a href="<?= URL_ADMIN ?>productos"><i class="fa fa-circle-o"></i> Productos</a></li>
+                            <ul class="<?= $activeProductos; ?> treeview-menu">
+                                <li class="<?= $activeMarcas; ?>"><a href="<?= URL_ADMIN ?>marcas"><i class="fa fa-circle-o"></i> Marcas</a></li>
+                                <li class="<?= $activeCategorias; ?>"><a href="<?= URL_ADMIN ?>categorias"><i class="fa fa-circle-o"></i> Categorías</a></li>
+                                <li class="<?= $activeProducto; ?>"><a href="<?= URL_ADMIN ?>productos"><i class="fa fa-circle-o"></i> Productos</a></li>
                             </ul>
                         </li>
-                        <li><a href="<?= URL_ADMIN ?>sucursales"><i class="fa fa-map-marker"></i> <span>Sucursales</span></a></li>
-                        <li><a href="<?= URL_ADMIN ?>blog"><i class="fa fa-rss"></i> <span>Blog</span></a></li>
-                        <li><a href="<?= URL_ADMIN ?>trabaja"><i class="fa fa-users"></i> <span>Trabaja con Nosotros</span></a></li>
-                        <li><a href="<?= URL_ADMIN ?>contacto"><i class="fa fa-envelope-o"></i> <span>Contacto</span></a></li>
-                        <li><a href="<?= URL_ADMIN ?>usuario"><i class="fa fa-user"></i> <span>Usuarios</span></a></li>
+                        <li class="<?= $activeSucursales; ?>"><a href="<?= URL_ADMIN ?>sucursales"><i class="fa fa-map-marker"></i> <span>Sucursales</span></a></li>
+                        <li class="<?= $activeBlog; ?>"><a href="<?= URL_ADMIN ?>blog"><i class="fa fa-rss"></i> <span>Blog</span></a></li>
+                        <li class="<?= $activeTrabaja; ?>"><a href="<?= URL_ADMIN ?>trabaja"><i class="fa fa-users"></i> <span>Trabaja con Nosotros</span></a></li>
+                        <li class="<?= $activeContacto; ?>"><a href="<?= URL_ADMIN ?>contacto"><i class="fa fa-envelope-o"></i> <span>Contacto</span></a></li>
+                        <li class="<?= $activeUsuario; ?>"><a href="<?= URL_ADMIN ?>usuario"><i class="fa fa-user"></i> <span>Usuarios</span></a></li>
                     </ul>
                 </section>
                 <!-- /.sidebar -->

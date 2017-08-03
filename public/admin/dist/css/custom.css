@@ -1,2 +1,3 @@
 .logoHeader{ display: inline-block; width: 100%; position: relative; top: 10px;}
 .uploadFileInput { width: 50% !important; float: right;}
+.pointer{ cursor: pointer;}

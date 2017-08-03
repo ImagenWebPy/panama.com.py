@@ -24,6 +24,7 @@
                                 <tr>
                                     <th>Marca</th>
                                     <th>Logo</th>
+                                    <th>Estado</th>
                                     <th>Acción</th>
                                 </tr>
                             </thead>
@@ -34,6 +35,7 @@
                                 <tr>
                                     <th>Marca</th>
                                     <th>Logo</th>
+                                    <th>Estado</th>
                                     <th>Acción</th>
                                 </tr>
                             </tfoot>
@@ -62,6 +64,7 @@
             "columns": [
                 {"data": "descripcion"},
                 {"data": "img"},
+                {"data": "estado"},
                 {"data": "accion"}
             ],
             "language": {
