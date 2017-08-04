@@ -15,15 +15,16 @@
             <div class="col-xs-12">
                 <div class="box">
                     <div class="box-header">
-                        <h3 class="box-title">Listado de Marcas</h3>
+                        <h3 class="box-title">Listado de Categorías</h3>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <table id="tblMarcas" class="table table-bordered table-striped">
+                        <table id="tblCategorias" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th>Marca</th>
-                                    <th>Logo</th>
+                                    <th>Categoría</th>
+                                    <th>Imagen</th>
                                     <th>Estado</th>
                                     <th>Acción</th>
                                 </tr>
@@ -34,7 +35,8 @@
                             <tfoot>
                                 <tr>
                                     <th>Marca</th>
-                                    <th>Logo</th>
+                                    <th>Categoría</th>
+                                    <th>Imagen</th>
                                     <th>Estado</th>
                                     <th>Acción</th>
                                 </tr>
@@ -49,8 +51,8 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#tblMarcas").DataTable({
-            "aaSorting": [[0, "asc"]],
+        $("#tblCategorias").DataTable({
+            //"aaSorting": [[0, "asc"]],
             "paging": true,
             "orderCellsTop": true,
             //"scrollX": true,
@@ -58,12 +60,13 @@
             "fixedColumns": true,
             //"iDisplayLength": 50,
             "ajax": {
-                "url": "<?= URL ?>admin/cargarDTMarcas/",
+                "url": "<?= URL ?>admin/cargarDTCategorias/",
                 "type": "post"
             },
             "columns": [
-                {"data": "descripcion"},
-                {"data": "img"},
+                {"data": "marca"},
+                {"data": "categoria"},
+                {"data": "imagen"},
                 {"data": "estado"},
                 {"data": "accion"}
             ],

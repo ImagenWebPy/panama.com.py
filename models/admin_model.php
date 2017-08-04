@@ -80,6 +80,84 @@ class Admin_Model extends Model {
         return $json;
     }
 
+    public function cargarDTCategorias() {
+        $datos = array();
+        $sql = $this->db->select('select c.*, m.descripcion as marca from categoria c
+                                LEFT JOIN marca m on m.id = c.id_marca');
+        foreach ($sql as $item) {
+            $id = $item['id'];
+            $img = '<img src="' . IMG . 'marcas/categorias/' . $item['imagen'] . '" class="img-responsive" style="width: 150px;">';
+            $btn = '<a class="btn btn-app pointer btnEditarCategoria" data-id="' . $item['id'] . '"><i class="fa fa-edit"></i> Editar</a>';
+            if ($item['estado'] == 1) {
+                $estado = '<a class="pointer btnCambiarEstado" data-id="' . $id . '" data-estado="1"><span class="label label-success">Activo</span></a>';
+            } else {
+                $estado = '<a class="pointer btnCambiarEstado" data-id="' . $id . '" data-estado="0"><span class="label label-danger">Inactivo</span></a>';
+            }
+            array_push($datos, array(
+                'marca' => utf8_encode($item['marca']),
+                'categoria' => utf8_encode($item['descripcion']),
+                'imagen' => $img,
+                'estado' => $estado,
+                'accion' => $btn
+            ));
+        }
+        $json = '{"data": ' . json_encode($datos) . '}';
+        return $json;
+    }
+
+    public function cargarDTSucursales() {
+        $datos = array();
+        $sql = $this->db->select('select * from sucursal');
+        foreach ($sql as $item) {
+            $id = $item['id'];
+            $btn = '<a class="btn btn-app pointer btnEditarSucursal" data-id="' . $item['id'] . '"><i class="fa fa-edit"></i> Editar</a>';
+            if ($item['estado'] == 1) {
+                $estado = '<a class="pointer btnCambiarEstado" data-id="' . $id . '" data-estado="1"><span class="label label-success">Activo</span></a>';
+            } else {
+                $estado = '<a class="pointer btnCambiarEstado" data-id="' . $id . '" data-estado="0"><span class="label label-danger">Inactivo</span></a>';
+            }
+            array_push($datos, array(
+                'sucursal' => utf8_encode($item['nombre']),
+                'telefono' => utf8_encode($item['telefono']),
+                'ciudad' => utf8_encode($item['ciudad']),
+                'estado' => $estado,
+                'accion' => $btn
+            ));
+        }
+        $json = '{"data": ' . json_encode($datos) . '}';
+        return $json;
+    }
+
+    public function cargarDTProductos() {
+        $datos = array();
+        $sql = $this->db->select('SELECT p.id,
+                                        p.nombre,
+                                        p.estado,
+                                        m.descripcion as marca,
+                                        c.descripcion as categoria
+                                FROM producto p
+                                LEFT JOIN categoria c on c.id = p.id_categoria
+                                LEFT JOIN marca m on m.id = c.id_marca');
+        foreach ($sql as $item) {
+            $id = $item['id'];
+            $btn = '<a class="btn btn-app pointer btnEditarProducto" data-id="' . $item['id'] . '"><i class="fa fa-edit"></i> Editar</a>';
+            if ($item['estado'] == 1) {
+                $estado = '<a class="pointer btnCambiarEstado" data-id="' . $id . '" data-estado="1"><span class="label label-success">Activo</span></a>';
+            } else {
+                $estado = '<a class="pointer btnCambiarEstado" data-id="' . $id . '" data-estado="0"><span class="label label-danger">Inactivo</span></a>';
+            }
+            array_push($datos, array(
+                'marca' => utf8_encode($item['marca']),
+                'categoria' => utf8_encode($item['categoria']),
+                'producto' => utf8_encode($item['nombre']),
+                'estado' => $estado,
+                'accion' => $btn
+            ));
+        }
+        $json = '{"data": ' . json_encode($datos) . '}';
+        return $json;
+    }
+
     public function getSlider() {
         $sql = $this->db->select("select * from slider order by orden ASC");
         return $sql;

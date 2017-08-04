@@ -71,11 +71,56 @@ class Admin extends Controller {
         $this->view->render('admin/marcas/index');
         $this->view->render('admin/footer');
     }
-    
-    public function cargarDTMarcas(){
+
+    public function cargarDTMarcas() {
         header('Content-type: application/json; charset=utf-8');
         $data = $this->model->cargarDTMarcas();
         echo $data;
+    }
+
+    public function cargarDTCategorias() {
+        header('Content-type: application/json; charset=utf-8');
+        $data = $this->model->cargarDTCategorias();
+        echo $data;
+    }
+
+    public function cargarDTProductos() {
+        header('Content-type: application/json; charset=utf-8');
+        $data = $this->model->cargarDTProductos();
+        echo $data;
+    }
+    
+    public function cargarDTSucursales() {
+        header('Content-type: application/json; charset=utf-8');
+        $data = $this->model->cargarDTSucursales();
+        echo $data;
+    }
+
+    public function categorias() {
+        $this->view->public_css = array("plugins/datatables/dataTables.bootstrap.css");
+        $this->view->public_js = array("plugins/datatables/jquery.dataTables.min.js", "plugins/datatables/dataTables.bootstrap.min.js");
+        $this->view->title = 'Categorias';
+        $this->view->render('admin/header');
+        $this->view->render('admin/categorias/index');
+        $this->view->render('admin/footer');
+    }
+
+    public function productos() {
+        $this->view->public_css = array("plugins/datatables/dataTables.bootstrap.css");
+        $this->view->public_js = array("plugins/datatables/jquery.dataTables.min.js", "plugins/datatables/dataTables.bootstrap.min.js");
+        $this->view->title = 'Productos';
+        $this->view->render('admin/header');
+        $this->view->render('admin/productos/index');
+        $this->view->render('admin/footer');
+    }
+
+    public function sucursales() {
+        $this->view->public_css = array("plugins/datatables/dataTables.bootstrap.css");
+        $this->view->public_js = array("plugins/datatables/jquery.dataTables.min.js", "plugins/datatables/dataTables.bootstrap.min.js");
+        $this->view->title = 'Productos';
+        $this->view->render('admin/header');
+        $this->view->render('admin/sucursales/index');
+        $this->view->render('admin/footer');
     }
 
 }
