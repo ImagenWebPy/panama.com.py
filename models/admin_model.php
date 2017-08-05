@@ -63,7 +63,8 @@ class Admin_Model extends Model {
         foreach ($sql as $item) {
             $id = $item['id'];
             $img = '<img src="' . IMG . 'marcas/' . $item['img'] . '" class="img-responsive" style="width: 150px;">';
-            $btn = '<a class="btn btn-app pointer btnEditarMarca" data-id="' . $item['id'] . '"><i class="fa fa-edit"></i> Editar</a>';
+            $btn = '<a class="btn btn-app pointer btnEditarMarca btnSmall" data-id="' . $item['id'] . '"><i class="fa fa-edit"></i> Editar</a>';
+            $btnDel = '<a class="btn btn-app pointer btnEliminarMarca btnSmall" data-id="' . $item['id'] . '"><i class="fa fa-ban" aria-hidden="true"></i> Eliminar</a>';
             if ($item['estado'] == 1) {
                 $estado = '<a class="pointer btnCambiarEstado" data-id="' . $id . '" data-estado="1"><span class="label label-success">Activo</span></a>';
             } else {
@@ -73,7 +74,7 @@ class Admin_Model extends Model {
                 'descripcion' => utf8_encode($item['descripcion']),
                 'img' => $img,
                 'estado' => $estado,
-                'accion' => utf8_encode($item['id'])
+                'accion' => $btn . ' | ' . $btnDel
             ));
         }
         $json = '{"data": ' . json_encode($datos) . '}';
@@ -87,7 +88,8 @@ class Admin_Model extends Model {
         foreach ($sql as $item) {
             $id = $item['id'];
             $img = '<img src="' . IMG . 'marcas/categorias/' . $item['imagen'] . '" class="img-responsive" style="width: 150px;">';
-            $btn = '<a class="btn btn-app pointer btnEditarCategoria" data-id="' . $item['id'] . '"><i class="fa fa-edit"></i> Editar</a>';
+            $btn = '<a class="btn btn-app pointer btnEditarCategoria btnSmall" data-id="' . $item['id'] . '"><i class="fa fa-edit"></i> Editar</a>';
+            $btnDel = '<a class="btn btn-app pointer btnEliminarCategoria btnSmall" data-id="' . $item['id'] . '"><i class="fa fa-ban" aria-hidden="true"></i> Eliminar</a>';
             if ($item['estado'] == 1) {
                 $estado = '<a class="pointer btnCambiarEstado" data-id="' . $id . '" data-estado="1"><span class="label label-success">Activo</span></a>';
             } else {
@@ -98,7 +100,7 @@ class Admin_Model extends Model {
                 'categoria' => utf8_encode($item['descripcion']),
                 'imagen' => $img,
                 'estado' => $estado,
-                'accion' => $btn
+                'accion' => $btn . ' | ' . $btnDel
             ));
         }
         $json = '{"data": ' . json_encode($datos) . '}';
@@ -110,7 +112,8 @@ class Admin_Model extends Model {
         $sql = $this->db->select('select * from sucursal');
         foreach ($sql as $item) {
             $id = $item['id'];
-            $btn = '<a class="btn btn-app pointer btnEditarSucursal" data-id="' . $item['id'] . '"><i class="fa fa-edit"></i> Editar</a>';
+            $btn = '<a class="btn btn-app pointer btnEditarSucursal btnSmall" data-id="' . $item['id'] . '"><i class="fa fa-edit"></i> Editar</a>';
+            $btnDel = '<a class="btn btn-app pointer btnEliminarSucursal btnSmall" data-id="' . $item['id'] . '"><i class="fa fa-ban" aria-hidden="true"></i> Eliminar</a>';
             if ($item['estado'] == 1) {
                 $estado = '<a class="pointer btnCambiarEstado" data-id="' . $id . '" data-estado="1"><span class="label label-success">Activo</span></a>';
             } else {
@@ -121,7 +124,38 @@ class Admin_Model extends Model {
                 'telefono' => utf8_encode($item['telefono']),
                 'ciudad' => utf8_encode($item['ciudad']),
                 'estado' => $estado,
-                'accion' => $btn
+                'accion' => $btn . ' | ' . $btnDel
+            ));
+        }
+        $json = '{"data": ' . json_encode($datos) . '}';
+        return $json;
+    }
+
+    public function cargarDTUsuarios() {
+        $datos = array();
+        $sql = $this->db->select('select au.id,
+                                        au.nombre,
+                                        au.email,
+                                        ap.descripcion as perfil,
+                                        au.estado
+                                from admin_usuario au
+                                LEFT JOIN admin_usuario_permiso aup on aup.id_usuario = au.id
+                                LEFT JOIN admin_permiso ap on ap.id = aup.id_permiso');
+        foreach ($sql as $item) {
+            $id = $item['id'];
+            $btn = '<a class="btn btn-app pointer btnEditarSucursal btnSmall" data-id="' . $item['id'] . '"><i class="fa fa-edit"></i> Editar</a>';
+            $btnDel = '<a class="btn btn-app pointer btnEliminarSucursal btnSmall" data-id="' . $item['id'] . '"><i class="fa fa-ban" aria-hidden="true"></i> Eliminar</a>';
+            if ($item['estado'] == 1) {
+                $estado = '<a class="pointer btnCambiarEstado" data-id="' . $id . '" data-estado="1"><span class="label label-success">Activo</span></a>';
+            } else {
+                $estado = '<a class="pointer btnCambiarEstado" data-id="' . $id . '" data-estado="0"><span class="label label-danger">Inactivo</span></a>';
+            }
+            array_push($datos, array(
+                'nombre' => utf8_encode($item['nombre']),
+                'email' => utf8_encode($item['email']),
+                'perfil' => utf8_encode($item['perfil']),
+                'estado' => $estado,
+                'accion' => $btn . ' | ' . $btnDel
             ));
         }
         $json = '{"data": ' . json_encode($datos) . '}';
@@ -133,7 +167,8 @@ class Admin_Model extends Model {
         $sql = $this->db->select('select * from blog order by id desc');
         foreach ($sql as $item) {
             $id = $item['id'];
-            $btn = '<a class="btn btn-app pointer btnEditarBlog" data-id="' . $item['id'] . '"><i class="fa fa-edit"></i> Editar</a>';
+            $btn = '<a class="btn btn-app pointer btnEditarBlog btnSmall" data-id="' . $item['id'] . '"><i class="fa fa-edit"></i> Editar</a>';
+            $btnDel = '<a class="btn btn-app pointer btnEliminarBlog btnSmall" data-id="' . $item['id'] . '"><i class="fa fa-ban" aria-hidden="true"></i> Eliminar</a>';
             if ($item['estado'] == 1) {
                 $estado = '<a class="pointer btnCambiarEstado" title="Leído" data-id="' . $id . '" data-estado="1"><span class="label label-success">Activo</span></a>';
             } else {
@@ -144,7 +179,7 @@ class Admin_Model extends Model {
                 'tags' => utf8_encode($item['tags']),
                 'fecha' => date('d-m-Y', strtotime($item['fecha'])),
                 'estado' => $estado,
-                'accion' => $btn
+                'accion' => $btn . ' | ' . $btnDel
             ));
         }
         $json = '{"data": ' . json_encode($datos) . '}';
@@ -163,7 +198,7 @@ class Admin_Model extends Model {
                                 LEFT JOIN contacto_formulario cf on cf.id = c.id_contacto_formulario');
         foreach ($sql as $item) {
             $id = $item['id'];
-            $btn = '<a class="btn btn-app pointer btnDatosContacto" data-id="' . $item['id'] . '"><i class="fa fa-edit"></i> Ver Datos</a>';
+            $btn = '<a class="btn btn-app pointer btnDatosContacto btnSmall" data-id="' . $item['id'] . '"><i class="fa fa-eye" aria-hidden="true"></i> Ver Datos</a>';
             if ($item['estado'] == 1) {
                 $estado = '<a class="pointer text-green"><i class="fa fa-stop-circle-o" aria-hidden="true"></i></a>';
             } else {
@@ -175,6 +210,49 @@ class Admin_Model extends Model {
                 'nombre' => utf8_encode($item['nombre']),
                 'email' => utf8_encode($item['email']),
                 'seccion' => utf8_encode($item['seccion']),
+                'accion' => $btn
+            ));
+        }
+        $json = '{"data": ' . json_encode($datos) . '}';
+        return $json;
+    }
+
+    public function cargarDTTrabaja() {
+        $datos = array();
+        $sql = $this->db->select('SELECT * FROM trabaja');
+
+        foreach ($sql as $item) {
+            $test = strstr($item['archivo'], '.', FALSE);
+            switch (strtolower($test)) {
+                case '.jpg':
+                case '.jpeg':
+                    $fa_icon = '<i class="fa fa-file-image-o" aria-hidden="true"></i>';
+                    break;
+                case '.pdf':
+                    $fa_icon = '<i class="fa fa-file-pdf-o" aria-hidden="true"></i>';
+                    break;
+                case '.docx':
+                case '.doc':
+                    $fa_icon = '<i class="fa fa-file-word-o" aria-hidden="true"></i>';
+                    break;
+                case '.xlsx':
+                case '.xls':
+                    $fa_icon = '<i class="fa fa-file-excel-o" aria-hidden="true"></i>';
+                    break;
+            }
+            $id = $item['id'];
+            $btn = '<a class="btn btn-app pointer btnDatosTrabaja btnSmall" data-id="' . $item['id'] . '"><i class="fa fa-eye" aria-hidden="true"></i> Ver Datos</a>';
+            if ($item['estado'] == 1) {
+                $estado = '<a class="pointer text-green"><i class="fa fa-stop-circle-o" aria-hidden="true"></i></a>';
+            } else {
+                $estado = '<a class="pointer text-red"><i class="fa fa-stop-circle-o" aria-hidden="true"></i></a>';
+            }
+            array_push($datos, array(
+                'visto' => $estado,
+                'fecha' => date('d-m-Y', strtotime($item['fecha'])),
+                'nombre' => utf8_encode($item['nombre']),
+                'email' => utf8_encode($item['email']),
+                'archivo' => $fa_icon,
                 'accion' => $btn
             ));
         }
@@ -194,7 +272,8 @@ class Admin_Model extends Model {
                                 LEFT JOIN marca m on m.id = c.id_marca');
         foreach ($sql as $item) {
             $id = $item['id'];
-            $btn = '<a class="btn btn-app pointer btnEditarProducto" data-id="' . $item['id'] . '"><i class="fa fa-edit"></i> Editar</a>';
+            $btn = '<a class="btn btn-app pointer btnEditarProducto btnSmall" data-id="' . $item['id'] . '"><i class="fa fa-edit"></i> Editar</a>';
+            $btnDel = '<a class="btn btn-app pointer btnEliminarProducto btnSmall" data-id="' . $item['id'] . '"><i class="fa fa-ban" aria-hidden="true"></i> Eliminar</a>';
             if ($item['estado'] == 1) {
                 $estado = '<a class="pointer btnCambiarEstado" data-id="' . $id . '" data-estado="1"><span class="label label-success">Activo</span></a>';
             } else {
@@ -205,7 +284,7 @@ class Admin_Model extends Model {
                 'categoria' => utf8_encode($item['categoria']),
                 'producto' => utf8_encode($item['nombre']),
                 'estado' => $estado,
-                'accion' => $btn
+                'accion' => $btn . ' | ' . $btnDel
             ));
         }
         $json = '{"data": ' . json_encode($datos) . '}';

@@ -21,7 +21,7 @@
                     <div class="inner">
                         <h3><?= $this->mensajesNuevos; ?></h3>
 
-                        <p>Mensajes de Contactos Nuevos</p>
+                        <p>Mensajes de Contactos sin Leer</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-bag"></i>
@@ -36,7 +36,7 @@
                     <div class="inner">
                         <h3><?= $this->cvNuevos; ?></h3>
 
-                        <p>C.V. Enviados</p>
+                        <p>C.V. Enviados Nuevos</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-stats-bars"></i>

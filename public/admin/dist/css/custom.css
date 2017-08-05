@@ -1,3 +1,6 @@
 .logoHeader{ display: inline-block; width: 100%; position: relative; top: 10px;}
 .uploadFileInput { width: 50% !important; float: right;}
 .pointer{ cursor: pointer;}
+.visto { text-align: center;}
+.visto i { font-size: 20px;}
+.btnSmall { padding: 5px !important; height: 45px !important; margin: 0px !important;}
