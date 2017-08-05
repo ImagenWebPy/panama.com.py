@@ -128,6 +128,60 @@ class Admin_Model extends Model {
         return $json;
     }
 
+    public function cargarDTBlog() {
+        $datos = array();
+        $sql = $this->db->select('select * from blog order by id desc');
+        foreach ($sql as $item) {
+            $id = $item['id'];
+            $btn = '<a class="btn btn-app pointer btnEditarBlog" data-id="' . $item['id'] . '"><i class="fa fa-edit"></i> Editar</a>';
+            if ($item['estado'] == 1) {
+                $estado = '<a class="pointer btnCambiarEstado" title="Leído" data-id="' . $id . '" data-estado="1"><span class="label label-success">Activo</span></a>';
+            } else {
+                $estado = '<a class="pointer btnCambiarEstado" title="Aún no se ha leído." data-id="' . $id . '" data-estado="0"><span class="label label-danger">Inactivo</span></a>';
+            }
+            array_push($datos, array(
+                'titulo' => utf8_encode($item['titulo']),
+                'tags' => utf8_encode($item['tags']),
+                'fecha' => date('d-m-Y', strtotime($item['fecha'])),
+                'estado' => $estado,
+                'accion' => $btn
+            ));
+        }
+        $json = '{"data": ' . json_encode($datos) . '}';
+        return $json;
+    }
+
+    public function cargarDTContacto() {
+        $datos = array();
+        $sql = $this->db->select('SELECT c.id,
+                                        c.fecha,
+                                        c.nombre,
+                                        c.email,
+                                        c.estado,
+                                        cf.descripcion as seccion
+                                FROM contacto c
+                                LEFT JOIN contacto_formulario cf on cf.id = c.id_contacto_formulario');
+        foreach ($sql as $item) {
+            $id = $item['id'];
+            $btn = '<a class="btn btn-app pointer btnDatosContacto" data-id="' . $item['id'] . '"><i class="fa fa-edit"></i> Ver Datos</a>';
+            if ($item['estado'] == 1) {
+                $estado = '<a class="pointer text-green"><i class="fa fa-stop-circle-o" aria-hidden="true"></i></a>';
+            } else {
+                $estado = '<a class="pointer text-red"><i class="fa fa-stop-circle-o" aria-hidden="true"></i></a>';
+            }
+            array_push($datos, array(
+                'visto' => $estado,
+                'fecha' => date('d-m-Y', strtotime($item['fecha'])),
+                'nombre' => utf8_encode($item['nombre']),
+                'email' => utf8_encode($item['email']),
+                'seccion' => utf8_encode($item['seccion']),
+                'accion' => $btn
+            ));
+        }
+        $json = '{"data": ' . json_encode($datos) . '}';
+        return $json;
+    }
+
     public function cargarDTProductos() {
         $datos = array();
         $sql = $this->db->select('SELECT p.id,

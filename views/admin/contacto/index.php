@@ -2,12 +2,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Categorías
-            <small>Editar Contenido</small>
+            Contacto
+            <small>Ver datos de contacto</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="<?= URL_ADMIN; ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-            <li class="active">Categorías</li>
+            <li class="active">Contacto</li>
         </ol>
     </section>
     <section class="content">
@@ -15,17 +15,18 @@
             <div class="col-xs-12">
                 <div class="box">
                     <div class="box-header">
-                        <h3 class="box-title">Listado de Categorías</h3>
+                        <h3 class="box-title">Listado de Contactos</h3>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <table id="tblCategorias" class="table table-bordered table-striped">
+                        <table id="tblContacto" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>Marca</th>
-                                    <th>Categoría</th>
-                                    <th>Imagen</th>
-                                    <th>Estado</th>
+                                    <th>Visto</th>
+                                    <th>Fecha</th>
+                                    <th>Nombre</th>
+                                    <th>Email</th>
+                                    <th>Sección a Contactar</th>
                                     <th>Acción</th>
                                 </tr>
                             </thead>
@@ -34,10 +35,11 @@
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th>Marca</th>
-                                    <th>Categoría</th>
-                                    <th>Imagen</th>
-                                    <th>Estado</th>
+                                    <th>Visto</th>
+                                    <th>Fecha</th>
+                                    <th>Nombre</th>
+                                    <th>Email</th>
+                                    <th>Sección a Contactar</th>
                                     <th>Acción</th>
                                 </tr>
                             </tfoot>
@@ -51,8 +53,8 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#tblCategorias").DataTable({
-            //"aaSorting": [[0, "asc"]],
+        $("#tblContacto").DataTable({
+            "aaSorting": [[1, "desc"]],
             "paging": true,
             "orderCellsTop": true,
             //"scrollX": true,
@@ -60,14 +62,15 @@
             "fixedColumns": true,
             //"iDisplayLength": 50,
             "ajax": {
-                "url": "<?= URL ?>admin/cargarDTCategorias/",
+                "url": "<?= URL ?>admin/cargarDTContacto/",
                 "type": "post"
             },
             "columns": [
-                {"data": "marca"},
-                {"data": "categoria"},
-                {"data": "imagen"},
-                {"data": "estado"},
+                {"data": "visto"},
+                {"data": "fecha"},
+                {"data": "nombre"},
+                {"data": "email"},
+                {"data": "seccion"},
                 {"data": "accion"}
             ],
             "language": {

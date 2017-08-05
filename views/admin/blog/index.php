@@ -2,12 +2,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Categorías
+            Blog
             <small>Editar Contenido</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="<?= URL_ADMIN; ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-            <li class="active">Categorías</li>
+            <li class="active">Blog</li>
         </ol>
     </section>
     <section class="content">
@@ -15,16 +15,16 @@
             <div class="col-xs-12">
                 <div class="box">
                     <div class="box-header">
-                        <h3 class="box-title">Listado de Categorías</h3>
+                        <h3 class="box-title">Listado de Entradas</h3>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <table id="tblCategorias" class="table table-bordered table-striped">
+                        <table id="tblMarcas" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>Marca</th>
-                                    <th>Categoría</th>
-                                    <th>Imagen</th>
+                                    <th>Titulo</th>
+                                    <th>Tags</th>
+                                    <th>Fecha</th>
                                     <th>Estado</th>
                                     <th>Acción</th>
                                 </tr>
@@ -34,9 +34,9 @@
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th>Marca</th>
-                                    <th>Categoría</th>
-                                    <th>Imagen</th>
+                                    <th>Titulo</th>
+                                    <th>Tags</th>
+                                    <th>Fecha</th>
                                     <th>Estado</th>
                                     <th>Acción</th>
                                 </tr>
@@ -51,8 +51,8 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#tblCategorias").DataTable({
-            //"aaSorting": [[0, "asc"]],
+        $("#tblMarcas").DataTable({
+            "aaSorting": [[2, "asc"]],
             "paging": true,
             "orderCellsTop": true,
             //"scrollX": true,
@@ -60,13 +60,13 @@
             "fixedColumns": true,
             //"iDisplayLength": 50,
             "ajax": {
-                "url": "<?= URL ?>admin/cargarDTCategorias/",
+                "url": "<?= URL ?>admin/cargarDTBlog/",
                 "type": "post"
             },
             "columns": [
-                {"data": "marca"},
-                {"data": "categoria"},
-                {"data": "imagen"},
+                {"data": "titulo"},
+                {"data": "tags"},
+                {"data": "fecha"},
                 {"data": "estado"},
                 {"data": "accion"}
             ],

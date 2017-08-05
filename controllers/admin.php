@@ -71,6 +71,24 @@ class Admin extends Controller {
         $this->view->render('admin/marcas/index');
         $this->view->render('admin/footer');
     }
+    
+    public function blog() {
+        $this->view->public_css = array("plugins/datatables/dataTables.bootstrap.css");
+        $this->view->public_js = array("plugins/datatables/jquery.dataTables.min.js", "plugins/datatables/dataTables.bootstrap.min.js");
+        $this->view->title = 'Blog';
+        $this->view->render('admin/header');
+        $this->view->render('admin/blog/index');
+        $this->view->render('admin/footer');
+    }
+    
+    public function contacto() {
+        $this->view->public_css = array("plugins/datatables/dataTables.bootstrap.css");
+        $this->view->public_js = array("plugins/datatables/jquery.dataTables.min.js", "plugins/datatables/dataTables.bootstrap.min.js");
+        $this->view->title = 'Cntacto';
+        $this->view->render('admin/header');
+        $this->view->render('admin/contacto/index');
+        $this->view->render('admin/footer');
+    }
 
     public function cargarDTMarcas() {
         header('Content-type: application/json; charset=utf-8');
@@ -93,6 +111,18 @@ class Admin extends Controller {
     public function cargarDTSucursales() {
         header('Content-type: application/json; charset=utf-8');
         $data = $this->model->cargarDTSucursales();
+        echo $data;
+    }
+    
+    public function cargarDTBlog() {
+        header('Content-type: application/json; charset=utf-8');
+        $data = $this->model->cargarDTBlog();
+        echo $data;
+    }
+    
+    public function cargarDTContacto() {
+        header('Content-type: application/json; charset=utf-8');
+        $data = $this->model->cargarDTContacto();
         echo $data;
     }
 
