@@ -108,6 +108,15 @@ class Admin extends Controller {
         $this->view->render('admin/footer');
     }
 
+    public function contacto_seccion() {
+        $this->view->public_css = array("plugins/datatables/dataTables.bootstrap.css");
+        $this->view->public_js = array("plugins/datatables/jquery.dataTables.min.js", "plugins/datatables/dataTables.bootstrap.min.js");
+        $this->view->title = 'Secciones';
+        $this->view->render('admin/header');
+        $this->view->render('admin/contacto/seccion');
+        $this->view->render('admin/footer');
+    }
+
     public function cargarDTMarcas() {
         header('Content-type: application/json; charset=utf-8');
         $data = $this->model->cargarDTMarcas();
@@ -131,10 +140,16 @@ class Admin extends Controller {
         $data = $this->model->cargarDTSucursales();
         echo $data;
     }
-    
+
     public function cargarDTUsuarios() {
         header('Content-type: application/json; charset=utf-8');
         $data = $this->model->cargarDTUsuarios();
+        echo $data;
+    }
+
+    public function cargarDTSeccion() {
+        header('Content-type: application/json; charset=utf-8');
+        $data = $this->model->cargarDTSeccion();
         echo $data;
     }
 
@@ -181,6 +196,36 @@ class Admin extends Controller {
         $this->view->render('admin/header');
         $this->view->render('admin/sucursales/index');
         $this->view->render('admin/footer');
+    }
+
+    public function modalVerContacto() {
+        header('Content-type: application/json; charset=utf-8');
+        $data = array(
+            'id' => $this->helper->cleanInput($_POST['id'])
+        );
+        $datos = $this->model->modalVerContacto($data);
+        echo $datos;
+    }
+
+    public function modalEditarSeccion() {
+        header('Content-type: application/json; charset=utf-8');
+        $data = array(
+            'id' => $this->helper->cleanInput($_POST['id'])
+        );
+        $datos = $this->model->modalEditarSeccion($data);
+        echo $datos;
+    }
+
+    public function saveContactoSeccion() {
+        header('Content-type: application/json; charset=utf-8');
+        $data = array(
+            'id' => $this->helper->cleanInput($_POST['contacto']['id']),
+            'descripcion' => $this->helper->cleanInput($_POST['contacto']['seccion']),
+            'email' => $this->helper->cleanInput($_POST['contacto']['email']),
+            'estado' => (!empty($_POST['contacto']['estado'])) ? $this->helper->cleanInput($_POST['contacto']['estado']) : 0
+        );
+        $data = $this->model->saveContactoSeccion($data);
+        echo json_encode($data);
     }
 
 }

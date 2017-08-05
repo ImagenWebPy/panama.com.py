@@ -143,8 +143,8 @@ class Admin_Model extends Model {
                                 LEFT JOIN admin_permiso ap on ap.id = aup.id_permiso');
         foreach ($sql as $item) {
             $id = $item['id'];
-            $btn = '<a class="btn btn-app pointer btnEditarSucursal btnSmall" data-id="' . $item['id'] . '"><i class="fa fa-edit"></i> Editar</a>';
-            $btnDel = '<a class="btn btn-app pointer btnEliminarSucursal btnSmall" data-id="' . $item['id'] . '"><i class="fa fa-ban" aria-hidden="true"></i> Eliminar</a>';
+            $btn = '<a class="btn btn-app pointer btnEditarUsuario btnSmall" data-id="' . $item['id'] . '"><i class="fa fa-edit"></i> Editar</a>';
+            $btnDel = '<a class="btn btn-app pointer btnEliminarUsuario btnSmall" data-id="' . $item['id'] . '"><i class="fa fa-ban" aria-hidden="true"></i> Eliminar</a>';
             if ($item['estado'] == 1) {
                 $estado = '<a class="pointer btnCambiarEstado" data-id="' . $id . '" data-estado="1"><span class="label label-success">Activo</span></a>';
             } else {
@@ -154,6 +154,30 @@ class Admin_Model extends Model {
                 'nombre' => utf8_encode($item['nombre']),
                 'email' => utf8_encode($item['email']),
                 'perfil' => utf8_encode($item['perfil']),
+                'estado' => $estado,
+                'accion' => $btn . ' | ' . $btnDel
+            ));
+        }
+        $json = '{"data": ' . json_encode($datos) . '}';
+        return $json;
+    }
+
+    public function cargarDTSeccion() {
+        $datos = array();
+        $sql = $this->db->select('select * from contacto_formulario');
+        foreach ($sql as $item) {
+            $id = $item['id'];
+            $btn = '<a class="btn btn-app pointer btnEditarSeccion btnSmall" data-id="' . $item['id'] . '"><i class="fa fa-edit"></i> Editar</a>';
+            $btnDel = '<a class="btn btn-app pointer btnEliminarSeccion btnSmall" data-id="' . $item['id'] . '"><i class="fa fa-ban" aria-hidden="true"></i> Eliminar</a>';
+            if ($item['estado'] == 1) {
+                $estado = '<a class="pointer btnCambiarEstado" data-id="' . $id . '" data-estado="1"><span class="label label-success">Activo</span></a>';
+            } else {
+                $estado = '<a class="pointer btnCambiarEstado" data-id="' . $id . '" data-estado="0"><span class="label label-danger">Inactivo</span></a>';
+            }
+            array_push($datos, array(
+                'DT_RowId' => 'seccion_' . $id,
+                'seccion' => utf8_encode($item['descripcion']),
+                'email' => utf8_encode($item['email']),
                 'estado' => $estado,
                 'accion' => $btn . ' | ' . $btnDel
             ));
@@ -205,6 +229,7 @@ class Admin_Model extends Model {
                 $estado = '<a class="pointer text-red"><i class="fa fa-stop-circle-o" aria-hidden="true"></i></a>';
             }
             array_push($datos, array(
+                'DT_RowId' => 'contacto_' . $id,
                 'visto' => $estado,
                 'fecha' => date('d-m-Y', strtotime($item['fecha'])),
                 'nombre' => utf8_encode($item['nombre']),
@@ -294,6 +319,137 @@ class Admin_Model extends Model {
     public function getSlider() {
         $sql = $this->db->select("select * from slider order by orden ASC");
         return $sql;
+    }
+
+    public function modalVerContacto($data) {
+        $id = $data['id'];
+        $cambiarEstado = FALSE;
+        $sql = $this->db->select("SELECT c.id,
+                                        c.fecha,
+                                        c.nombre,
+                                        c.email,
+                                        c.estado,
+                                        c.mensaje,
+                                        c.telefono,
+                                        c.estado,
+                                        cf.descripcion as seccion
+                                FROM contacto c
+                                LEFT JOIN contacto_formulario cf on cf.id = c.id_contacto_formulario 
+                                where c.id = $id");
+        if ($sql[0]['estado'] == 0) {
+            #cambiamos el estado del mensaje
+            $update = array(
+                'estado' => 1
+            );
+            $this->db->update('contacto', $update, "id = $id");
+            $cambiarEstado = TRUE;
+        }
+        $form = '<div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Datos del mensaje</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <dl class="dl-horizontal">
+                    <dt>Enviado el:</dt>
+                    <dd>' . date('d-m-Y', strtotime($sql[0]['fecha'])) . '</dd>
+                    <dt>Hora:</dt>
+                    <dd>' . date('H:i:s', strtotime($sql[0]['fecha'])) . '</dd>
+                    <dt>Nombre:</dt>
+                    <dd>' . utf8_encode($sql[0]['nombre']) . '</dd>
+                    <dt>Email: </dt>
+                    <dd>' . utf8_encode($sql[0]['email']) . '</dd>
+                    <dt>Teléfono: </dt>
+                    <dd>' . utf8_encode($sql[0]['telefono']) . '</dd>
+                    <dt>Quiere contactar con: </dt>
+                    <dd>' . utf8_encode($sql[0]['seccion']) . '</dd>
+                    <dt>Mensaje: </dt>
+                    <dd>' . utf8_encode($sql[0]['mensaje']) . '</dd>
+                </dl>
+            </div>
+          </div>';
+        $datos = array(
+            'titulo' => 'Mensaje de ' . utf8_encode($sql[0]['nombre']),
+            'contenido' => $form,
+            'id' => $id,
+            'cambiar_estado' => $cambiarEstado
+        );
+        return json_encode($datos);
+    }
+
+    public function modalEditarSeccion($data) {
+        $id = $data['id'];
+        $cambiarEstado = FALSE;
+        $sql = $this->db->select("SELECT * FROM contacto_formulario where id = $id");
+        $checked = ($sql[0]['estado'] == 1) ? 'checked' : '';
+        $form = '<div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Datos del mensaje</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <form role="form" id="frmContactoSeccion" method="POST">
+                    <input type="hidden" name="contacto[id]" value="' . $id . '">
+                    <div class="form-group">
+                        <label>Sección</label>
+                        <input type="text" name="contacto[seccion]" class="form-control" placeholder="Ingrese la sección" value="' . utf8_encode($sql[0]['descripcion']) . '">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="text" name="contacto[email]" class="form-control" placeholder="Ingrese el email" value="' . utf8_encode($sql[0]['email']) . '">
+                    </div>
+                    <!-- checkbox -->
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="contacto[estado]" value="1" ' . $checked . '>
+                                Estado
+                            </label>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    </div>
+                </form>
+            </div>
+          </div>';
+        $datos = array(
+            'titulo' => 'Editar ' . utf8_encode($sql[0]['descripcion']),
+            'contenido' => $form
+        );
+        return json_encode($datos);
+    }
+
+    public function saveContactoSeccion($data) {
+        $id = $data['id'];
+        $estado = 1;
+        if (empty($data['estado'])) {
+            $estado = 0;
+        }
+        $update = array(
+            "descripcion" => utf8_decode($data['descripcion']),
+            "email" => utf8_decode($data['email']),
+            "estado" => $estado
+        );
+        $this->db->update('contacto_formulario', $update, "id = $id");
+        #obtenemos la fila
+        $sql = $this->db->select("SELECT * FROM contacto_formulario where id = $id");
+        if ($sql[0]['estado'] == 1) {
+            $estado = '<a class="pointer btnCambiarEstado" data-id="' . $id . '" data-estado="1"><span class="label label-success">Activo</span></a>';
+        } else {
+            $estado = '<a class="pointer btnCambiarEstado" data-id="' . $id . '" data-estado="0"><span class="label label-danger">Inactivo</span></a>';
+        }
+        $row = '<td class="sorting_1">' . utf8_encode($sql[0]['descripcion']) . '</td>'
+                . '<td>' . utf8_encode($sql[0]['email']) . '</td>'
+                . '<td>' . $estado . '</td>'
+                . '<td><a class="btn btn-app pointer btnEditarSeccion btnSmall" data-id="' . $id . '"><i class="fa fa-edit"></i> Editar</a>'
+                . ' | <a class="btn btn-app pointer btnEliminarSeccion btnSmall" data-id="' . $id . '"><i class="fa fa-ban" aria-hidden="true"></i> Eliminar</a></td>';
+        $datos = array(
+            'type' => 'success',
+            'id' => $id,
+            'row' => $row
+        );
+        return $datos;
     }
 
 }

@@ -2,12 +2,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Contacto
-            <small>Ver datos de contacto</small>
+            Usuarios
+            <small>Administrar Usuarios</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="<?= URL_ADMIN; ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-            <li class="active">Contacto</li>
+            <li class="active">Usuarios</li>
         </ol>
     </section>
     <section class="content">
@@ -15,18 +15,16 @@
             <div class="col-xs-12">
                 <div class="box">
                     <div class="box-header">
-                        <h3 class="box-title">Listado de Contactos</h3>
+                        <h3 class="box-title">Listado de Usuario</h3>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <table id="tblContacto" class="table table-bordered table-striped">
+                        <table id="tblSeccion" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>Visto</th>
-                                    <th>Fecha</th>
-                                    <th>Nombre</th>
+                                    <th>Sección</th>
                                     <th>Email</th>
-                                    <th>Sección a Contactar</th>
+                                    <th>Estado</th>
                                     <th>Acción</th>
                                 </tr>
                             </thead>
@@ -35,11 +33,9 @@
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th>Visto</th>
-                                    <th>Fecha</th>
-                                    <th>Nombre</th>
+                                    <th>Sección</th>
                                     <th>Email</th>
-                                    <th>Sección a Contactar</th>
+                                    <th>Estado</th>
                                     <th>Acción</th>
                                 </tr>
                             </tfoot>
@@ -53,8 +49,8 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#tblContacto").DataTable({
-            "aaSorting": [[1, "desc"]],
+        $("#tblSeccion").DataTable({
+            //"aaSorting": [[0, "asc"]],
             "paging": true,
             "orderCellsTop": true,
             //"scrollX": true,
@@ -62,30 +58,25 @@
             "fixedColumns": true,
             //"iDisplayLength": 50,
             "ajax": {
-                "url": "<?= URL ?>admin/cargarDTContacto/",
+                "url": "<?= URL ?>admin/cargarDTSeccion/",
                 "type": "post"
             },
             "columns": [
-                {"data": "visto"},
-                {"data": "fecha"},
-                {"data": "nombre"},
-                {"data": "email"},
                 {"data": "seccion"},
+                {"data": "email"},
+                {"data": "estado"},
                 {"data": "accion"}
             ],
             "language": {
                 "url": "<?= URL ?>public/language/Spanish.json"
-            },
-            "aoColumnDefs": [
-                {"aTargets": [0], "mData": null, "sClass": "visto"}
-            ]
+            }
         });
-        $(document).on("click", ".btnDatosContacto", function (e) {
+        $(document).on("click", ".btnEditarSeccion", function (e) {
             if (e.handled !== true) // This will prevent event triggering more then once
             {
                 var id = $(this).attr("data-id");
                 $.ajax({
-                    url: "<?= URL; ?>admin/modalVerContacto",
+                    url: "<?= URL; ?>admin/modalEditarSeccion",
                     type: "POST",
                     data: {id: id},
                     dataType: "json"
@@ -94,12 +85,25 @@
                     $(".genericModal .modal-title").html(data['titulo']);
                     $(".genericModal .modal-body").html(data['contenido']);
                     $(".genericModal").modal("toggle");
-                    if (data['cambiar_estado'] == true) {
-                        $('#tblContacto>tbody>tr>td:first').html('<a class="pointer text-green"><i class="fa fa-stop-circle-o" aria-hidden="true"></i></a>');
-                    }
                 });
             }
             e.handled = true;
+        });
+        $(document).on("submit", "#frmContactoSeccion", function (e) {
+            var url = "<?= URL ?>admin/saveContactoSeccion"; // the script where you handle the form input.
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: $("#frmContactoSeccion").serialize(), // serializes the form's elements.
+                success: function (data)
+                {
+                    if (data['type'] == 'success') {
+                        $("#seccion_" + data['id']).html(data['row']);
+                        $(".genericModal").modal("toggle");
+                    }
+                }
+            });
+            e.preventDefault(); // avoid to execute the actual submit of the form.
         });
     });
 </script>

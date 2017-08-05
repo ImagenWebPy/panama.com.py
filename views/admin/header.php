@@ -15,7 +15,10 @@ $activeSucursales = '';
 $activeBlog = '';
 $activeTrabaja = '';
 $activeContacto = '';
+$activeContactoDatos = '';
+$activeContactoSeccion = '';
 $activeUsuario = '';
+$activeNewsletter = '';
 $seccionActual = (!empty($pagina[1])) ? $pagina[1] : '';
 switch ($seccionActual) {
     case 'portada':
@@ -58,6 +61,9 @@ switch ($seccionActual) {
         break;
     case 'usuario':
         $activeUsuario = 'active';
+        break;
+    case 'newsletter':
+        $activeNewsletter = 'active';
         break;
     default :
         $activeDashboard = 'active';
@@ -180,9 +186,9 @@ switch ($seccionActual) {
                                 <li class="<?= $activeCompromiso; ?>"><a href="<?= URL_ADMIN ?>comprimiso_social"><i class="fa fa-circle-o"></i> Compromiso Social</a></li>
                             </ul>
                         </li>
-                        <li class="treeview">
+                        <li class="treeview <?= $activeProductos; ?>">
                             <a href="#"><i class="fa fa-shopping-bag" aria-hidden="true"></i></i><span>Productos</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
-                            <ul class="<?= $activeProductos; ?> treeview-menu">
+                            <ul class="treeview-menu">
                                 <li class="<?= $activeMarcas; ?>"><a href="<?= URL_ADMIN ?>marcas"><i class="fa fa-circle-o"></i> Marcas</a></li>
                                 <li class="<?= $activeCategorias; ?>"><a href="<?= URL_ADMIN ?>categorias"><i class="fa fa-circle-o"></i> Categorías</a></li>
                                 <li class="<?= $activeProducto; ?>"><a href="<?= URL_ADMIN ?>productos"><i class="fa fa-circle-o"></i> Productos</a></li>
@@ -191,7 +197,14 @@ switch ($seccionActual) {
                         <li class="<?= $activeSucursales; ?>"><a href="<?= URL_ADMIN ?>sucursales"><i class="fa fa-map-marker"></i> <span>Sucursales</span></a></li>
                         <li class="<?= $activeBlog; ?>"><a href="<?= URL_ADMIN ?>blog"><i class="fa fa-rss"></i> <span>Blog</span></a></li>
                         <li class="<?= $activeTrabaja; ?>"><a href="<?= URL_ADMIN ?>trabaja"><i class="fa fa-users"></i> <span>Trabaja con Nosotros</span></a></li>
-                        <li class="<?= $activeContacto; ?>"><a href="<?= URL_ADMIN ?>contacto"><i class="fa fa-envelope-o"></i> <span>Contacto</span></a></li>
+                        <li class="treeview <?= $activeContacto; ?>">
+                            <a href="#"><i class="fa fa-envelope-open-o" aria-hidden="true"></i></i><span>Contacto</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
+                            <ul class="treeview-menu">
+                                <li class="<?= $activeContactoDatos; ?>"><a href="<?= URL_ADMIN ?>contacto"><i class="fa fa-circle-o"></i> <span>Datos de Contacto</span></a></li>
+                                <li class="<?= $activeContactoSeccion; ?>"><a href="<?= URL_ADMIN ?>contacto_seccion"><i class="fa fa-circle-o"></i> <span>Secciones</span></a></li>
+                            </ul>
+                        </li>
+                        <li class="<?= $activeNewsletter; ?>"><a href="<?= URL_ADMIN ?>newsletter"><i class="fa fa-envelope-o" aria-hidden="true"></i> <span>Newsletter</span></a></li>
                         <li class="<?= $activeUsuario; ?>"><a href="<?= URL_ADMIN ?>usuario"><i class="fa fa-user"></i> <span>Usuarios</span></a></li>
                     </ul>
                 </section>
