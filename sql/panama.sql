@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50714
 File Encoding         : 65001
 
-Date: 2017-07-29 12:55:03
+Date: 2017-08-06 12:36:33
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -176,11 +176,13 @@ CREATE TABLE `contacto` (
   `fecha` datetime DEFAULT NULL,
   `estado` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of contacto
 -- ----------------------------
+INSERT INTO `contacto` VALUES ('1', 'Raul', 'raul.chuky@gmail.com', '0976921801', '1', 'Hola esto es un mensaje', '2017-08-04 22:13:42', '1');
+INSERT INTO `contacto` VALUES ('2', 'Juan', 'raul.ramirez@imagenwebhq.com', '601606', '2', 'Hola, esto es una prueba para soporte', '2017-08-01 22:37:42', '1');
 
 -- ----------------------------
 -- Table structure for `contacto_formulario`
@@ -192,7 +194,7 @@ CREATE TABLE `contacto_formulario` (
   `email` varchar(60) NOT NULL,
   `estado` int(1) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of contacto_formulario
@@ -470,8 +472,11 @@ CREATE TABLE `trabaja` (
   `fecha` datetime DEFAULT NULL,
   `estado` int(10) unsigned DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of trabaja
 -- ----------------------------
+INSERT INTO `trabaja` VALUES ('1', 'Raul', 'raul.chuky@gmail.com', '0976901801', 'ñhola', '1_publicacion-nissan.jpg', '2017-08-05 07:55:05', '1');
+INSERT INTO `trabaja` VALUES ('2', 'Raul 2', 'raul.chuky@gmail.com', '123456', 'Esto es otro CV adjuntado. Archivo PDF', '2_Propuesta-cadiem-Administrador1.pdf', '2017-08-05 07:56:29', '0');
+INSERT INTO `trabaja` VALUES ('3', 'Raul word', 'raul.chuky@gmail.com', '987654', 'Archivo WORD', '3_Presupuesto-Cadiem-Cambios.docx', '2017-08-05 07:59:14', '1');
