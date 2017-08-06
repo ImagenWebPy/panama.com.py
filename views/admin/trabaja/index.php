@@ -81,5 +81,26 @@
                 {"aTargets": [4], "mData": null, "sClass": "visto"}
             ]
         });
+        $(document).on("click", ".btnDatosTrabaja", function (e) {
+            if (e.handled !== true) // This will prevent event triggering more then once
+            {
+                var id = $(this).attr("data-id");
+                $.ajax({
+                    url: "<?= URL; ?>admin/modalVerTrabaja",
+                    type: "POST",
+                    data: {id: id},
+                    dataType: "json"
+                }).done(function (data) {
+                    $(".genericModal .modal-header").removeClass("modal-header").addClass("modal-header bg-primary");
+                    $(".genericModal .modal-title").html(data['titulo']);
+                    $(".genericModal .modal-body").html(data['contenido']);
+                    $(".genericModal").modal("toggle");
+                    if (data['cambiar_estado'] == true) {
+                        $('#cv_' + data['id'] + '>td:first').html('<a class="pointer text-green"><i class="fa fa-stop-circle-o" aria-hidden="true"></i></a>');
+                    }
+                });
+            }
+            e.handled = true;
+        });
     });
 </script>

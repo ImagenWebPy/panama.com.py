@@ -206,6 +206,15 @@ class Admin extends Controller {
         $datos = $this->model->modalVerContacto($data);
         echo $datos;
     }
+    
+    public function modalVerTrabaja() {
+        header('Content-type: application/json; charset=utf-8');
+        $data = array(
+            'id' => $this->helper->cleanInput($_POST['id'])
+        );
+        $datos = $this->model->modalVerTrabaja($data);
+        echo $datos;
+    }
 
     public function modalEditarSeccion() {
         header('Content-type: application/json; charset=utf-8');
@@ -213,6 +222,21 @@ class Admin extends Controller {
             'id' => $this->helper->cleanInput($_POST['id'])
         );
         $datos = $this->model->modalEditarSeccion($data);
+        echo $datos;
+    }
+
+    public function modalAgregarSeccion() {
+        header('Content-type: application/json; charset=utf-8');
+        $datos = $this->model->modalAgregarSeccion();
+        echo $datos;
+    }
+
+    public function modalEliminarSeccion() {
+        header('Content-type: application/json; charset=utf-8');
+        $data = array(
+            'id' => $this->helper->cleanInput($_POST['id'])
+        );
+        $datos = $this->model->modalEliminarSeccion($data);
         echo $datos;
     }
 
@@ -225,6 +249,26 @@ class Admin extends Controller {
             'estado' => (!empty($_POST['contacto']['estado'])) ? $this->helper->cleanInput($_POST['contacto']['estado']) : 0
         );
         $data = $this->model->saveContactoSeccion($data);
+        echo json_encode($data);
+    }
+
+    public function addContactoSeccion() {
+        header('Content-type: application/json; charset=utf-8');
+        $data = array(
+            'descripcion' => $this->helper->cleanInput($_POST['contacto']['seccion']),
+            'email' => $this->helper->cleanInput($_POST['contacto']['email']),
+            'estado' => (!empty($_POST['contacto']['estado'])) ? $this->helper->cleanInput($_POST['contacto']['estado']) : 0
+        );
+        $data = $this->model->addContactoSeccion($data);
+        echo json_encode($data);
+    }
+
+    public function deleteContactoSeccion() {
+        header('Content-type: application/json; charset=utf-8');
+        $data = array(
+            'id' => $this->helper->cleanInput($_POST['id'])
+        );
+        $data = $this->model->deleteContactoSeccion($data);
         echo json_encode($data);
     }
 

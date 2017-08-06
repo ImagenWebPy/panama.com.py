@@ -95,7 +95,7 @@
                     $(".genericModal .modal-body").html(data['contenido']);
                     $(".genericModal").modal("toggle");
                     if (data['cambiar_estado'] == true) {
-                        $('#tblContacto>tbody>tr>td:first').html('<a class="pointer text-green"><i class="fa fa-stop-circle-o" aria-hidden="true"></i></a>');
+                        $('#contacto_' + data['id'] + '>td:first').html('<a class="pointer text-green"><i class="fa fa-stop-circle-o" aria-hidden="true"></i></a>');
                     }
                 });
             }

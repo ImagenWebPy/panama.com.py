@@ -57,6 +57,11 @@ switch ($seccionActual) {
         $activeTrabaja = 'active';
         break;
     case 'contacto':
+        $activeContactoDatos = 'active';
+        $activeContacto = 'active';
+        break;
+    case 'contacto_seccion':
+        $contacto_seccion = 'active';
         $activeContacto = 'active';
         break;
     case 'usuario':

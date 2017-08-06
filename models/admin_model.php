@@ -273,6 +273,7 @@ class Admin_Model extends Model {
                 $estado = '<a class="pointer text-red"><i class="fa fa-stop-circle-o" aria-hidden="true"></i></a>';
             }
             array_push($datos, array(
+                'DT_RowId' => 'cv_' . $id,
                 'visto' => $estado,
                 'fecha' => date('d-m-Y', strtotime($item['fecha'])),
                 'nombre' => utf8_encode($item['nombre']),
@@ -377,14 +378,58 @@ class Admin_Model extends Model {
         return json_encode($datos);
     }
 
-    public function modalEditarSeccion($data) {
+    public function modalVerTrabaja($data) {
         $id = $data['id'];
         $cambiarEstado = FALSE;
+        $sql = $this->db->select("SELECT * from trabaja where id = $id");
+        if ($sql[0]['estado'] == 0) {
+            #cambiamos el estado del mensaje
+            $update = array(
+                'estado' => 1
+            );
+            $this->db->update('trabaja', $update, "id = $id");
+            $cambiarEstado = TRUE;
+        }
+        $form = '<div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Datos del C.V. enviado</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <dl class="dl-horizontal">
+                    <dt>Enviado el:</dt>
+                    <dd>' . date('d-m-Y', strtotime($sql[0]['fecha'])) . '</dd>
+                    <dt>Hora:</dt>
+                    <dd>' . date('H:i:s', strtotime($sql[0]['fecha'])) . '</dd>
+                    <dt>Nombre:</dt>
+                    <dd>' . utf8_encode($sql[0]['nombre']) . '</dd>
+                    <dt>Email: </dt>
+                    <dd>' . utf8_encode($sql[0]['email']) . '</dd>
+                    <dt>Teléfono: </dt>
+                    <dd>' . utf8_encode($sql[0]['telefono']) . '</dd>
+                    <dt>Mensaje: </dt>
+                    <dd>' . utf8_encode($sql[0]['mensaje']) . '</dd>
+                    <dt>Archivo: </dt>
+                    <dd><a href="' . URL . 'public/archivos/cv/' . utf8_encode($sql[0]['archivo']) . '" title="Descargar" target="_blank">' . utf8_encode($sql[0]['archivo']) . '</a></dd>
+                </dl>
+            </div>
+          </div>';
+        $datos = array(
+            'titulo' => 'C.V. de ' . utf8_encode($sql[0]['nombre']),
+            'contenido' => $form,
+            'id' => $id,
+            'cambiar_estado' => $cambiarEstado
+        );
+        return json_encode($datos);
+    }
+
+    public function modalEditarSeccion($data) {
+        $id = $data['id'];
         $sql = $this->db->select("SELECT * FROM contacto_formulario where id = $id");
         $checked = ($sql[0]['estado'] == 1) ? 'checked' : '';
         $form = '<div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Datos del mensaje</h3>
+              <h3 class="box-title">Datos de la Sección</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -420,6 +465,71 @@ class Admin_Model extends Model {
         return json_encode($datos);
     }
 
+    public function modalAgregarSeccion() {
+        $form = '<div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Datos de la Sección</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <form role="form" id="frmAgregarSeccion" method="POST">
+                    <div class="form-group">
+                        <label>Sección</label>
+                        <input type="text" name="contacto[seccion]" class="form-control" placeholder="Ingrese la sección" value="">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="text" name="contacto[email]" class="form-control" placeholder="Ingrese el email" value="">
+                    </div>
+                    <!-- checkbox -->
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="contacto[estado]" value="1" checked>
+                                Estado
+                            </label>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Agregar Sección</button>
+                    </div>
+                </form>
+            </div>
+          </div>';
+        $datos = array(
+            'titulo' => 'Agregar Sección',
+            'contenido' => $form
+        );
+        return json_encode($datos);
+    }
+
+    public function modalEliminarSeccion($data) {
+        $id = $data['id'];
+        $sql = $this->db->select("SELECT * FROM contacto_formulario where id = $id");
+        $form = '<div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Datos del mensaje</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <form role="form" id="frmEliminarSeccion" method="POST">
+                    <input type="hidden" name="contacto[id]" value="' . $id . '">
+                    <div class="alert alert-danger alert-dismissible">
+                        <h4><i class="icon fa fa-ban"></i> ¿Está seguro de que desea eliminar la sección "<strong>' . utf8_encode($sql[0]['descripcion']) . '</strong>"?</h4>
+                    </div>
+                    <div class="box-footer">
+                        <button type="submit" id="btnEliminarSeccion" class="btn btn-danger" data-id="' . $id . '">Eliminar</button>
+                    </div>
+                </form>
+            </div>
+          </div>';
+        $datos = array(
+            'titulo' => 'Eliminar ' . utf8_encode($sql[0]['descripcion']),
+            'contenido' => $form
+        );
+        return json_encode($datos);
+    }
+
     public function saveContactoSeccion($data) {
         $id = $data['id'];
         $estado = 1;
@@ -449,6 +559,61 @@ class Admin_Model extends Model {
             'id' => $id,
             'row' => $row
         );
+        return $datos;
+    }
+
+    public function addContactoSeccion($data) {
+        $estado = 1;
+        if (empty($data['estado'])) {
+            $estado = 0;
+        }
+        $this->db->insert('contacto_formulario', array(
+            'descripcion' => utf8_decode($data['descripcion']),
+            'email' => utf8_decode($data['email']),
+            'estado' => $estado
+        ));
+        $id = $this->db->lastInsertId();
+        #obtenemos la fila
+        $sql = $this->db->select("SELECT * FROM contacto_formulario where id = $id");
+        if ($sql[0]['estado'] == 1) {
+            $estado = '<a class="pointer btnCambiarEstado" data-id="' . $id . '" data-estado="1"><span class="label label-success">Activo</span></a>';
+        } else {
+            $estado = '<a class="pointer btnCambiarEstado" data-id="' . $id . '" data-estado="0"><span class="label label-danger">Inactivo</span></a>';
+        }
+        $row = '<tr id="seccion_' . $id . '">'
+                . '<td class="sorting_1">' . utf8_encode($sql[0]['descripcion']) . '</td>'
+                . '<td>' . utf8_encode($sql[0]['email']) . '</td>'
+                . '<td>' . $estado . '</td>'
+                . '<td><a class="btn btn-app pointer btnEditarSeccion btnSmall" data-id="' . $id . '"><i class="fa fa-edit"></i> Editar</a>'
+                . ' | <a class="btn btn-app pointer btnEliminarSeccion btnSmall" data-id="' . $id . '"><i class="fa fa-ban" aria-hidden="true"></i> Eliminar</a></td>'
+                . '</tr>';
+        $datos = array(
+            'type' => 'success',
+            'row' => $row
+        );
+        return $datos;
+    }
+
+    public function deleteContactoSeccion($data) {
+        $id = $data['id'];
+        try {
+            $sth = $this->db->prepare("delete from contacto_formulario where id = :id");
+            $sth->execute(array(
+                ':id' => $id
+            ));
+            $datos = array(
+                'type' => 'success',
+                'id' => $id,
+                'contenido' => ''
+            );
+        } catch (Exception $ex) {
+            $datos = array(
+                'type' => 'success',
+                'id' => $id,
+                'contenido' => 'Lo sentimos ha ocurrido un error, no se pudo eliminar el registro'
+            );
+        }
+
         return $datos;
     }
 
