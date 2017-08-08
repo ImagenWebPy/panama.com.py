@@ -120,6 +120,7 @@ class Admin_Model extends Model {
                 $estado = '<a class="pointer btnCambiarEstado" data-id="' . $id . '" data-estado="0"><span class="label label-danger">Inactivo</span></a>';
             }
             array_push($datos, array(
+                'DT_RowId' => 'sucursal_' . $id,
                 'sucursal' => utf8_encode($item['nombre']),
                 'telefono' => utf8_encode($item['telefono']),
                 'ciudad' => utf8_encode($item['ciudad']),
@@ -465,6 +466,81 @@ class Admin_Model extends Model {
         return json_encode($datos);
     }
 
+    public function modalEditarSucursal($data) {
+        $id = $data['id'];
+        $sql = $this->db->select("SELECT * FROM sucursal where id = $id");
+        $checked = ($sql[0]['estado'] == 1) ? 'checked' : '';
+        $form = '<div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Datos de la Sección</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <form role="form" id="frmEditarSucursal" method="POST">
+                    <input type="hidden" name="sucursal[id]" value="' . $id . '">
+                    <div class="form-group">
+                        <label>Nombre</label>
+                        <input type="text" name="sucursal[nombre]" class="form-control" placeholder="Ingrese el Nombre de la Sucursal" value="' . utf8_encode($sql[0]['nombre']) . '">
+                    </div>
+                    <div class="form-group">
+                        <label>Dirección</label>
+                        <input type="text" name="sucursal[direccion]" class="form-control" placeholder="Ingrese la dirección" value="' . utf8_encode($sql[0]['direccion']) . '">
+                    </div>
+                    <div class="form-group">
+                        <label>Teléfono</label>
+                        <input type="text" name="sucursal[telefono]" class="form-control" placeholder="Ingrese el Teléfono" value="' . utf8_encode($sql[0]['telefono']) . '">
+                    </div>
+                    <div class="form-group">
+                        <label>Ciudad</label>
+                        <input type="text" name="sucursal[ciudad]" class="form-control" placeholder="Ingrese la Cuidad" value="' . utf8_encode($sql[0]['ciudad']) . '">
+                    </div>
+                    <div class="form-group">
+                        <label>País</label>
+                        <input type="text" name="sucursal[pais]" class="form-control" placeholder="Ingrese el País" value="' . utf8_encode($sql[0]['pais']) . '">
+                    </div>
+                    <div class="form-group">
+                        <label>Latitud</label>
+                        <input type="text" name="sucursal[latitud]" class="form-control" placeholder="Ingrese la Latitud" value="' . utf8_encode($sql[0]['latitud']) . '">
+                    </div>
+                    <div class="form-group">
+                        <label>Longitud</label>
+                        <input type="text" name="sucursal[longitud]" class="form-control" placeholder="Ingrese la Longitud" value="' . utf8_encode($sql[0]['longitud']) . '">
+                    </div>
+                    <div class="form-group">
+                        <label>Horario de Atención</label>
+                        <textarea id="editor1" name="sucursal[horario_atencion]" rows="10" cols="80">
+                                ' . utf8_encode($sql[0]['horario_atencion']) . '
+                            </textarea>
+                    </div>
+                    <script>
+                        $(function () {
+                            // Replace the <textarea id="editor1"> with a CKEditor
+                            // instance, using default configuration.
+                            CKEDITOR.replace("sucursal[horario_atencion]");
+                        });
+                    </script>
+                    <!-- checkbox -->
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="sucursal[estado]" value="1" ' . $checked . '>
+                                Estado
+                            </label>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    </div>
+                </form>
+            </div>
+          </div>';
+        $datos = array(
+            'titulo' => 'Editar ' . utf8_encode($sql[0]['nombre']),
+            'contenido' => $form
+        );
+        return json_encode($datos);
+    }
+
     public function modalAgregarSeccion() {
         $form = '<div class="box box-primary">
             <div class="box-header with-border">
@@ -503,6 +579,77 @@ class Admin_Model extends Model {
         return json_encode($datos);
     }
 
+    public function modalAgregarSucursal() {
+        $form = '<div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Datos de la Sección</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <form role="form" id="frmAgregarSucursal" method="POST">
+                    <div class="form-group">
+                        <label>Nombre</label>
+                        <input type="text" name="sucursal[nombre]" class="form-control" placeholder="Ingrese el Nombre de la Sucursal" value="">
+                    </div>
+                    <div class="form-group">
+                        <label>Dirección</label>
+                        <input type="text" name="sucursal[direccion]" class="form-control" placeholder="Ingrese la dirección" value="">
+                    </div>
+                    <div class="form-group">
+                        <label>Teléfono</label>
+                        <input type="text" name="sucursal[telefono]" class="form-control" placeholder="Ingrese el Teléfono" value="">
+                    </div>
+                    <div class="form-group">
+                        <label>Ciudad</label>
+                        <input type="text" name="sucursal[ciudad]" class="form-control" placeholder="Ingrese la Cuidad" value="">
+                    </div>
+                    <div class="form-group">
+                        <label>País</label>
+                        <input type="text" name="sucursal[pais]" class="form-control" placeholder="Ingrese el País" value="">
+                    </div>
+                    <div class="form-group">
+                        <label>Latitud</label>
+                        <input type="text" name="sucursal[latitud]" class="form-control" placeholder="Ingrese la Latitud" value="">
+                    </div>
+                    <div class="form-group">
+                        <label>Longitud</label>
+                        <input type="text" name="sucursal[longitud]" class="form-control" placeholder="Ingrese la Longitud" value="">
+                    </div>
+                    <div class="form-group">
+                        <label>Horario de Atención</label>
+                        <textarea id="editor1" name="sucursal[horario_atencion]" rows="10" cols="80">
+                                
+                            </textarea>
+                    </div>
+                    <script>
+                        $(function () {
+                            // Replace the <textarea id="editor1"> with a CKEditor
+                            // instance, using default configuration.
+                            CKEDITOR.replace("sucursal[horario_atencion]");
+                        });
+                    </script>
+                    <!-- checkbox -->
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="sucursal[estado]" value="1" checked>
+                                Estado
+                            </label>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Aregar Sucursal</button>
+                    </div>
+                </form>
+            </div>
+          </div>';
+        $datos = array(
+            'titulo' => 'Agregar Sucursal',
+            'contenido' => $form
+        );
+        return json_encode($datos);
+    }
+
     public function modalEliminarSeccion($data) {
         $id = $data['id'];
         $sql = $this->db->select("SELECT * FROM contacto_formulario where id = $id");
@@ -525,6 +672,33 @@ class Admin_Model extends Model {
           </div>';
         $datos = array(
             'titulo' => 'Eliminar ' . utf8_encode($sql[0]['descripcion']),
+            'contenido' => $form
+        );
+        return json_encode($datos);
+    }
+    
+    public function modalEliminarSucursal($data) {
+        $id = $data['id'];
+        $sql = $this->db->select("SELECT * FROM sucursal where id = $id");
+        $form = '<div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Datos del mensaje</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <form role="form" id="frmEliminarSucursal" method="POST">
+                    <input type="hidden" name="sucursal[id]" value="' . $id . '">
+                    <div class="alert alert-danger alert-dismissible">
+                        <h4><i class="icon fa fa-ban"></i> ¿Está seguro de que desea eliminar la sucursal "<strong>' . utf8_encode($sql[0]['nombre']) . '</strong>"?</h4>
+                    </div>
+                    <div class="box-footer">
+                        <button type="submit" id="btnDeleteSucursal" class="btn btn-danger" data-id="' . $id . '">Eliminar</button>
+                    </div>
+                </form>
+            </div>
+          </div>';
+        $datos = array(
+            'titulo' => 'Eliminar ' . utf8_encode($sql[0]['nombre']),
             'contenido' => $form
         );
         return json_encode($datos);
@@ -554,6 +728,46 @@ class Admin_Model extends Model {
                 . '<td>' . $estado . '</td>'
                 . '<td><a class="btn btn-app pointer btnEditarSeccion btnSmall" data-id="' . $id . '"><i class="fa fa-edit"></i> Editar</a>'
                 . ' | <a class="btn btn-app pointer btnEliminarSeccion btnSmall" data-id="' . $id . '"><i class="fa fa-ban" aria-hidden="true"></i> Eliminar</a></td>';
+        $datos = array(
+            'type' => 'success',
+            'id' => $id,
+            'row' => $row
+        );
+        return $datos;
+    }
+
+    public function editSucursal($data) {
+        $id = $data['id'];
+        $estado = 1;
+        if (empty($data['estado'])) {
+            $estado = 0;
+        }
+        $update = array(
+            'nombre' => utf8_decode($data['nombre']),
+            'direccion' => utf8_decode($data['direccion']),
+            'telefono' => utf8_decode($data['telefono']),
+            'ciudad' => utf8_decode($data['ciudad']),
+            'pais' => utf8_decode($data['pais']),
+            'latitud' => utf8_decode($data['latitud']),
+            'longitud' => utf8_decode($data['longitud']),
+            'horario_atencion' => utf8_decode($data['horario_atencion']),
+            'estado' => $estado
+        );
+        $this->db->update('sucursal', $update, "id = $id");
+        #obtenemos la fila
+        $sql = $this->db->select("SELECT * FROM sucursal where id = $id");
+        if ($sql[0]['estado'] == 1) {
+            $estado = '<a class="pointer btnCambiarEstado" data-id="' . $id . '" data-estado="1"><span class="label label-success">Activo</span></a>';
+        } else {
+            $estado = '<a class="pointer btnCambiarEstado" data-id="' . $id . '" data-estado="0"><span class="label label-danger">Inactivo</span></a>';
+        }
+        $row = '<td class="sorting_1">' . utf8_encode($sql[0]['nombre']) . '</td>'
+                . '<td>' . utf8_encode($sql[0]['telefono']) . '</td>'
+                . '<td>' . utf8_encode($sql[0]['ciudad']) . '</td>'
+                . '<td>' . $estado . '</td>'
+                . '<td><a class="btn btn-app pointer btnEditarSucursal btnSmall" data-id="' . $id . '"><i class="fa fa-edit"></i> Editar</a>'
+                . ' | <a class="btn btn-app pointer btnEliminarSucursal btnSmall" data-id="' . $id . '"><i class="fa fa-ban" aria-hidden="true"></i> Eliminar</a>'
+                . '</td>';
         $datos = array(
             'type' => 'success',
             'id' => $id,
@@ -594,6 +808,44 @@ class Admin_Model extends Model {
         return $datos;
     }
 
+    public function addSucursal($data) {
+        $estado = 1;
+        if (empty($data['estado'])) {
+            $estado = 0;
+        }
+        $this->db->insert('sucursal', array(
+            'nombre' => utf8_decode($data['nombre']),
+            'direccion' => utf8_decode($data['direccion']),
+            'telefono' => utf8_decode($data['telefono']),
+            'ciudad' => utf8_decode($data['ciudad']),
+            'pais' => utf8_decode($data['pais']),
+            'latitud' => utf8_decode($data['latitud']),
+            'longitud' => utf8_decode($data['longitud']),
+            'horario_atencion' => utf8_decode($data['horario_atencion']),
+            'estado' => $estado
+        ));
+        $id = $this->db->lastInsertId();
+        #obtenemos la fila
+        $sql = $this->db->select("SELECT * FROM sucursal where id = $id");
+        if ($sql[0]['estado'] == 1) {
+            $estado = '<a class="pointer btnCambiarEstado" data-id="' . $id . '" data-estado="1"><span class="label label-success">Activo</span></a>';
+        } else {
+            $estado = '<a class="pointer btnCambiarEstado" data-id="' . $id . '" data-estado="0"><span class="label label-danger">Inactivo</span></a>';
+        }
+        $row = '<tr id="sucursal_' . $id . '" role="row" class="odd">'
+                . '<td class="sorting_1">' . utf8_encode($sql[0]['nombre']) . '</td>'
+                . '<td>' . utf8_encode($sql[0]['telefono']) . '</td>'
+                . '<td>' . utf8_encode($sql[0]['ciudad']) . '</td>'
+                . '<td>' . $estado . '</td>'
+                . '<td><a class="btn btn-app pointer btnEditarSucursal btnSmall" data-id="' . $id . '"><i class="fa fa-edit"></i> Editar</a> | <a class="btn btn-app pointer btnEliminarSucursal btnSmall" data-id="' . $id . '"><i class="fa fa-ban" aria-hidden="true"></i> Eliminar</a></td>'
+                . '</tr>';
+        $datos = array(
+            'type' => 'success',
+            'row' => $row
+        );
+        return $datos;
+    }
+
     public function deleteContactoSeccion($data) {
         $id = $data['id'];
         try {
@@ -608,7 +860,30 @@ class Admin_Model extends Model {
             );
         } catch (Exception $ex) {
             $datos = array(
+                'type' => 'error',
+                'id' => $id,
+                'contenido' => 'Lo sentimos ha ocurrido un error, no se pudo eliminar el registro'
+            );
+        }
+
+        return $datos;
+    }
+    
+    public function deleteContactoSucursal($data) {
+        $id = $data['id'];
+        try {
+            $sth = $this->db->prepare("delete from sucursal where id = :id");
+            $sth->execute(array(
+                ':id' => $id
+            ));
+            $datos = array(
                 'type' => 'success',
+                'id' => $id,
+                'contenido' => ''
+            );
+        } catch (Exception $ex) {
+            $datos = array(
+                'type' => 'error',
                 'id' => $id,
                 'contenido' => 'Lo sentimos ha ocurrido un error, no se pudo eliminar el registro'
             );

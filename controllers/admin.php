@@ -191,7 +191,7 @@ class Admin extends Controller {
 
     public function sucursales() {
         $this->view->public_css = array("plugins/datatables/dataTables.bootstrap.css");
-        $this->view->public_js = array("plugins/datatables/jquery.dataTables.min.js", "plugins/datatables/dataTables.bootstrap.min.js");
+        $this->view->public_js = array("plugins/datatables/jquery.dataTables.min.js", "plugins/datatables/dataTables.bootstrap.min.js", "plugins/ckeditor/ckeditor.js");
         $this->view->title = 'Productos';
         $this->view->render('admin/header');
         $this->view->render('admin/sucursales/index');
@@ -206,7 +206,7 @@ class Admin extends Controller {
         $datos = $this->model->modalVerContacto($data);
         echo $datos;
     }
-    
+
     public function modalVerTrabaja() {
         header('Content-type: application/json; charset=utf-8');
         $data = array(
@@ -225,9 +225,24 @@ class Admin extends Controller {
         echo $datos;
     }
 
+    public function modalEditarSucursal() {
+        header('Content-type: application/json; charset=utf-8');
+        $data = array(
+            'id' => $this->helper->cleanInput($_POST['id'])
+        );
+        $datos = $this->model->modalEditarSucursal($data);
+        echo $datos;
+    }
+
     public function modalAgregarSeccion() {
         header('Content-type: application/json; charset=utf-8');
         $datos = $this->model->modalAgregarSeccion();
+        echo $datos;
+    }
+    
+    public function modalAgregarSucursal() {
+        header('Content-type: application/json; charset=utf-8');
+        $datos = $this->model->modalAgregarSucursal();
         echo $datos;
     }
 
@@ -237,6 +252,15 @@ class Admin extends Controller {
             'id' => $this->helper->cleanInput($_POST['id'])
         );
         $datos = $this->model->modalEliminarSeccion($data);
+        echo $datos;
+    }
+    
+    public function modalEliminarSucursal() {
+        header('Content-type: application/json; charset=utf-8');
+        $data = array(
+            'id' => $this->helper->cleanInput($_POST['id'])
+        );
+        $datos = $this->model->modalEliminarSucursal($data);
         echo $datos;
     }
 
@@ -251,6 +275,24 @@ class Admin extends Controller {
         $data = $this->model->saveContactoSeccion($data);
         echo json_encode($data);
     }
+    
+    public function editSucursal() {
+        header('Content-type: application/json; charset=utf-8');
+        $data = array(
+            'id' => $this->helper->cleanInput($_POST['sucursal']['id']),
+            'nombre' => $this->helper->cleanInput($_POST['sucursal']['nombre']),
+            'direccion' => $this->helper->cleanInput($_POST['sucursal']['direccion']),
+            'telefono' => $this->helper->cleanInput($_POST['sucursal']['telefono']),
+            'ciudad' => $this->helper->cleanInput($_POST['sucursal']['ciudad']),
+            'pais' => $this->helper->cleanInput($_POST['sucursal']['pais']),
+            'latitud' => $this->helper->cleanInput($_POST['sucursal']['latitud']),
+            'longitud' => $this->helper->cleanInput($_POST['sucursal']['longitud']),
+            'horario_atencion' => $this->helper->cleanInput($_POST['sucursal']['horario_atencion']),
+            'estado' => (!empty($_POST['sucursal']['estado'])) ? $this->helper->cleanInput($_POST['sucursal']['estado']) : 0
+        );
+        $data = $this->model->editSucursal($data);
+        echo json_encode($data);
+    }
 
     public function addContactoSeccion() {
         header('Content-type: application/json; charset=utf-8');
@@ -262,6 +304,23 @@ class Admin extends Controller {
         $data = $this->model->addContactoSeccion($data);
         echo json_encode($data);
     }
+    
+    public function addSucursal() {
+        header('Content-type: application/json; charset=utf-8');
+        $data = array(
+            'nombre' => $this->helper->cleanInput($_POST['sucursal']['nombre']),
+            'direccion' => $this->helper->cleanInput($_POST['sucursal']['direccion']),
+            'telefono' => $this->helper->cleanInput($_POST['sucursal']['telefono']),
+            'ciudad' => $this->helper->cleanInput($_POST['sucursal']['ciudad']),
+            'pais' => $this->helper->cleanInput($_POST['sucursal']['pais']),
+            'latitud' => $this->helper->cleanInput($_POST['sucursal']['latitud']),
+            'longitud' => $this->helper->cleanInput($_POST['sucursal']['longitud']),
+            'horario_atencion' => $this->helper->cleanInput($_POST['sucursal']['horario_atencion']),
+            'estado' => (!empty($_POST['sucursal']['estado'])) ? $this->helper->cleanInput($_POST['sucursal']['estado']) : 0
+        );
+        $data = $this->model->addSucursal($data);
+        echo json_encode($data);
+    }
 
     public function deleteContactoSeccion() {
         header('Content-type: application/json; charset=utf-8');
@@ -269,6 +328,15 @@ class Admin extends Controller {
             'id' => $this->helper->cleanInput($_POST['id'])
         );
         $data = $this->model->deleteContactoSeccion($data);
+        echo json_encode($data);
+    }
+    
+    public function deleteContactoSucursal() {
+        header('Content-type: application/json; charset=utf-8');
+        $data = array(
+            'id' => $this->helper->cleanInput($_POST['id'])
+        );
+        $data = $this->model->deleteContactoSucursal($data);
         echo json_encode($data);
     }
 
