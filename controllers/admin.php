@@ -116,6 +116,15 @@ class Admin extends Controller {
         $this->view->render('admin/contacto/seccion');
         $this->view->render('admin/footer');
     }
+    
+    public function newsletter() {
+        $this->view->public_css = array("plugins/datatables/dataTables.bootstrap.css");
+        $this->view->public_js = array("plugins/datatables/jquery.dataTables.min.js", "plugins/datatables/dataTables.bootstrap.min.js");
+        $this->view->title = 'Newsletter';
+        $this->view->render('admin/header');
+        $this->view->render('admin/newsletter/index');
+        $this->view->render('admin/footer');
+    }
 
     public function cargarDTMarcas() {
         header('Content-type: application/json; charset=utf-8');
@@ -138,6 +147,12 @@ class Admin extends Controller {
     public function cargarDTSucursales() {
         header('Content-type: application/json; charset=utf-8');
         $data = $this->model->cargarDTSucursales();
+        echo $data;
+    }
+    
+    public function cargarDTNewsletter() {
+        header('Content-type: application/json; charset=utf-8');
+        $data = $this->model->cargarDTNewsletter();
         echo $data;
     }
 

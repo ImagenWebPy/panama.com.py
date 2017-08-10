@@ -24,6 +24,9 @@ $slider = $this->getSlider;
                         <h3 class="box-title">Slider
                             <small>Slider Principal</small>
                         </h3>
+                        <div class="col-xs-6 pull-right">
+                            <button type="button" class="btn btn-block btn-primary btnAgregarSucursal">Agregar Nuevo Slide</button>
+                        </div>
                         <!-- tools box -->
                         <div class="pull-right box-tools">
                             <button type="button" class="btn btn-info btn-sm" data-widget="collapse" data-toggle="tooltip" title="Collapse">

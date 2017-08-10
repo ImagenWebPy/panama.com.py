@@ -16,6 +16,9 @@
                 <div class="box">
                     <div class="box-header">
                         <h3 class="box-title">Listado de Usuario</h3>
+                        <div class="col-xs-6 pull-right">
+                            <button type="button" class="btn btn-block btn-primary btnAgregarSucursal">Agregar Nuevo Usuario</button>
+                        </div>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">

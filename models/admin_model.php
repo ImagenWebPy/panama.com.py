@@ -132,6 +132,29 @@ class Admin_Model extends Model {
         return $json;
     }
 
+    public function cargarDTNewsletter() {
+        $datos = array();
+        $sql = $this->db->select('select * from newsletter');
+        foreach ($sql as $item) {
+            $id = $item['id'];
+            $btnDel = '<a class="btn btn-app pointer btnEliminarSucursal btnSmall" data-id="' . $item['id'] . '"><i class="fa fa-ban" aria-hidden="true"></i> Eliminar</a>';
+            if ($item['estado'] == 1) {
+                $estado = '<a class="pointer btnCambiarEstado" data-id="' . $id . '" data-estado="1"><span class="label label-success">Activo</span></a>';
+            } else {
+                $estado = '<a class="pointer btnCambiarEstado" data-id="' . $id . '" data-estado="0"><span class="label label-danger">Inactivo</span></a>';
+            }
+            array_push($datos, array(
+                'DT_RowId' => 'sucursal_' . $id,
+                'nombre' => utf8_encode($item['nombre']),
+                'email' => utf8_encode($item['email']),
+                'fecha' => date('d-m-Y', $item['fecha']),
+                'accion' => $btnDel
+            ));
+        }
+        $json = '{"data": ' . json_encode($datos) . '}';
+        return $json;
+    }
+
     public function cargarDTUsuarios() {
         $datos = array();
         $sql = $this->db->select('select au.id,
@@ -676,7 +699,7 @@ class Admin_Model extends Model {
         );
         return json_encode($datos);
     }
-    
+
     public function modalEliminarSucursal($data) {
         $id = $data['id'];
         $sql = $this->db->select("SELECT * FROM sucursal where id = $id");
@@ -868,7 +891,7 @@ class Admin_Model extends Model {
 
         return $datos;
     }
-    
+
     public function deleteContactoSucursal($data) {
         $id = $data['id'];
         try {

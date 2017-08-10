@@ -16,6 +16,9 @@
                 <div class="box">
                     <div class="box-header">
                         <h3 class="box-title">Listado de Categorías</h3>
+                        <div class="col-xs-6 pull-right">
+                            <button type="button" class="btn btn-block btn-primary btnAgregarSucursal">Agregar Nueva Categoria</button>
+                        </div>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
