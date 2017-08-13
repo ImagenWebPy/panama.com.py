@@ -71,6 +71,7 @@ class Admin_Model extends Model {
                 $estado = '<a class="pointer btnCambiarEstado" data-id="' . $id . '" data-estado="0"><span class="label label-danger">Inactivo</span></a>';
             }
             array_push($datos, array(
+                'DT_RowId' => 'marca_' . $id,
                 'descripcion' => utf8_encode($item['descripcion']),
                 'img' => $img,
                 'estado' => $estado,
@@ -602,6 +603,108 @@ class Admin_Model extends Model {
         return json_encode($datos);
     }
 
+    public function modalAgregarMarca() {
+        $form = '<div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Agregar Marca</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <form role="form" method="POST" action="' . URL . 'admin/frmAddMarca" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label>Nombre</label>
+                        <input type="text" name="marca[descripcion]" class="form-control" placeholder="Ingrese la marca" value="">
+                    </div>
+                    <div class="form-group">
+                        <label>Imagen</label>
+                        <div class="html5fileupload fileMarca" data-form="true" data-url="html5fileupload.php" data-valid-extensions="JPG,JPEG,jpg,png,jpeg" style="width: 100%;">
+                            <input type="file" name="file_archivo" />
+                        </div>
+                    </div>
+                    <script>
+                        $(".html5fileupload.fileMarca").html5fileupload();
+                    </script>
+                    <!-- checkbox -->
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="marca[estado]" value="1" checked>
+                                Estado
+                            </label>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Agregar Marca</button>
+                    </div>
+                </form>
+            </div>
+          </div>';
+        $datos = array(
+            'titulo' => 'Agregar Sección',
+            'contenido' => $form
+        );
+        return json_encode($datos);
+    }
+
+    public function modalEditarMarca($data) {
+        $id = $data['id'];
+        $sql = $this->db->select("select * from marca where id = $id");
+        $checked = ($sql[0]['estado'] == 1) ? 'checked' : '';
+        $form = '<div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Agregar Marca</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <form role="form" method="POST" action="' . URL . 'admin/frmEditarMarca" enctype="multipart/form-data" id="frmEditarMarca">
+                    <input type="hidden" value="' . $id . '" name="marca[id]">
+                    <div class="form-group">
+                        <label>Nombre</label>
+                        <input type="text" name="marca[descripcion]" class="form-control" placeholder="Ingrese la marca" value="' . utf8_encode($sql[0]['descripcion']) . '">
+                    </div>
+                    
+                    <!-- checkbox -->
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="marca[estado]" value="1" ' . $checked . '>
+                                Estado
+                            </label>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Edita Contenido</button>
+                    </div>
+                </form>
+                <div class="form-group">
+                        <label>Imagen</label>
+                        <div class="html5fileupload fileUploadMarca" data-url="' . URL . 'admin/uploadImgMarca" data-valid-extensions="JPG,JPEG,jpg,png,jpeg" style="width: 100%;">
+                            <input type="file" name="file" />
+                        </div>
+                </div>
+                <script>
+                    $(".html5fileupload.fileUploadMarca").html5fileupload({
+                        data:{id:' . $id . '},
+                        onAfterStartSuccess: function(response) {
+                            $("#imgMarca" + response.id).html(response.content);
+                        }
+                    });
+                </script>
+                <h4>Imagen Actual</h4>
+                <div class="imgActualMarca" id="imgMarca' . $id . '">';
+        if (!empty($sql[0]['img'])) {
+            $form .= '<img class="img-responsive" src="' . URL . 'public/img/marcas/' . $sql[0]['img'] . '">';
+        }
+        $form .= '</div>
+            </div>
+          </div>';
+        $datos = array(
+            'titulo' => 'Agregar Sección',
+            'contenido' => $form
+        );
+        return json_encode($datos);
+    }
+
     public function modalAgregarSucursal() {
         $form = '<div class="box box-primary">
             <div class="box-header with-border">
@@ -727,6 +830,33 @@ class Admin_Model extends Model {
         return json_encode($datos);
     }
 
+    public function modalEliminarMarca($data) {
+        $id = $data['id'];
+        $sql = $this->db->select("SELECT * FROM marca where id = $id");
+        $form = '<div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Datos del mensaje</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <form role="form" id="frmEliminarMarca" method="POST">
+                    <input type="hidden" name="marca[id]" value="' . $id . '">
+                    <div class="alert alert-danger alert-dismissible">
+                        <h4><i class="icon fa fa-ban"></i> ¿Está seguro de que desea eliminar la marca "<strong>' . utf8_encode($sql[0]['descripcion']) . '</strong>"?</h4>
+                    </div>
+                    <div class="box-footer">
+                        <button type="submit" id="btnDeleteMarca" class="btn btn-danger" data-id="' . $id . '">Eliminar</button>
+                    </div>
+                </form>
+            </div>
+          </div>';
+        $datos = array(
+            'titulo' => 'Eliminar ' . utf8_encode($sql[0]['descripcion']),
+            'contenido' => $form
+        );
+        return json_encode($datos);
+    }
+
     public function saveContactoSeccion($data) {
         $id = $data['id'];
         $estado = 1;
@@ -791,6 +921,37 @@ class Admin_Model extends Model {
                 . '<td><a class="btn btn-app pointer btnEditarSucursal btnSmall" data-id="' . $id . '"><i class="fa fa-edit"></i> Editar</a>'
                 . ' | <a class="btn btn-app pointer btnEliminarSucursal btnSmall" data-id="' . $id . '"><i class="fa fa-ban" aria-hidden="true"></i> Eliminar</a>'
                 . '</td>';
+        $datos = array(
+            'type' => 'success',
+            'id' => $id,
+            'row' => $row
+        );
+        return $datos;
+    }
+
+    public function editMarca($data) {
+        $id = $data['id'];
+        $estado = 1;
+        if (empty($data['estado'])) {
+            $estado = 0;
+        }
+        $update = array(
+            'descripcion' => utf8_decode($data['descripcion']),
+            'estado' => $estado
+        );
+        $this->db->update('marca', $update, "id = $id");
+        #obtenemos la fila
+        $sql = $this->db->select("SELECT * FROM marca where id = $id");
+        if ($sql[0]['estado'] == 1) {
+            $estado = '<a class="pointer btnCambiarEstado" data-id="' . $id . '" data-estado="1"><span class="label label-success">Activo</span></a>';
+        } else {
+            $estado = '<a class="pointer btnCambiarEstado" data-id="' . $id . '" data-estado="0"><span class="label label-danger">Inactivo</span></a>';
+        }
+        $row = '<td>' . $sql[0]['descripcion'] . '</td>'
+                . '<td><img src="' . URL . 'public/img/marcas/' . $sql[0]['img'] . '" class="img-responsive" style="width: 150px;"></td>'
+                . '<td>' . $estado . '</td>'
+                . '<td><a class="btn btn-app pointer btnEditarMarca btnSmall" data-id="' . $id . '"><i class="fa fa-edit"></i> Editar</a> '
+                . '| <a class="btn btn-app pointer btnEliminarMarca btnSmall" data-id="' . $id . '"><i class="fa fa-ban" aria-hidden="true"></i> Eliminar</a></td>';
         $datos = array(
             'type' => 'success',
             'id' => $id,
@@ -913,6 +1074,89 @@ class Admin_Model extends Model {
         }
 
         return $datos;
+    }
+
+    public function deleteMarca($data) {
+        $id = $data['id'];
+        try {
+            $sth = $this->db->prepare("delete from marca where id = :id");
+            $sth->execute(array(
+                ':id' => $id
+            ));
+            $datos = array(
+                'type' => 'success',
+                'id' => $id,
+                'contenido' => ''
+            );
+        } catch (Exception $ex) {
+            $datos = array(
+                'type' => 'error',
+                'id' => $id,
+                'contenido' => 'Lo sentimos ha ocurrido un error, no se pudo eliminar el registro'
+            );
+        }
+
+        return $datos;
+    }
+
+    public function guardarLaEmpresaContenido($data) {
+        $id = 1;
+        $update = array(
+            'contenido' => utf8_decode($data['contenido'])
+        );
+        try {
+            $this->db->update('la_empresa', $update, "id = $id");
+            $datos = array(
+                'type' => 'success',
+                'titulo' => 'Se ha actualizado correctamente',
+                'contenido' => 'Se ha actualizado el regitro correctamente'
+            );
+        } catch (Exception $ex) {
+            $datos = array(
+                'type' => 'error',
+                'titulo' => 'Ha ocurrido un error',
+                'contenido' => 'Lo sentimos ha ocurrido un error, no se pudo actualizar el registro'
+            );
+        }
+        return $datos;
+    }
+
+    public function frmAddMarca($data) {
+        $this->db->insert('marca', array(
+            'descripcion' => utf8_decode($data['descripcion']),
+            'estado' => $data['estado']
+        ));
+        $id = $this->db->lastInsertId();
+        return $id;
+    }
+
+    public function frmAddMarcaImg($img) {
+        $id = $img['id'];
+        $update = array(
+            'img' => $img['imagen']
+        );
+        $this->db->update('marca', $update, "id = $id");
+    }
+
+    public function uploadImgMarca($data) {
+        $id = $data['id'];
+        $update = array(
+            'img' => $data['img']
+        );
+        $this->db->update('marca', $update, "id = $id");
+        $contenido = '<img class="img-responsive" src="' . URL . 'public/img/marcas/' . $data['img'] . '">';
+        $datos = array(
+            "result" => true,
+            'id' => $id,
+            'content' => $contenido
+        );
+        return $datos;
+    }
+
+    public function unlinkActualMarcaImg($idPost) {
+        $dir = 'public/img/marcas/';
+        $sql = $this->db->select("select img from marca where id = $idPost");
+        unlink($dir . $sql[0]['img']);
     }
 
 }
