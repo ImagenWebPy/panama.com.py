@@ -1,3 +1,6 @@
+<?php
+$helper = new Helper();
+?>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -11,6 +14,11 @@
         </ol>
     </section>
     <section class="content">
+        <?php
+        if (isset($_SESSION['message'])) {
+            echo $helper->messageAlert($_SESSION['message']['type'], $_SESSION['message']['mensaje']);
+        }
+        ?>
         <div class="row">
             <div class="col-xs-12">
                 <div class="box">

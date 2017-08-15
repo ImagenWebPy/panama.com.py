@@ -160,6 +160,31 @@ class Admin extends Controller {
         $this->view->render('admin/header');
         $this->view->render('admin/categorias/index');
         $this->view->render('admin/footer');
+        if (!empty($_SESSION['message']))
+            unset($_SESSION['message']);
+    }
+
+    public function productos() {
+        $this->view->public_css = array("plugins/datatables/dataTables.bootstrap.css", "plugins/html5fileupload/html5fileupload.css");
+        $this->view->publicHeader_js = array("plugins/html5fileupload/html5fileupload.min.js");
+        $this->view->public_js = array("plugins/datatables/jquery.dataTables.min.js", "plugins/datatables/dataTables.bootstrap.min.js", "plugins/ckeditor/ckeditor.js");
+        $this->view->title = 'Productos';
+        $this->view->render('admin/header');
+        $this->view->render('admin/productos/index');
+        $this->view->render('admin/footer');
+        if (!empty($_SESSION['message']))
+            unset($_SESSION['message']);
+    }
+
+    public function sucursales() {
+        $this->view->public_css = array("plugins/datatables/dataTables.bootstrap.css");
+        $this->view->public_js = array("plugins/datatables/jquery.dataTables.min.js", "plugins/datatables/dataTables.bootstrap.min.js", "plugins/ckeditor/ckeditor.js");
+        $this->view->title = 'Productos';
+        $this->view->render('admin/header');
+        $this->view->render('admin/sucursales/index');
+        $this->view->render('admin/footer');
+        if (!empty($_SESSION['message']))
+            unset($_SESSION['message']);
     }
 
     public function cargarDTMarcas() {
@@ -222,24 +247,6 @@ class Admin extends Controller {
         echo $data;
     }
 
-    public function productos() {
-        $this->view->public_css = array("plugins/datatables/dataTables.bootstrap.css");
-        $this->view->public_js = array("plugins/datatables/jquery.dataTables.min.js", "plugins/datatables/dataTables.bootstrap.min.js");
-        $this->view->title = 'Productos';
-        $this->view->render('admin/header');
-        $this->view->render('admin/productos/index');
-        $this->view->render('admin/footer');
-    }
-
-    public function sucursales() {
-        $this->view->public_css = array("plugins/datatables/dataTables.bootstrap.css");
-        $this->view->public_js = array("plugins/datatables/jquery.dataTables.min.js", "plugins/datatables/dataTables.bootstrap.min.js", "plugins/ckeditor/ckeditor.js");
-        $this->view->title = 'Productos';
-        $this->view->render('admin/header');
-        $this->view->render('admin/sucursales/index');
-        $this->view->render('admin/footer');
-    }
-
     public function modalVerContacto() {
         header('Content-type: application/json; charset=utf-8');
         $data = array(
@@ -284,7 +291,7 @@ class Admin extends Controller {
         $datos = $this->model->modalEditarMarca($data);
         echo $datos;
     }
-    
+
     public function modalEditarCategoria() {
         header('Content-type: application/json; charset=utf-8');
         $data = array(
@@ -309,6 +316,12 @@ class Admin extends Controller {
     public function modalAgregarCategoria() {
         header('Content-type: application/json; charset=utf-8');
         $datos = $this->model->modalAgregarCategoria();
+        echo $datos;
+    }
+
+    public function modalAgregarProducto() {
+        header('Content-type: application/json; charset=utf-8');
+        $datos = $this->model->modalAgregarProducto();
         echo $datos;
     }
 
@@ -344,7 +357,7 @@ class Admin extends Controller {
         $datos = $this->model->modalEliminarMarca($data);
         echo $datos;
     }
-    
+
     public function modalEliminarCategoria() {
         header('Content-type: application/json; charset=utf-8');
         $data = array(
@@ -394,7 +407,7 @@ class Admin extends Controller {
         $data = $this->model->editMarca($data);
         echo json_encode($data);
     }
-    
+
     public function editCategoria() {
         header('Content-type: application/json; charset=utf-8');
         $data = array(
@@ -461,7 +474,7 @@ class Admin extends Controller {
         $data = $this->model->deleteMarca($data);
         echo json_encode($data);
     }
-    
+
     public function deleteCategoria() {
         header('Content-type: application/json; charset=utf-8');
         $data = array(
@@ -589,6 +602,62 @@ class Admin extends Controller {
         }
     }
 
+    public function frmAddProducto() {
+        if (!empty($_POST)) {
+            $data = array(
+                'id_categoria' => $this->helper->cleanInput($_POST['producto']['categoria']),
+                'nombre' => $this->helper->cleanInput($_POST['producto']['nombre']),
+                'codigo' => $this->helper->cleanInput($_POST['producto']['codigo']),
+                'contenido' => $this->helper->cleanInput($_POST['producto']['contenido']),
+                'contenido_largo' => $this->helper->cleanInput($_POST['producto']['contenido_largo']),
+                'estado' => (!empty($_POST['producto']['estado'])) ? $_POST['producto']['estado'] : 0
+            );
+            $id = $this->model->frmAddProducto($data);
+            $error = false;
+            $absolutedir = dirname(__FILE__);
+            $dir = 'public/img/marcas/productos/';
+            $serverdir = $dir;
+            #IMAGENES
+            $filename = array();
+            if (!empty($_FILES)) {
+                #IMAGENES
+                $cantImagenes = count($_FILES['file_archivo']['name']) - 1;
+                for ($i = 0; $i <= $cantImagenes; $i++) {
+                    $newname = $id . '_' . $_FILES['file_archivo']['name'][$i];
+                    $fname = $this->helper->cleanUrl($newname);
+
+                    $contents = file_get_contents($_FILES['file_archivo']['tmp_name'][$i]);
+
+                    $handle = fopen($serverdir . $fname, 'w');
+                    fwrite($handle, $contents);
+                    fclose($handle);
+                    #############
+                    #SE REDIMENSIONA LA IMAGEN
+                    #############
+                    # ruta de la imagen a redimensionar 
+                    $imagen = $serverdir . $fname;
+                    # ruta de la imagen final, si se pone el mismo nombre que la imagen, esta se sobreescribe 
+                    $imagen_final = $fname;
+                    $ancho = 463;
+                    $alto = 350;
+                    $this->helper->redimensionar($imagen, $imagen_final, $ancho, $alto);
+                    #############
+                    array_push($filename, $fname);
+                }
+                $imagenes = array(
+                    'id' => $id,
+                    'imagenes' => $filename
+                );
+                $this->model->insertProductoImagen($imagenes);
+            }
+            Session::set('message', array(
+                'type' => 'success',
+                'mensaje' => 'Se ha registrado correctamente la operación'
+            ));
+            header('Location:' . URL . 'admin/productos/');
+        }
+    }
+
     public function uploadImgMarca() {
         if (!empty($_POST)) {
             $idPost = $_POST['data']['id'];
@@ -637,7 +706,7 @@ class Admin extends Controller {
             exit();
         }
     }
-    
+
     public function uploadImgCategoria() {
         if (!empty($_POST)) {
             $idPost = $_POST['data']['id'];
@@ -685,6 +754,15 @@ class Admin extends Controller {
             readfile($file_url);
             exit();
         }
+    }
+
+    public function selectCategoriaProducto() {
+        header('Content-type: application/json; charset=utf-8');
+        $data = array(
+            'id' => $this->helper->cleanInput($_POST['id'])
+        );
+        $datos = $this->model->selectCategoriaProducto($data);
+        echo json_encode($datos);
     }
 
 }

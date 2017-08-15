@@ -700,6 +700,99 @@ class Admin_Model extends Model {
         return json_encode($datos);
     }
 
+    public function modalAgregarProducto() {
+        $marcas = $this->helper->getListadoMarcas();
+        $form = '<div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Agregar Producto</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <form role="form" method="POST" action="' . URL . 'admin/frmAddProducto" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Marca</label>
+                                <select class="form-control selectMarcaProducto" name="producto[marca]" required>
+                                    <option value="">Seleccione una Marca</option>';
+        foreach ($marcas as $item) {
+            $form .= '              <option value="' . $item['id'] . '">' . utf8_encode($item['descripcion']) . '</option>';
+        }
+        $form .= '          </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Categoría</label>
+                                <select class="form-control selectCategoriaProducto" name="producto[categoria]" required>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Nombre Producto</label>
+                                <input type="text" name="producto[nombre]" class="form-control" placeholder="Ingrese la categoría" value="" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Codigo</label>
+                                <input type="text" name="producto[codigo]" class="form-control" placeholder="Ingrese la categoría" value="" required>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- checkbox -->
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="producto[estado]" value="1" checked>
+                                Estado
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Descripcion corta</label>
+                        <textarea id="editor1" name="producto[contenido]" rows="10" cols="80">
+                            
+                        </textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Información del Producto</label>
+                        <textarea id="editor2" name="producto[contenido_largo]" rows="10" cols="80">
+                           
+                        </textarea>
+                    </div>
+                    <script>
+                        $(function () {
+                            // Replace the <textarea id="editor1"> with a CKEditor
+                            // instance, using default configuration.
+                            CKEDITOR.replace("producto[contenido]");
+                            CKEDITOR.replace("producto[contenido_largo]");
+                        });
+                    </script>
+                    <div class="form-group">
+                        <label>Imagenes</label><small>(Puede agregar varias imagenes)</small>
+                        <div class="html5fileupload fileProducto" data-form="true" data-multiple="true" data-valid-extensions="JPG,JPEG,jpg,png,jpeg,PNG" style="width: 100%;">
+                            <input type="file" name="file_archivo[]" />
+                        </div>
+                    </div>
+                    <script>
+                        $(".html5fileupload.fileProducto").html5fileupload();
+                    </script>
+                    
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Agregar Producto</button>
+                    </div>
+                </form>
+            </div>
+          </div>';
+        $datos = array(
+            'titulo' => 'Agregar Producto',
+            'contenido' => $form
+        );
+        return json_encode($datos);
+    }
+
     public function modalEditarMarca($data) {
         $id = $data['id'];
         $sql = $this->db->select("select * from marca where id = $id");
@@ -979,7 +1072,7 @@ class Admin_Model extends Model {
         );
         return json_encode($datos);
     }
-   
+
     public function modalEliminarCategoria($data) {
         $id = $data['id'];
         $sql = $this->db->select("SELECT * FROM categoria where id = $id");
@@ -1282,7 +1375,7 @@ class Admin_Model extends Model {
 
         return $datos;
     }
-    
+
     public function deleteCategoria($data) {
         $id = $data['id'];
         try {
@@ -1347,6 +1440,19 @@ class Admin_Model extends Model {
         return $id;
     }
 
+    public function frmAddProducto($data) {
+        $this->db->insert('producto', array(
+            'id_categoria' => $data['id_categoria'],
+            'nombre' => utf8_decode($data['nombre']),
+            'codigo' => utf8_decode($data['codigo']),
+            'contenido' => utf8_decode($data['contenido']),
+            'contenido_largo' => utf8_decode($data['contenido_largo']),
+            'estado' => $data['estado']
+        ));
+        $id = $this->db->lastInsertId();
+        return $id;
+    }
+
     public function frmAddMarcaImg($img) {
         $id = $img['id'];
         $update = array(
@@ -1377,7 +1483,7 @@ class Admin_Model extends Model {
         );
         return $datos;
     }
-    
+
     public function uploadImgCategoria($data) {
         $id = $data['id'];
         $update = array(
@@ -1403,6 +1509,30 @@ class Admin_Model extends Model {
         $dir = 'public/img/marcas/categorias/';
         $sql = $this->db->select("select imagen from categoria where id = $idPost");
         unlink($dir . $sql[0]['imagen']);
+    }
+
+    public function selectCategoriaProducto($data) {
+        $id = $data['id'];
+        $sql = $this->db->select("select id, descripcion from categoria where id_marca = $id");
+        $option = '';
+        foreach ($sql as $item) {
+            $option .= '<option value="' . $item['id'] . '">' . utf8_encode($item['descripcion']) . '</option>';
+        }
+        return $option;
+    }
+
+    public function insertProductoImagen($imagenes) {
+        $id = $imagenes['id'];
+        $cantImagenes = count($imagenes['imagenes']) - 1;
+        for ($i = 0; $i <= $cantImagenes; $i ++) {
+            $imgPrincipal = ($i == 0) ? 1 : 0;
+            $this->db->insert('producto_imagen', array(
+                'id_producto' => $id,
+                'imagen' => $imagenes['imagenes'][$i],
+                'principal' => $imgPrincipal,
+                'estado' => 1
+            ));
+        }
     }
 
 }
