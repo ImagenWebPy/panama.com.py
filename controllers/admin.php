@@ -4,7 +4,8 @@ class Admin extends Controller {
 
     function __construct() {
         parent::__construct();
-        Auth::handleLogin();
+        $actualPage = $this->helper->getUrl();
+        Auth::handleLogin($actualPage);
     }
 
     public function index() {
@@ -151,6 +152,16 @@ class Admin extends Controller {
             unset($_SESSION['message']);
     }
 
+    public function categorias() {
+        $this->view->public_css = array("plugins/datatables/dataTables.bootstrap.css", "plugins/html5fileupload/html5fileupload.css");
+        $this->view->publicHeader_js = array("plugins/html5fileupload/html5fileupload.min.js");
+        $this->view->public_js = array("plugins/datatables/jquery.dataTables.min.js", "plugins/datatables/dataTables.bootstrap.min.js");
+        $this->view->title = 'Categorias';
+        $this->view->render('admin/header');
+        $this->view->render('admin/categorias/index');
+        $this->view->render('admin/footer');
+    }
+
     public function cargarDTMarcas() {
         header('Content-type: application/json; charset=utf-8');
         $data = $this->model->cargarDTMarcas();
@@ -209,15 +220,6 @@ class Admin extends Controller {
         header('Content-type: application/json; charset=utf-8');
         $data = $this->model->cargarDTTrabaja();
         echo $data;
-    }
-
-    public function categorias() {
-        $this->view->public_css = array("plugins/datatables/dataTables.bootstrap.css");
-        $this->view->public_js = array("plugins/datatables/jquery.dataTables.min.js", "plugins/datatables/dataTables.bootstrap.min.js");
-        $this->view->title = 'Categorias';
-        $this->view->render('admin/header');
-        $this->view->render('admin/categorias/index');
-        $this->view->render('admin/footer');
     }
 
     public function productos() {
@@ -282,6 +284,15 @@ class Admin extends Controller {
         $datos = $this->model->modalEditarMarca($data);
         echo $datos;
     }
+    
+    public function modalEditarCategoria() {
+        header('Content-type: application/json; charset=utf-8');
+        $data = array(
+            'id' => $this->helper->cleanInput($_POST['id'])
+        );
+        $datos = $this->model->modalEditarCategoria($data);
+        echo $datos;
+    }
 
     public function modalAgregarSeccion() {
         header('Content-type: application/json; charset=utf-8');
@@ -292,6 +303,12 @@ class Admin extends Controller {
     public function modalAgregarSucursal() {
         header('Content-type: application/json; charset=utf-8');
         $datos = $this->model->modalAgregarSucursal();
+        echo $datos;
+    }
+
+    public function modalAgregarCategoria() {
+        header('Content-type: application/json; charset=utf-8');
+        $datos = $this->model->modalAgregarCategoria();
         echo $datos;
     }
 
@@ -318,13 +335,22 @@ class Admin extends Controller {
         $datos = $this->model->modalEliminarSucursal($data);
         echo $datos;
     }
-    
+
     public function modalEliminarMarca() {
         header('Content-type: application/json; charset=utf-8');
         $data = array(
             'id' => $this->helper->cleanInput($_POST['id'])
         );
         $datos = $this->model->modalEliminarMarca($data);
+        echo $datos;
+    }
+    
+    public function modalEliminarCategoria() {
+        header('Content-type: application/json; charset=utf-8');
+        $data = array(
+            'id' => $this->helper->cleanInput($_POST['id'])
+        );
+        $datos = $this->model->modalEliminarCategoria($data);
         echo $datos;
     }
 
@@ -357,7 +383,7 @@ class Admin extends Controller {
         $data = $this->model->editSucursal($data);
         echo json_encode($data);
     }
-    
+
     public function editMarca() {
         header('Content-type: application/json; charset=utf-8');
         $data = array(
@@ -366,6 +392,18 @@ class Admin extends Controller {
             'estado' => (!empty($_POST['marca']['estado'])) ? $this->helper->cleanInput($_POST['marca']['estado']) : 0
         );
         $data = $this->model->editMarca($data);
+        echo json_encode($data);
+    }
+    
+    public function editCategoria() {
+        header('Content-type: application/json; charset=utf-8');
+        $data = array(
+            'id' => $this->helper->cleanInput($_POST['categoria']['id']),
+            'id_marca' => $this->helper->cleanInput($_POST['categoria']['marca']),
+            'descripcion' => $this->helper->cleanInput($_POST['categoria']['descripcion']),
+            'estado' => (!empty($_POST['categoria']['estado'])) ? $this->helper->cleanInput($_POST['categoria']['estado']) : 0
+        );
+        $data = $this->model->editCategoria($data);
         echo json_encode($data);
     }
 
@@ -414,13 +452,22 @@ class Admin extends Controller {
         $data = $this->model->deleteContactoSucursal($data);
         echo json_encode($data);
     }
-    
+
     public function deleteMarca() {
         header('Content-type: application/json; charset=utf-8');
         $data = array(
             'id' => $this->helper->cleanInput($_POST['id'])
         );
         $data = $this->model->deleteMarca($data);
+        echo json_encode($data);
+    }
+    
+    public function deleteCategoria() {
+        header('Content-type: application/json; charset=utf-8');
+        $data = array(
+            'id' => $this->helper->cleanInput($_POST['id'])
+        );
+        $data = $this->model->deleteCategoria($data);
         echo json_encode($data);
     }
 
@@ -487,6 +534,61 @@ class Admin extends Controller {
         }
     }
 
+    public function frmAddCategoria() {
+        if (!empty($_POST)) {
+            $data = array(
+                'id_marca' => $this->helper->cleanInput($_POST['categoria']['marca']),
+                'descripcion' => $this->helper->cleanInput($_POST['categoria']['descripcion']),
+                'estado' => (!empty($_POST['categoria']['estado'])) ? $_POST['categoria']['estado'] : 0
+            );
+            $id = $this->model->frmAddCategoria($data);
+            $error = false;
+            $absolutedir = dirname(__FILE__);
+            $dir = 'public/img/marcas/categorias/';
+            $serverdir = $dir;
+            #IMAGENES
+            $filename = '';
+            if (!empty($_FILES)) {
+                foreach ($_FILES as $inputname => $file) {
+                    $newname = $_POST[$inputname . '_name'];
+                    $ext = explode('.', $file['name']);
+                    $extension = strtolower(end($ext));
+                    $fname = $this->helper->cleanUrl($id . '_' . $newname . '.' . $extension);
+                    //$fname = $this->helper->cleanUrl($newname . '.' . $extension);
+
+                    $contents = file_get_contents($file['tmp_name']);
+
+                    $handle = fopen($serverdir . $fname, 'w');
+                    fwrite($handle, $contents);
+                    fclose($handle);
+
+                    #############
+                    #SE REDIMENSIONA LA IMAGEN
+                    #############
+                    # ruta de la imagen a redimensionar 
+                    $imagen = $serverdir . $fname;
+                    # ruta de la imagen final, si se pone el mismo nombre que la imagen, esta se sobreescribe 
+                    $imagen_final = $fname;
+                    $ancho = 250;
+                    $alto = 170;
+                    $this->helper->redimensionar($imagen, $imagen_final, $ancho, $alto);
+                    #############
+                    $filename = $fname;
+                }
+                $img = array(
+                    'id' => $id,
+                    'imagen' => $filename
+                );
+                $this->model->frmAddCategoriaImg($img);
+            }
+            Session::set('message', array(
+                'type' => 'success',
+                'mensaje' => 'Se ha registrado correctamente la operación'
+            ));
+            header('Location:' . URL . 'admin/categorias/');
+        }
+    }
+
     public function uploadImgMarca() {
         if (!empty($_POST)) {
             $idPost = $_POST['data']['id'];
@@ -523,6 +625,55 @@ class Admin extends Controller {
                 'img' => $filename
             );
             $response = $this->model->uploadImgMarca($data);
+            echo json_encode($response);
+            //echo json_encode(array('result'=>true));
+        } else {
+            $filename = basename($_SERVER['QUERY_STRING']);
+            $file_url = '/public/archivos/' . $filename;
+            header('Content-Type: 				application/octet-stream');
+            header("Content-Transfer-Encoding: 	Binary");
+            header("Content-disposition: 		attachment; filename=\"" . basename($file_url) . "\"");
+            readfile($file_url);
+            exit();
+        }
+    }
+    
+    public function uploadImgCategoria() {
+        if (!empty($_POST)) {
+            $idPost = $_POST['data']['id'];
+            $this->model->unlinkActualCategoriaImg($idPost);
+            $error = false;
+            $absolutedir = dirname(__FILE__);
+            $dir = 'public/img/marcas/categorias/';
+            $serverdir = $dir;
+            $tmp = explode(',', $_POST['file']);
+            $file = base64_decode($tmp[1]);
+            $ext = explode('.', $_POST['filename']);
+            $extension = strtolower(end($ext));
+            $name = $_POST['name'];
+            $filename = $this->helper->cleanUrl($idPost . '_' . $name);
+            $filename = $filename . '.' . $extension;
+            //$filename				= $file.'.'.substr(sha1(time()),0,6).'.'.$extension;
+            $handle = fopen($serverdir . $filename, 'w');
+            fwrite($handle, $file);
+            fclose($handle);
+            #############
+            #SE REDIMENSIONA LA IMAGEN
+            #############
+            # ruta de la imagen a redimensionar 
+            $imagen = $serverdir . $filename;
+            # ruta de la imagen final, si se pone el mismo nombre que la imagen, esta se sobreescribe 
+            $imagen_final = $filename;
+            $ancho = 250;
+            $alto = 170;
+            $this->helper->redimensionar($imagen, $imagen_final, $ancho, $alto);
+            #############
+            header('Content-type: application/json; charset=utf-8');
+            $data = array(
+                'id' => $idPost,
+                'img' => $filename
+            );
+            $response = $this->model->uploadImgCategoria($data);
             echo json_encode($response);
             //echo json_encode(array('result'=>true));
         } else {

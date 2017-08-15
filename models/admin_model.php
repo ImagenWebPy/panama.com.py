@@ -97,6 +97,7 @@ class Admin_Model extends Model {
                 $estado = '<a class="pointer btnCambiarEstado" data-id="' . $id . '" data-estado="0"><span class="label label-danger">Inactivo</span></a>';
             }
             array_push($datos, array(
+                'DT_RowId' => 'categoria_' . $id,
                 'marca' => utf8_encode($item['marca']),
                 'categoria' => utf8_encode($item['descripcion']),
                 'imagen' => $img,
@@ -646,6 +647,59 @@ class Admin_Model extends Model {
         return json_encode($datos);
     }
 
+    public function modalAgregarCategoria() {
+        $marcas = $this->helper->getListadoMarcas();
+        $form = '<div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Agregar Categoría</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <form role="form" method="POST" action="' . URL . 'admin/frmAddCategoria" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label>Nombre Categoría</label>
+                        <input type="text" name="categoria[descripcion]" class="form-control" placeholder="Ingrese la categoría" value="" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Marca</label>
+                        <select class="form-control" name="categoria[marca]" required>
+                            <option value="">Seleccione una Marca</option>';
+        foreach ($marcas as $item) {
+            $form .= '<option value="' . $item['id'] . '">' . utf8_encode($item['descripcion']) . '</option>';
+        }
+        $form .= '      </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Imagen</label>
+                        <div class="html5fileupload fileMarca" data-form="true" data-url="html5fileupload.php" data-valid-extensions="JPG,JPEG,jpg,png,jpeg" style="width: 100%;">
+                            <input type="file" name="file_archivo" />
+                        </div>
+                    </div>
+                    <script>
+                        $(".html5fileupload.fileMarca").html5fileupload();
+                    </script>
+                    <!-- checkbox -->
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="categoria[estado]" value="1" checked>
+                                Estado
+                            </label>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Agregar Categoría</button>
+                    </div>
+                </form>
+            </div>
+          </div>';
+        $datos = array(
+            'titulo' => 'Agregar Sección',
+            'contenido' => $form
+        );
+        return json_encode($datos);
+    }
+
     public function modalEditarMarca($data) {
         $id = $data['id'];
         $sql = $this->db->select("select * from marca where id = $id");
@@ -700,6 +754,75 @@ class Admin_Model extends Model {
           </div>';
         $datos = array(
             'titulo' => 'Agregar Sección',
+            'contenido' => $form
+        );
+        return json_encode($datos);
+    }
+
+    public function modalEditarCategoria($data) {
+        $id = $data['id'];
+        $sql = $this->db->select("select * from categoria where id = $id");
+        $marcas = $this->helper->getListadoMarcas();
+        $checked = ($sql[0]['estado'] == 1) ? 'checked' : '';
+        $form = '<div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Editar Categoría</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <form role="form" method="POST" action="' . URL . 'admin/frmEditarCategoria" enctype="multipart/form-data" id="frmEditarCategoria">
+                    <input type="hidden" value="' . $id . '" name="categoria[id]">
+                    <div class="form-group">
+                        <label>Nombre</label>
+                        <input type="text" name="categoria[descripcion]" class="form-control" placeholder="Ingrese la marca" value="' . utf8_encode($sql[0]['descripcion']) . '">
+                    </div>
+                    <div class="form-group">
+                        <label>Marca</label>
+                        <select class="form-control" name="categoria[marca]" required>
+                            <option value="">Seleccione una Marca</option>';
+        foreach ($marcas as $item) {
+            $selected = ($item['id'] == $sql[0]['id_marca']) ? 'selected' : '';
+            $form .= '<option value="' . $item['id'] . '" ' . $selected . '>' . utf8_encode($item['descripcion']) . '</option>';
+        }
+        $form .= '      </select>
+                    </div>
+                    <!-- checkbox -->
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="categoria[estado]" value="1" ' . $checked . '>
+                                Estado
+                            </label>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Edita Contenido</button>
+                    </div>
+                </form>
+                <div class="form-group">
+                        <label>Imagen</label>
+                        <div class="html5fileupload fileUploadCategoria" data-url="' . URL . 'admin/uploadImgCategoria" data-valid-extensions="JPG,JPEG,jpg,png,jpeg" style="width: 100%;">
+                            <input type="file" name="file" />
+                        </div>
+                </div>
+                <script>
+                    $(".html5fileupload.fileUploadCategoria").html5fileupload({
+                        data:{id:' . $id . '},
+                        onAfterStartSuccess: function(response) {
+                            $("#imgCategoria" + response.id).html(response.content);
+                        }
+                    });
+                </script>
+                <h4>Imagen Actual</h4>
+                <div class="imgActualMarca" id="imgCategoria' . $id . '">';
+        if (!empty($sql[0]['imagen'])) {
+            $form .= '<img class="img-responsive" src="' . URL . 'public/img/marcas/categorias/' . $sql[0]['imagen'] . '">';
+        }
+        $form .= '</div>
+            </div>
+          </div>';
+        $datos = array(
+            'titulo' => 'Editar Categoría',
             'contenido' => $form
         );
         return json_encode($datos);
@@ -856,6 +979,33 @@ class Admin_Model extends Model {
         );
         return json_encode($datos);
     }
+   
+    public function modalEliminarCategoria($data) {
+        $id = $data['id'];
+        $sql = $this->db->select("SELECT * FROM categoria where id = $id");
+        $form = '<div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Datos del mensaje</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <form role="form" id="frmEliminarCategoria" method="POST">
+                    <input type="hidden" name="marca[id]" value="' . $id . '">
+                    <div class="alert alert-danger alert-dismissible">
+                        <h4><i class="icon fa fa-ban"></i> ¿Está seguro de que desea eliminar la categoria "<strong>' . utf8_encode($sql[0]['descripcion']) . '</strong>"?</h4>
+                    </div>
+                    <div class="box-footer">
+                        <button type="submit" id="btnDeleteCategoria" class="btn btn-danger" data-id="' . $id . '">Eliminar</button>
+                    </div>
+                </form>
+            </div>
+          </div>';
+        $datos = array(
+            'titulo' => 'Eliminar ' . utf8_encode($sql[0]['descripcion']),
+            'contenido' => $form
+        );
+        return json_encode($datos);
+    }
 
     public function saveContactoSeccion($data) {
         $id = $data['id'];
@@ -952,6 +1102,40 @@ class Admin_Model extends Model {
                 . '<td>' . $estado . '</td>'
                 . '<td><a class="btn btn-app pointer btnEditarMarca btnSmall" data-id="' . $id . '"><i class="fa fa-edit"></i> Editar</a> '
                 . '| <a class="btn btn-app pointer btnEliminarMarca btnSmall" data-id="' . $id . '"><i class="fa fa-ban" aria-hidden="true"></i> Eliminar</a></td>';
+        $datos = array(
+            'type' => 'success',
+            'id' => $id,
+            'row' => $row
+        );
+        return $datos;
+    }
+
+    public function editCategoria($data) {
+        $id = $data['id'];
+        $estado = 1;
+        if (empty($data['estado'])) {
+            $estado = 0;
+        }
+        $update = array(
+            'id_marca' => utf8_decode($data['id_marca']),
+            'descripcion' => utf8_decode($data['descripcion']),
+            'estado' => $estado
+        );
+        $this->db->update('categoria', $update, "id = $id");
+        #obtenemos la fila
+        $sql = $this->db->select("SELECT c.*, m.descripcion as marca FROM categoria c left join marca m on m.id = c.id_marca where c.id = $id");
+        if ($sql[0]['estado'] == 1) {
+            $estado = '<a class="pointer btnCambiarEstado" data-id="' . $id . '" data-estado="1"><span class="label label-success">Activo</span></a>';
+        } else {
+            $estado = '<a class="pointer btnCambiarEstado" data-id="' . $id . '" data-estado="0"><span class="label label-danger">Inactivo</span></a>';
+        }
+        $row = '<td class="sorting_1">' . utf8_encode($sql[0]['marca']) . '</td>'
+                . '<td>' . utf8_encode($sql[0]['descripcion']) . '</td>'
+                . '<td><img src="' . URL . 'public/img/marcas/categorias/' . utf8_encode($sql[0]['imagen']) . '" class="img-responsive" style="width: 150px;"></td>'
+                . '<td>' . $estado . '</td>'
+                . '<td><a class="btn btn-app pointer btnEditarCategoria btnSmall" data-id="' . $id . '"><i class="fa fa-edit"></i> Editar</a> '
+                . '| <a class="btn btn-app pointer btnEliminarCategoria btnSmall" data-id="' . $id . '"><i class="fa fa-ban" aria-hidden="true"></i> Eliminar</a>'
+                . '</td>';
         $datos = array(
             'type' => 'success',
             'id' => $id,
@@ -1098,6 +1282,29 @@ class Admin_Model extends Model {
 
         return $datos;
     }
+    
+    public function deleteCategoria($data) {
+        $id = $data['id'];
+        try {
+            $sth = $this->db->prepare("delete from categoria where id = :id");
+            $sth->execute(array(
+                ':id' => $id
+            ));
+            $datos = array(
+                'type' => 'success',
+                'id' => $id,
+                'contenido' => ''
+            );
+        } catch (Exception $ex) {
+            $datos = array(
+                'type' => 'error',
+                'id' => $id,
+                'contenido' => 'Lo sentimos ha ocurrido un error, no se pudo eliminar el registro'
+            );
+        }
+
+        return $datos;
+    }
 
     public function guardarLaEmpresaContenido($data) {
         $id = 1;
@@ -1130,12 +1337,30 @@ class Admin_Model extends Model {
         return $id;
     }
 
+    public function frmAddCategoria($data) {
+        $this->db->insert('categoria', array(
+            'id_marca' => $data['id_marca'],
+            'descripcion' => utf8_decode($data['descripcion']),
+            'estado' => $data['estado']
+        ));
+        $id = $this->db->lastInsertId();
+        return $id;
+    }
+
     public function frmAddMarcaImg($img) {
         $id = $img['id'];
         $update = array(
             'img' => $img['imagen']
         );
         $this->db->update('marca', $update, "id = $id");
+    }
+
+    public function frmAddCategoriaImg($img) {
+        $id = $img['id'];
+        $update = array(
+            'imagen' => $img['imagen']
+        );
+        $this->db->update('categoria', $update, "id = $id");
     }
 
     public function uploadImgMarca($data) {
@@ -1152,11 +1377,32 @@ class Admin_Model extends Model {
         );
         return $datos;
     }
+    
+    public function uploadImgCategoria($data) {
+        $id = $data['id'];
+        $update = array(
+            'imagen' => $data['img']
+        );
+        $this->db->update('categoria', $update, "id = $id");
+        $contenido = '<img class="img-responsive" src="' . URL . 'public/img/marcas/categorias/' . $data['img'] . '">';
+        $datos = array(
+            "result" => true,
+            'id' => $id,
+            'content' => $contenido
+        );
+        return $datos;
+    }
 
     public function unlinkActualMarcaImg($idPost) {
         $dir = 'public/img/marcas/';
         $sql = $this->db->select("select img from marca where id = $idPost");
         unlink($dir . $sql[0]['img']);
+    }
+
+    public function unlinkActualCategoriaImg($idPost) {
+        $dir = 'public/img/marcas/categorias/';
+        $sql = $this->db->select("select imagen from categoria where id = $idPost");
+        unlink($dir . $sql[0]['imagen']);
     }
 
 }

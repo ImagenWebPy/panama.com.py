@@ -17,7 +17,7 @@
                     <div class="box-header">
                         <h3 class="box-title">Listado de Categorías</h3>
                         <div class="col-xs-6 pull-right">
-                            <button type="button" class="btn btn-block btn-primary btnAgregarSucursal">Agregar Nueva Categoria</button>
+                            <button type="button" class="btn btn-block btn-primary btnAgregarCategoria">Agregar Nueva Categoria</button>
                         </div>
                     </div>
                     <!-- /.box-header -->
@@ -76,6 +76,91 @@
             "language": {
                 "url": "<?= URL ?>public/language/Spanish.json"
             }
+        });
+        $(document).on("click", ".btnAgregarCategoria", function (e) {
+            if (e.handled !== true) // This will prevent event triggering more then once
+            {
+                $.ajax({
+                    url: "<?= URL; ?>admin/modalAgregarCategoria",
+                    type: "POST",
+                    dataType: "json"
+                }).done(function (data) {
+                    $(".genericModal .modal-header").removeClass("modal-header").addClass("modal-header bg-primary");
+                    $(".genericModal .modal-title").html(data['titulo']);
+                    $(".genericModal .modal-body").html(data['contenido']);
+                    $(".genericModal").modal("toggle");
+                });
+            }
+            e.handled = true;
+        });
+        $(document).on("click", ".btnEditarCategoria", function (e) {
+            if (e.handled !== true) // This will prevent event triggering more then once
+            {
+                var id = $(this).attr("data-id");
+                $.ajax({
+                    url: "<?= URL; ?>admin/modalEditarCategoria",
+                    type: "POST",
+                    data: {id: id},
+                    dataType: "json"
+                }).done(function (data) {
+                    $(".genericModal .modal-header").removeClass("modal-header").addClass("modal-header bg-primary");
+                    $(".genericModal .modal-title").html(data['titulo']);
+                    $(".genericModal .modal-body").html(data['contenido']);
+                    $(".genericModal").modal("toggle");
+                });
+            }
+            e.handled = true;
+        });
+        $(document).on("submit", "#frmEditarCategoria", function (e) {
+            var url = "<?= URL ?>admin/editCategoria"; // the script where you handle the form input.
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: $("#frmEditarCategoria").serialize(), // serializes the form's elements.
+                success: function (data)
+                {
+                    if (data['type'] == 'success') {
+                        $("#categoria_" + data['id']).html(data['row']);
+                        $(".genericModal").modal("toggle");
+                    }
+                }
+            });
+            e.preventDefault(); // avoid to execute the actual submit of the form.
+        });
+        $(document).on("click", ".btnEliminarCategoria", function (e) {
+            if (e.handled !== true) // This will prevent event triggering more then once
+            {
+                var id = $(this).attr("data-id");
+                $.ajax({
+                    url: "<?= URL; ?>admin/modalEliminarCategoria",
+                    type: "POST",
+                    data: {id: id},
+                    dataType: "json"
+                }).done(function (data) {
+                    $(".genericModal .modal-header").removeClass("modal-header").addClass("modal-header bg-danger");
+                    $(".genericModal .modal-title").html(data['titulo']);
+                    $(".genericModal .modal-body").html(data['contenido']);
+                    $(".genericModal").modal("toggle");
+                });
+            }
+            e.handled = true;
+        });
+        $(document).on("submit", "#frmEliminarCategoria", function (e) {
+            var url = "<?= URL ?>admin/deleteCategoria"; // the script where you handle the form input.
+            var id = $("#btnDeleteCategoria").attr("data-id");
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: {id: id}, // serializes the form's elements.
+                success: function (data)
+                {
+                    if (data['type'] == 'success') {
+                        $("#categoria_" + data['id']).remove();
+                        $(".genericModal").modal("toggle");
+                    }
+                }
+            });
+            e.preventDefault(); // avoid to execute the actual submit of the form.
         });
     });
 </script>
