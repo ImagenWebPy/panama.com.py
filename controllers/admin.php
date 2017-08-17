@@ -291,6 +291,15 @@ class Admin extends Controller {
         $datos = $this->model->modalEditarMarca($data);
         echo $datos;
     }
+    
+    public function modalEditarProducto() {
+        header('Content-type: application/json; charset=utf-8');
+        $data = array(
+            'id' => $this->helper->cleanInput($_POST['id'])
+        );
+        $datos = $this->model->modalEditarProducto($data);
+        echo $datos;
+    }
 
     public function modalEditarCategoria() {
         header('Content-type: application/json; charset=utf-8');
@@ -405,6 +414,21 @@ class Admin extends Controller {
             'estado' => (!empty($_POST['marca']['estado'])) ? $this->helper->cleanInput($_POST['marca']['estado']) : 0
         );
         $data = $this->model->editMarca($data);
+        echo json_encode($data);
+    }
+   
+    public function editProducto() {
+        header('Content-type: application/json; charset=utf-8');
+        $data = array(
+            'id' => $this->helper->cleanInput($_POST['producto']['id']),
+            'id_categoria' => $this->helper->cleanInput($_POST['producto']['categoria']),
+            'nombre' => $this->helper->cleanInput($_POST['producto']['nombre']),
+            'codigo' => $this->helper->cleanInput($_POST['producto']['codigo']),
+            'contenido' => $this->helper->cleanInput($_POST['producto']['contenido']),
+            'contenido_largo' => $this->helper->cleanInput($_POST['producto']['contenido_largo']),
+            'estado' => (!empty($_POST['producto']['estado'])) ? $this->helper->cleanInput($_POST['producto']['estado']) : 0
+        );
+        $data = $this->model->editProducto($data);
         echo json_encode($data);
     }
 

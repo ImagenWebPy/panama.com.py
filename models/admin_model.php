@@ -177,6 +177,7 @@ class Admin_Model extends Model {
                 $estado = '<a class="pointer btnCambiarEstado" data-id="' . $id . '" data-estado="0"><span class="label label-danger">Inactivo</span></a>';
             }
             array_push($datos, array(
+                'DT_RowId' => 'usuario_' . $id,
                 'nombre' => utf8_encode($item['nombre']),
                 'email' => utf8_encode($item['email']),
                 'perfil' => utf8_encode($item['perfil']),
@@ -225,6 +226,7 @@ class Admin_Model extends Model {
                 $estado = '<a class="pointer btnCambiarEstado" title="Aún no se ha leído." data-id="' . $id . '" data-estado="0"><span class="label label-danger">Inactivo</span></a>';
             }
             array_push($datos, array(
+                'DT_RowId' => 'blog_' . $id,
                 'titulo' => utf8_encode($item['titulo']),
                 'tags' => utf8_encode($item['tags']),
                 'fecha' => date('d-m-Y', strtotime($item['fecha'])),
@@ -332,6 +334,7 @@ class Admin_Model extends Model {
                 $estado = '<a class="pointer btnCambiarEstado" data-id="' . $id . '" data-estado="0"><span class="label label-danger">Inactivo</span></a>';
             }
             array_push($datos, array(
+                'DT_RowId' => 'producto_' . $id,
                 'marca' => utf8_encode($item['marca']),
                 'categoria' => utf8_encode($item['categoria']),
                 'producto' => utf8_encode($item['nombre']),
@@ -793,6 +796,133 @@ class Admin_Model extends Model {
         return json_encode($datos);
     }
 
+    public function modalEditarProducto($data) {
+        $id = $data['id'];
+        $producto = $this->db->select("select p.*, c.id_marca from producto p left join categoria c on c.id = p.id_categoria where p.id = $id");
+        $imagenes = $this->db->select("SELECT * FROM `producto_imagen` WHERE id_producto = $id;");
+        $checked = ($producto[0]['estado'] == 1) ? 'checked' : '';
+        $id_marca = $producto[0]['id_marca'];
+        $categorias = $this->db->select("select * from categoria where id_marca = $id_marca");
+        $marcas = $this->helper->getListadoMarcas();
+        $form = '<div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Editar Producto</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <form role="form" method="POST" action="' . URL . 'admin/frmEditarProducto" enctype="multipart/form-data" id="frmEditarProducto">
+                    <input type="hidden" value="' . $id . '" name="producto[id]">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Marca</label>
+                                <select class="form-control selectMarcaProducto" name="producto[marca]" required>
+                                    <option value="">Seleccione una Marca</option>';
+        foreach ($marcas as $item) {
+            $selected = ($item['id'] == $producto[0]['id_marca']) ? 'selected' : '';
+            $form .= '              <option value="' . $item['id'] . '" ' . $selected . '>' . utf8_encode($item['descripcion']) . '</option>';
+        }
+        $form .= '          </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Categoría</label>
+                                <select class="form-control selectCategoriaProducto" name="producto[categoria]" required>';
+        foreach ($categorias as $item) {
+            $selected = ($item['id'] == $producto[0]['id_categoria']) ? 'selected' : '';
+            $form .= '              <option value="' . $item['id'] . '" ' . $selected . '>' . utf8_encode($item['descripcion']) . '</option>';
+        }
+        $form .= '          </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Nombre Producto</label>
+                                <input type="text" name="producto[nombre]" class="form-control" placeholder="Ingrese la categoría" value="' . utf8_encode($producto[0]['nombre']) . '" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Codigo</label>
+                                <input type="text" name="producto[codigo]" class="form-control" placeholder="Ingrese la categoría" value="' . utf8_encode($producto[0]['codigo']) . '" required>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- checkbox -->
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="producto[estado]" value="1" ' . $checked . '>
+                                Estado
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Descripcion corta</label>
+                        <textarea id="editor1" name="producto[contenido]" rows="10" cols="80">
+                            ' . utf8_encode($producto[0]['contenido']) . '
+                        </textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Información del Producto</label>
+                        <textarea id="editor2" name="producto[contenido_largo]" rows="10" cols="80">
+                           ' . utf8_encode($producto[0]['contenido_largo']) . '
+                        </textarea>
+                    </div>
+                    <script>
+                        $(function () {
+                            // Replace the <textarea id="editor1"> with a CKEditor
+                            // instance, using default configuration.
+                            CKEDITOR.replace("producto[contenido]");
+                            CKEDITOR.replace("producto[contenido_largo]");
+                        });
+                    </script>
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Editar Producto</button>
+                    </div>
+                </form>
+                <div class="row">
+                    <h3>Imagenes</h3>
+                    <div class="form-group">
+                        <label>Agregar Imagen</label> <small>(Puede agregar varias imagenes)</small>
+                        <div class="html5fileupload fileProducto" data-form="true" data-multiple="true" data-valid-extensions="JPG,JPEG,jpg,png,jpeg,PNG" style="width: 100%;">
+                            <input type="file" name="file_archivo[]" />
+                        </div>
+                    </div>
+                    <script>
+                        $(".html5fileupload.fileProducto").html5fileupload();
+                    </script>
+                </div>
+                <div class="row">';
+        foreach ($imagenes as $item) {
+            $id = $item['id'];
+            if ($item['principal'] == 1) {
+                $img_principal = '<a class="pointer btnImgPrincipal" id="imgPrincipal' . $id . '" data-id="' . $id . '"><span class="label label-success">Principal</span></a>';
+            } else {
+                $img_principal = '<a class="pointer btnImgPrincipal" id="imgPrincipal' . $id . '" data-id="' . $id . '"><span class="label label-warning">Principal</span></a>';
+            }
+            if ($item['estado'] == 1) {
+                $mostrar = '<a class="pointer btnMostrarImg" id="mostrarImg' . $id . '" data-id="' . $id . '"><span class="label label-success">Visible</span></a>';
+            } else {
+                $mostrar = '<a class="pointer btnMostrarImg" id="mostrarImg' . $id . '" data-id="' . $id . '"><span class="label label-danger">Oculta</span></a>';
+            }
+            $form .= '     <div class="col-sm-3" id="imagenGaleria' . $id . '">
+                                    <img class="img-responsive" src="' . URL . 'public/img/marcas/productos/' . utf8_encode($item['imagen']) . '" alt="Photo">
+                                    <p>' . $img_principal . ' | ' . $mostrar . ' | <a class="pointer btnEliminarImg" data-id="' . $id . '" id="eliminarImg' . $id . '"><span class="label label-danger">Eliminar</span></a></p>
+                                </div>
+                                <!-- /.col -->';
+        }
+        $form .= '</div>
+            </div>
+          </div>';
+        $datos = array(
+            'titulo' => 'Editar Producto',
+            'contenido' => $form
+        );
+        return json_encode($datos);
+    }
+
     public function modalEditarMarca($data) {
         $id = $data['id'];
         $sql = $this->db->select("select * from marca where id = $id");
@@ -1195,6 +1325,49 @@ class Admin_Model extends Model {
                 . '<td>' . $estado . '</td>'
                 . '<td><a class="btn btn-app pointer btnEditarMarca btnSmall" data-id="' . $id . '"><i class="fa fa-edit"></i> Editar</a> '
                 . '| <a class="btn btn-app pointer btnEliminarMarca btnSmall" data-id="' . $id . '"><i class="fa fa-ban" aria-hidden="true"></i> Eliminar</a></td>';
+        $datos = array(
+            'type' => 'success',
+            'id' => $id,
+            'row' => $row
+        );
+        return $datos;
+    }
+
+    public function editProducto($data) {
+        $id = $data['id'];
+        $estado = 1;
+        if (empty($data['estado'])) {
+            $estado = 0;
+        }
+        $update = array(
+            'id_categoria' => $data['id_categoria'],
+            'nombre' => utf8_decode($data['nombre']),
+            'codigo' => utf8_decode($data['codigo']),
+            'contenido' => utf8_decode($data['contenido']),
+            'contenido_largo' => utf8_decode($data['contenido_largo']),
+            'estado' => $estado
+        );
+        $this->db->update('producto', $update, "id = $id");
+        #obtenemos la fila
+        $sql = $this->db->select('SELECT p.id,
+                                        p.nombre,
+                                        p.estado,
+                                        m.descripcion as marca,
+                                        c.descripcion as categoria
+                                FROM producto p
+                                LEFT JOIN categoria c on c.id = p.id_categoria
+                                LEFT JOIN marca m on m.id = c.id_marca where p.id = ' . $id);
+        if ($sql[0]['estado'] == 1) {
+            $estado = '<a class="pointer btnCambiarEstado" data-id="' . $id . '" data-estado="1"><span class="label label-success">Activo</span></a>';
+        } else {
+            $estado = '<a class="pointer btnCambiarEstado" data-id="' . $id . '" data-estado="0"><span class="label label-danger">Inactivo</span></a>';
+        }
+        $row = '<td class="sorting_1">' . utf8_encode($sql[0]['marca']) . '</td>'
+                . '<td>' . utf8_encode($sql[0]['categoria']) . '</td>'
+                . '<td>' . utf8_encode($sql[0]['nombre']) . '</td>'
+                . '<td>' . $estado . '</td>'
+                . '<td><a class="btn btn-app pointer btnEditarProducto btnSmall" data-id="' . $id . '"><i class="fa fa-edit"></i> Editar</a> '
+                . '| <a class="btn btn-app pointer btnEliminarProducto btnSmall" data-id="' . $id . '"><i class="fa fa-ban" aria-hidden="true"></i> Eliminar</a></td>';
         $datos = array(
             'type' => 'success',
             'id' => $id,
