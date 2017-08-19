@@ -507,4 +507,24 @@ class Helper {
         return true;
     }
 
+    public function loadImage($id) {
+        $item = $this->getImage($id);
+        $id = $item[0]['id'];
+        $img_principal = '<a class="pointer btnImgPrincipal" id="imgPrincipal' . $id . '" data-id="' . $id . '"><span class="label label-warning">Principal</span></a>';
+        $mostrar = '<a class="pointer btnMostrarImg" id="mostrarImg' . $id . '" data-id="' . $id . '"><span class="label label-success">Visible</span></a>';
+        $contenido = '<div class="col-sm-3" id="imagenGaleria' . $id . '">
+                        <img class="img-responsive" src="' . URL . 'public/img/marcas/productos/' . utf8_encode($item[0]['imagen']) . '" alt="Photo">
+                        <p>' . $img_principal . ' | ' . $mostrar . ' | <a class="pointer btnEliminarImg" data-id="' . $id . '" id="eliminarImg' . $id . '"><span class="label label-danger">Eliminar</span></a></p>
+                      </div>
+                      <!-- /.col -->';
+        return $contenido;
+    }
+
+    public function getImage($id) {
+        $item = $this->db->select("select pi.*
+                                from producto_imagen pi 
+                                where pi.id = $id");
+        return $item;
+    }
+
 }

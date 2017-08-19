@@ -135,20 +135,24 @@ $helper = new Helper();
             e.handled = true;
         });
         $(document).on("submit", "#frmEditarProducto", function (e) {
-            var url = "<?= URL ?>admin/editProducto"; // the script where you handle the form input.
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: $("#frmEditarProducto").serialize(), // serializes the form's elements.
-                success: function (data)
-                {
-                    if (data['type'] == 'success') {
-                        $("#producto_" + data['id']).html(data['row']);
-                        $(".genericModal").modal("toggle");
+            if (e.handled !== true) // This will prevent event triggering more then once
+            {
+                var url = "<?= URL ?>admin/editProducto"; // the script where you handle the form input.
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: $("#frmEditarProducto").serialize(), // serializes the form's elements.
+                    success: function (data)
+                    {
+                        if (data['type'] == 'success') {
+                            $("#producto_" + data['id']).html(data['row']);
+                            $(".genericModal").modal("toggle");
+                        }
                     }
-                }
-            });
-            e.preventDefault(); // avoid to execute the actual submit of the form.
+                });
+                e.preventDefault(); // avoid to execute the actual submit of the form.
+            }
+            e.handled = true;
         });
     });
 </script>

@@ -886,15 +886,20 @@ class Admin_Model extends Model {
                     <h3>Imagenes</h3>
                     <div class="form-group">
                         <label>Agregar Imagen</label> <small>(Puede agregar varias imagenes)</small>
-                        <div class="html5fileupload fileProducto" data-form="true" data-multiple="true" data-valid-extensions="JPG,JPEG,jpg,png,jpeg,PNG" style="width: 100%;">
+                        <div class="html5fileupload fileProducto" data-multiple="true" data-url="' . URL . 'admin/uploadProductoImagen" data-valid-extensions="JPG,JPEG,jpg,png,jpeg,PNG" style="width: 100%;">
                             <input type="file" name="file_archivo[]" />
                         </div>
                     </div>
                     <script>
-                        $(".html5fileupload.fileProducto").html5fileupload();
+                        $(".html5fileupload.fileProducto").html5fileupload({
+                            data:{id:' . $id . '},
+                            onAfterStartSuccess: function(response) {
+                                $("#imagenesProductos" + response.id).append(response.content);
+                            }
+                        });
                     </script>
                 </div>
-                <div class="row">';
+                <div class="row" id="imagenesProductos' . $id . '">';
         foreach ($imagenes as $item) {
             $id = $item['id'];
             if ($item['principal'] == 1) {
@@ -1706,6 +1711,23 @@ class Admin_Model extends Model {
                 'estado' => 1
             ));
         }
+    }
+
+    public function uploadProductoImagen($data) {
+        $id = $data['id'];
+        $this->db->insert('producto_imagen', array(
+            'id_producto' => $id,
+            'imagen' => $data['archivo'],
+            'estado' => 1
+        ));
+        $id_img = $this->db->lastInsertId();
+        $contenido = $this->helper->loadImage($id_img);
+        $datos = array(
+            "result" => true,
+            'id' => $id,
+            'content' => $contenido
+        );
+        return $datos;
     }
 
 }

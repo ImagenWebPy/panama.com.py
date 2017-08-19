@@ -291,7 +291,7 @@ class Admin extends Controller {
         $datos = $this->model->modalEditarMarca($data);
         echo $datos;
     }
-    
+
     public function modalEditarProducto() {
         header('Content-type: application/json; charset=utf-8');
         $data = array(
@@ -416,7 +416,7 @@ class Admin extends Controller {
         $data = $this->model->editMarca($data);
         echo json_encode($data);
     }
-   
+
     public function editProducto() {
         header('Content-type: application/json; charset=utf-8');
         $data = array(
@@ -787,6 +787,56 @@ class Admin extends Controller {
         );
         $datos = $this->model->selectCategoriaProducto($data);
         echo json_encode($datos);
+    }
+
+    public function uploadProductoImagen() {
+        if (!empty($_POST)) {
+            $idPost = $_POST['data']['id'];
+
+            $error = false;
+            $absolutedir = dirname(__FILE__);
+            $dir = 'public/img/marcas/productos/';
+            $serverdir = $dir;
+            $tmp = explode(',', $_POST['file']);
+            $file = base64_decode($tmp[1]);
+            $ext = explode('.', $_POST['filename']);
+            $extension = strtolower(end($ext));
+            $name = $_POST['name'];
+            $filename = $this->helper->cleanUrl($idPost . '_' . $name);
+            $filename = $filename . '.' . $extension;
+            //$filename				= $file.'.'.substr(sha1(time()),0,6).'.'.$extension;
+
+            $handle = fopen($serverdir . $filename, 'w');
+            fwrite($handle, $file);
+            fclose($handle);
+            #############
+            #SE REDIMENSIONA LA IMAGEN
+            #############
+            # ruta de la imagen a redimensionar 
+            $imagen = $serverdir . $filename;
+            # ruta de la imagen final, si se pone el mismo nombre que la imagen, esta se sobreescribe 
+            $imagen_final = $filename;
+            $ancho = 463;
+            $alto = 350;
+            $this->helper->redimensionar($imagen, $imagen_final, $ancho, $alto);
+            #############
+            header('Content-type: application/json; charset=utf-8');
+            $data = array(
+                'id' => $idPost,
+                'archivo' => $filename
+            );
+            $response = $this->model->uploadProductoImagen($data);
+            echo json_encode($response);
+            //echo json_encode(array('result'=>true));
+        } else {
+            $filename = basename($_SERVER['QUERY_STRING']);
+            $file_url = '/public/archivos/' . $filename;
+            header('Content-Type: 				application/octet-stream');
+            header("Content-Transfer-Encoding: 	Binary");
+            header("Content-disposition: 		attachment; filename=\"" . basename($file_url) . "\"");
+            readfile($file_url);
+            exit();
+        }
     }
 
 }
