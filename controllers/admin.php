@@ -366,6 +366,15 @@ class Admin extends Controller {
         $datos = $this->model->modalEliminarMarca($data);
         echo $datos;
     }
+    
+    public function modalEliminarProducto() {
+        header('Content-type: application/json; charset=utf-8');
+        $data = array(
+            'id' => $this->helper->cleanInput($_POST['id'])
+        );
+        $datos = $this->model->modalEliminarProducto($data);
+        echo $datos;
+    }
 
     public function modalEliminarCategoria() {
         header('Content-type: application/json; charset=utf-8');
@@ -496,6 +505,15 @@ class Admin extends Controller {
             'id' => $this->helper->cleanInput($_POST['id'])
         );
         $data = $this->model->deleteMarca($data);
+        echo json_encode($data);
+    }
+    
+    public function deleteProducto() {
+        header('Content-type: application/json; charset=utf-8');
+        $data = array(
+            'id' => $this->helper->cleanInput($_POST['id'])
+        );
+        $data = $this->model->deleteProducto($data);
         echo json_encode($data);
     }
 

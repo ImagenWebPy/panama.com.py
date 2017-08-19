@@ -1208,6 +1208,33 @@ class Admin_Model extends Model {
         return json_encode($datos);
     }
 
+    public function modalEliminarProducto($data) {
+        $id = $data['id'];
+        $sql = $this->db->select("SELECT * FROM producto where id = $id");
+        $form = '<div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Datos del mensaje</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <form role="form" id="frmEliminarProducto" method="POST">
+                    <input type="hidden" name="marca[id]" value="' . $id . '">
+                    <div class="alert alert-danger alert-dismissible">
+                        <h4><i class="icon fa fa-ban"></i> ¿Está seguro de que desea eliminar el producto "<strong>' . utf8_encode($sql[0]['nombre']) . '</strong>"?</h4>
+                    </div>
+                    <div class="box-footer">
+                        <button type="submit" id="btnDeleteProducto" class="btn btn-danger" data-id="' . $id . '">Eliminar</button>
+                    </div>
+                </form>
+            </div>
+          </div>';
+        $datos = array(
+            'titulo' => 'Eliminar ' . utf8_encode($sql[0]['nombre']),
+            'contenido' => $form
+        );
+        return json_encode($datos);
+    }
+
     public function modalEliminarCategoria($data) {
         $id = $data['id'];
         $sql = $this->db->select("SELECT * FROM categoria where id = $id");
@@ -1535,6 +1562,41 @@ class Admin_Model extends Model {
         $id = $data['id'];
         try {
             $sth = $this->db->prepare("delete from marca where id = :id");
+            $sth->execute(array(
+                ':id' => $id
+            ));
+            $datos = array(
+                'type' => 'success',
+                'id' => $id,
+                'contenido' => ''
+            );
+        } catch (Exception $ex) {
+            $datos = array(
+                'type' => 'error',
+                'id' => $id,
+                'contenido' => 'Lo sentimos ha ocurrido un error, no se pudo eliminar el registro'
+            );
+        }
+
+        return $datos;
+    }
+
+    public function deleteProducto($data) {
+        $id = $data['id'];
+        #primero elimnamos todas las imagenes
+        $imagenes = $this->db->select("select * from producto_imagen where id_producto = $id");
+        if (!empty($imagenes)) {
+            $dir = "public/img/marcas/productos/";
+            foreach ($imagenes as $item) {
+                unlink($dir . utf8_encode($item['imagen']));
+                $sth = $this->db->prepare("delete from producto_imagen where id = :id");
+                $sth->execute(array(
+                    ':id' => $item['id']
+                ));
+            }
+        }
+        try {
+            $sth = $this->db->prepare("delete from producto where id = :id");
             $sth->execute(array(
                 ':id' => $id
             ));

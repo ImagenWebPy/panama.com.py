@@ -154,5 +154,40 @@ $helper = new Helper();
             }
             e.handled = true;
         });
+        $(document).on("click", ".btnEliminarProducto", function (e) {
+            if (e.handled !== true) // This will prevent event triggering more then once
+            {
+                var id = $(this).attr("data-id");
+                $.ajax({
+                    url: "<?= URL; ?>admin/modalEliminarProducto",
+                    type: "POST",
+                    data: {id: id},
+                    dataType: "json"
+                }).done(function (data) {
+                    $(".genericModal .modal-header").removeClass("modal-header").addClass("modal-header bg-danger");
+                    $(".genericModal .modal-title").html(data['titulo']);
+                    $(".genericModal .modal-body").html(data['contenido']);
+                    $(".genericModal").modal("toggle");
+                });
+            }
+            e.handled = true;
+        });
+        $(document).on("submit", "#frmEliminarProducto", function (e) {
+            var url = "<?= URL ?>admin/deleteProducto"; // the script where you handle the form input.
+            var id = $("#btnDeleteProducto").attr("data-id");
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: {id: id}, // serializes the form's elements.
+                success: function (data)
+                {
+                    if (data['type'] == 'success') {
+                        $("#producto_" + data['id']).remove();
+                        $(".genericModal").modal("toggle");
+                    }
+                }
+            });
+            e.preventDefault(); // avoid to execute the actual submit of the form.
+        });
     });
 </script>
