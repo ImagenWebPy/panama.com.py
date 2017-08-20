@@ -87,8 +87,9 @@ class Admin extends Controller {
     }
 
     public function blog() {
-        $this->view->public_css = array("plugins/datatables/dataTables.bootstrap.css");
-        $this->view->public_js = array("plugins/datatables/jquery.dataTables.min.js", "plugins/datatables/dataTables.bootstrap.min.js");
+        $this->view->public_css = array("plugins/datatables/dataTables.bootstrap.css", "plugins/html5fileupload/html5fileupload.css", "plugins/jquery.tagsinput/jquery.tagsinput.css");
+        $this->view->publicHeader_js = array("plugins/html5fileupload/html5fileupload.min.js");
+        $this->view->public_js = array("plugins/datatables/jquery.dataTables.min.js", "plugins/datatables/dataTables.bootstrap.min.js", "plugins/ckeditor/ckeditor.js", "plugins/jquery.tagsinput/jquery.tagsinput.js");
         $this->view->title = 'Blog';
         $this->view->render('admin/header');
         $this->view->render('admin/blog/index');
@@ -292,6 +293,15 @@ class Admin extends Controller {
         echo $datos;
     }
 
+    public function modalEditarBlog() {
+        header('Content-type: application/json; charset=utf-8');
+        $data = array(
+            'id' => $this->helper->cleanInput($_POST['id'])
+        );
+        $datos = $this->model->modalEditarBlog($data);
+        echo $datos;
+    }
+
     public function modalEditarProducto() {
         header('Content-type: application/json; charset=utf-8');
         $data = array(
@@ -340,6 +350,12 @@ class Admin extends Controller {
         echo $datos;
     }
 
+    public function modalAgregarBlog() {
+        header('Content-type: application/json; charset=utf-8');
+        $datos = $this->model->modalAgregarBlog();
+        echo $datos;
+    }
+
     public function modalEliminarSeccion() {
         header('Content-type: application/json; charset=utf-8');
         $data = array(
@@ -367,6 +383,15 @@ class Admin extends Controller {
         echo $datos;
     }
     
+    public function modalEliminarBlog() {
+        header('Content-type: application/json; charset=utf-8');
+        $data = array(
+            'id' => $this->helper->cleanInput($_POST['id'])
+        );
+        $datos = $this->model->modalEliminarBlog($data);
+        echo $datos;
+    }
+
     public function modalEliminarProducto() {
         header('Content-type: application/json; charset=utf-8');
         $data = array(
@@ -423,6 +448,19 @@ class Admin extends Controller {
             'estado' => (!empty($_POST['marca']['estado'])) ? $this->helper->cleanInput($_POST['marca']['estado']) : 0
         );
         $data = $this->model->editMarca($data);
+        echo json_encode($data);
+    }
+
+    public function editBlog() {
+        header('Content-type: application/json; charset=utf-8');
+        $data = array(
+            'id' => $this->helper->cleanInput($_POST['blog']['id']),
+            'titulo' => $this->helper->cleanInput($_POST['blog']['titulo']),
+            'tags' => $this->helper->cleanInput($_POST['blog']['tags']),
+            'contenido' => $this->helper->cleanInput($_POST['blog']['contenido']),
+            'estado' => (!empty($_POST['blog']['estado'])) ? $_POST['blog']['estado'] : 0
+        );
+        $data = $this->model->editBlog($data);
         echo json_encode($data);
     }
 
@@ -508,6 +546,15 @@ class Admin extends Controller {
         echo json_encode($data);
     }
     
+    public function deleteBlog() {
+        header('Content-type: application/json; charset=utf-8');
+        $data = array(
+            'id' => $this->helper->cleanInput($_POST['id'])
+        );
+        $data = $this->model->deleteBlog($data);
+        echo json_encode($data);
+    }
+
     public function deleteProducto() {
         header('Content-type: application/json; charset=utf-8');
         $data = array(
@@ -586,6 +633,62 @@ class Admin extends Controller {
                 'mensaje' => 'Se ha registrado correctamente la operación'
             ));
             header('Location:' . URL . 'admin/marcas/');
+        }
+    }
+
+    public function frmAddBlog() {
+        if (!empty($_POST)) {
+            $data = array(
+                'titulo' => $this->helper->cleanInput($_POST['blog']['titulo']),
+                'tags' => $this->helper->cleanInput($_POST['blog']['tags']),
+                'contenido' => $this->helper->cleanInput($_POST['blog']['contenido']),
+                'estado' => (!empty($_POST['blog']['estado'])) ? $_POST['blog']['estado'] : 0
+            );
+            $idPost = $this->model->frmAddBlog($data);
+            $error = false;
+            $absolutedir = dirname(__FILE__);
+            $dir = 'public/img/posts/';
+            $serverdir = $dir;
+            #IMAGENES
+            $filename = '';
+            if (!empty($_FILES)) {
+                foreach ($_FILES as $inputname => $file) {
+                    $newname = $_POST[$inputname . '_name'];
+                    $ext = explode('.', $file['name']);
+                    $extension = strtolower(end($ext));
+                    $fname = $this->helper->cleanUrl($idPost . '_' . $newname . '.' . $extension);
+                    //$fname = $this->helper->cleanUrl($newname . '.' . $extension);
+
+                    $contents = file_get_contents($file['tmp_name']);
+
+                    $handle = fopen($serverdir . $fname, 'w');
+                    fwrite($handle, $contents);
+                    fclose($handle);
+
+                    #############
+                    #SE REDIMENSIONA LA IMAGEN
+                    #############
+                    # ruta de la imagen a redimensionar 
+                    $imagen = $serverdir . $fname;
+                    # ruta de la imagen final, si se pone el mismo nombre que la imagen, esta se sobreescribe 
+                    $imagen_final = $fname;
+                    $ancho = 800;
+                    $alto = 450;
+                    $this->helper->redimensionar($imagen, $imagen_final, $ancho, $alto);
+                    #############
+                    $filename = $fname;
+                }
+                $img = array(
+                    'id' => $idPost,
+                    'imagen' => $filename
+                );
+                $this->model->frmAddBlogImg($img);
+            }
+            Session::set('message', array(
+                'type' => 'success',
+                'mensaje' => 'Se ha registrado correctamente la operación'
+            ));
+            header('Location:' . URL . 'admin/blog/');
         }
     }
 
@@ -736,6 +839,55 @@ class Admin extends Controller {
                 'img' => $filename
             );
             $response = $this->model->uploadImgMarca($data);
+            echo json_encode($response);
+            //echo json_encode(array('result'=>true));
+        } else {
+            $filename = basename($_SERVER['QUERY_STRING']);
+            $file_url = '/public/archivos/' . $filename;
+            header('Content-Type: 				application/octet-stream');
+            header("Content-Transfer-Encoding: 	Binary");
+            header("Content-disposition: 		attachment; filename=\"" . basename($file_url) . "\"");
+            readfile($file_url);
+            exit();
+        }
+    }
+
+    public function uploadImgBlog() {
+        if (!empty($_POST)) {
+            $idPost = $_POST['data']['id'];
+            $this->model->unlinkActualBlogImg($idPost);
+            $error = false;
+            $absolutedir = dirname(__FILE__);
+            $dir = 'public/img/posts/';
+            $serverdir = $dir;
+            $tmp = explode(',', $_POST['file']);
+            $file = base64_decode($tmp[1]);
+            $ext = explode('.', $_POST['filename']);
+            $extension = strtolower(end($ext));
+            $name = $_POST['name'];
+            $filename = $this->helper->cleanUrl($idPost . '_' . $name);
+            $filename = $filename . '.' . $extension;
+            //$filename				= $file.'.'.substr(sha1(time()),0,6).'.'.$extension;
+            $handle = fopen($serverdir . $filename, 'w');
+            fwrite($handle, $file);
+            fclose($handle);
+            #############
+            #SE REDIMENSIONA LA IMAGEN
+            #############
+            # ruta de la imagen a redimensionar 
+            $imagen = $serverdir . $filename;
+            # ruta de la imagen final, si se pone el mismo nombre que la imagen, esta se sobreescribe 
+            $imagen_final = $filename;
+            $ancho = 800;
+            $alto = 450;
+            $this->helper->redimensionar($imagen, $imagen_final, $ancho, $alto);
+            #############
+            header('Content-type: application/json; charset=utf-8');
+            $data = array(
+                'id' => $idPost,
+                'img' => $filename
+            );
+            $response = $this->model->uploadImgBlog($data);
             echo json_encode($response);
             //echo json_encode(array('result'=>true));
         } else {

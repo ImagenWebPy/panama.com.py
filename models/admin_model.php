@@ -650,6 +650,144 @@ class Admin_Model extends Model {
         return json_encode($datos);
     }
 
+    public function modalAgregarBlog() {
+        $form = '<div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Agregar Entrada Blog</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <form role="form" method="POST" action="' . URL . 'admin/frmAddBlog" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label>Nombre</label>
+                        <input type="text" name="blog[titulo]" class="form-control" placeholder="Ingrese el Titulo" value="">
+                    </div>
+                    <div class="form-group">
+                        <label>Tags</label><span> Ingrese las palabras separadas por comas(,)</span>
+                        <input type="text" name="blog[tags]" class="form-control tags" placeholder="Ingrese el Titulo" value="">
+                    </div>
+                    <div class="form-group">
+                        <label>Imagen</label>
+                        <div class="html5fileupload fileBlog" data-form="true" data-valid-extensions="JPG,JPEG,jpg,png,jpeg" style="width: 100%;">
+                            <input type="file" name="file_archivo" />
+                        </div>
+                        <script>
+                            $(function () {
+                                $(".html5fileupload.fileBlog").html5fileupload();
+                            });
+                        </script>
+                    </div>
+                    <div class="form-group">
+                        <label>Contenido</label>
+                        <textarea id="editor1" name="blog[contenido]" rows="10" cols="80">
+                        </textarea>
+                    </div>
+                    <script>
+                        CKEDITOR.replace("blog[contenido]");
+                        $(".tags").tagsInput();
+                    </script>
+                    <!-- checkbox -->
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="blog[estado]" value="1" checked>
+                                Estado
+                            </label>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Agregar Entrada</button>
+                    </div>
+                </form>
+            </div>
+          </div>';
+        $datos = array(
+            'titulo' => 'Agregar Blog',
+            'contenido' => $form
+        );
+        return json_encode($datos);
+    }
+
+    public function modalEditarBlog($data) {
+        $id = $data['id'];
+        $sql = $this->db->select("select * from blog where id = $id");
+        $checked = ($sql[0]['estado'] == 1) ? 'checked' : '';
+        $form = '<div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Agregar Entrada Blog</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <form role="form" method="POST" id="frmEditarBlog" enctype="multipart/form-data">
+                    <input type="hidden" value="' . $id . '" name="blog[id]">
+                    <div class="form-group">
+                        <label>Titulo</label>
+                        <input type="text" name="blog[titulo]" class="form-control" placeholder="Ingrese el Titulo" value="' . utf8_encode($sql[0]['titulo']) . '">
+                    </div>
+                    <div class="form-group">
+                        <label>Tags</label><span> Ingrese las palabras separadas por comas(,)</span>
+                        <input type="text" name="blog[tags]" class="form-control tags" placeholder="Tags" value="' . utf8_encode($sql[0]['tags']) . 's">
+                    </div>
+                    <div class="row">
+                        <div class col-md-6>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Contenido</label>
+                        <textarea id="editor1" name="blog[contenido]" rows="10" cols="80">
+                        ' . utf8_encode($sql[0]['contenido']) . '
+                        </textarea>
+                    </div>
+                    <script>
+                        CKEDITOR.replace("blog[contenido]");
+                        $(".tags").tagsInput();
+                    </script>
+                    <!-- checkbox -->
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="blog[estado]" value="1" ' . $checked . '>
+                                Estado
+                            </label>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-block btn-primary">Editar Entrada</button>
+                    </div>
+                </form>
+                <div class="row">
+                    <div class col-md-6>
+                        <div class="form-group">
+                            <label>Imagen</label>
+                            <div class="html5fileupload fileBlog" data-url="' . URL . 'admin/uploadImgBlog" data-valid-extensions="JPG,JPEG,jpg,png,jpeg" style="width: 100%;">
+                                <input type="file" name="file_archivo" />
+                            </div>
+                            <script>
+                                $(".html5fileupload.fileBlog").html5fileupload({
+                                    data:{id:' . $id . '},
+                                    onAfterStartSuccess: function(response) {
+                                        $("#imgBlog" + response.id).html(response.content);
+                                    }
+                                });
+                            </script>
+                        </div>
+                    </div>
+                    <div class col-md-6 id="imgBlog' . $id . '">';
+        if (!empty($sql[0]['imagen'])) {
+            $form .= '<img class="img-responsive" src="' . URL . 'public/img/posts/' . $sql[0]['imagen'] . '">';
+        }
+        $form .= '  </div>
+                </div>
+            </div>
+          </div>';
+        $datos = array(
+            'titulo' => 'Editar Entrada Blog',
+            'contenido' => $form
+        );
+        return json_encode($datos);
+    }
+
     public function modalAgregarCategoria() {
         $marcas = $this->helper->getListadoMarcas();
         $form = '<div class="box box-primary">
@@ -1208,6 +1346,33 @@ class Admin_Model extends Model {
         return json_encode($datos);
     }
 
+    public function modalEliminarBlog($data) {
+        $id = $data['id'];
+        $sql = $this->db->select("SELECT * FROM blog where id = $id");
+        $form = '<div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Datos del mensaje</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <form role="form" id="frmEliminarBlog" method="POST">
+                    <input type="hidden" name="blog[id]" value="' . $id . '">
+                    <div class="alert alert-danger alert-dismissible">
+                        <h4><i class="icon fa fa-ban"></i> ¿Está seguro de que desea eliminar la siguiente entrada "<strong>' . utf8_encode($sql[0]['titulo']) . '</strong>"?</h4>
+                    </div>
+                    <div class="box-footer">
+                        <button type="submit" id="btnDeleteBlog" class="btn btn-danger" data-id="' . $id . '">Eliminar</button>
+                    </div>
+                </form>
+            </div>
+          </div>';
+        $datos = array(
+            'titulo' => 'Eliminar ' . utf8_encode($sql[0]['titulo']),
+            'contenido' => $form
+        );
+        return json_encode($datos);
+    }
+
     public function modalEliminarProducto($data) {
         $id = $data['id'];
         $sql = $this->db->select("SELECT * FROM producto where id = $id");
@@ -1357,6 +1522,39 @@ class Admin_Model extends Model {
                 . '<td>' . $estado . '</td>'
                 . '<td><a class="btn btn-app pointer btnEditarMarca btnSmall" data-id="' . $id . '"><i class="fa fa-edit"></i> Editar</a> '
                 . '| <a class="btn btn-app pointer btnEliminarMarca btnSmall" data-id="' . $id . '"><i class="fa fa-ban" aria-hidden="true"></i> Eliminar</a></td>';
+        $datos = array(
+            'type' => 'success',
+            'id' => $id,
+            'row' => $row
+        );
+        return $datos;
+    }
+
+    public function editBlog($data) {
+        $id = $data['id'];
+        $estado = 1;
+        if (empty($data['estado'])) {
+            $estado = 0;
+        }
+        $update = array(
+            'titulo' => utf8_decode($data['titulo']),
+            'tags' => utf8_decode($data['tags']),
+            'contenido' => utf8_decode($data['contenido']),
+            'estado' => $data['estado']
+        );
+        $this->db->update('blog', $update, "id = $id");
+        #obtenemos la fila
+        $sql = $this->db->select("SELECT * FROM blog where id = $id");
+        if ($sql[0]['estado'] == 1) {
+            $estado = '<a class="pointer btnCambiarEstado" data-id="' . $id . '" data-estado="1"><span class="label label-success">Activo</span></a>';
+        } else {
+            $estado = '<a class="pointer btnCambiarEstado" data-id="' . $id . '" data-estado="0"><span class="label label-danger">Inactivo</span></a>';
+        }
+        $row = '<td>' . utf8_encode($sql[0]['titulo']) . '</td>'
+                . '<td>' . utf8_encode($sql[0]['tags']) . '</td>'
+                . '<td class="sorting_1">' . date('d-m-Y', strtotime($sql[0]['fecha'])) . '</td>'
+                . '<td><a class="pointer btnCambiarEstado" title="Leído" data-id="' . $id . '" data-estado="1"><span class="label label-success">Activo</span></a></td>'
+                . '<td><a class="btn btn-app pointer btnEditarBlog btnSmall" data-id="' . $id . '"><i class="fa fa-edit"></i> Editar</a> | <a class="btn btn-app pointer btnEliminarBlog btnSmall" data-id="5"><i class="fa fa-ban" aria-hidden="true"></i> Eliminar</a></td>';
         $datos = array(
             'type' => 'success',
             'id' => $id,
@@ -1581,6 +1779,36 @@ class Admin_Model extends Model {
         return $datos;
     }
 
+    public function deleteBlog($data) {
+        $id = $data['id'];
+        $imagenes = $this->db->select("select * from blog where id = $id");
+        if (!empty($imagenes)) {
+            $dir = "public/img/posts/";
+            foreach ($imagenes as $item) {
+                unlink($dir . utf8_encode($item['imagen']));
+            }
+        }
+        try {
+            $sth = $this->db->prepare("delete from blog where id = :id");
+            $sth->execute(array(
+                ':id' => $id
+            ));
+            $datos = array(
+                'type' => 'success',
+                'id' => $id,
+                'contenido' => ''
+            );
+        } catch (Exception $ex) {
+            $datos = array(
+                'type' => 'error',
+                'id' => $id,
+                'contenido' => 'Lo sentimos ha ocurrido un error, no se pudo eliminar el registro'
+            );
+        }
+
+        return $datos;
+    }
+
     public function deleteProducto($data) {
         $id = $data['id'];
         #primero elimnamos todas las imagenes
@@ -1670,6 +1898,18 @@ class Admin_Model extends Model {
         return $id;
     }
 
+    public function frmAddBlog($data) {
+        $this->db->insert('blog', array(
+            'titulo' => utf8_decode($data['titulo']),
+            'tags' => utf8_decode($data['tags']),
+            'contenido' => utf8_decode($data['contenido']),
+            'fecha' => date('Y-m-d H:i:s'),
+            'estado' => $data['estado']
+        ));
+        $id = $this->db->lastInsertId();
+        return $id;
+    }
+
     public function frmAddCategoria($data) {
         $this->db->insert('categoria', array(
             'id_marca' => $data['id_marca'],
@@ -1701,6 +1941,14 @@ class Admin_Model extends Model {
         $this->db->update('marca', $update, "id = $id");
     }
 
+    public function frmAddBlogImg($img) {
+        $id = $img['id'];
+        $update = array(
+            'imagen' => $img['imagen']
+        );
+        $this->db->update('blog', $update, "id = $id");
+    }
+
     public function frmAddCategoriaImg($img) {
         $id = $img['id'];
         $update = array(
@@ -1716,6 +1964,21 @@ class Admin_Model extends Model {
         );
         $this->db->update('marca', $update, "id = $id");
         $contenido = '<img class="img-responsive" src="' . URL . 'public/img/marcas/' . $data['img'] . '">';
+        $datos = array(
+            "result" => true,
+            'id' => $id,
+            'content' => $contenido
+        );
+        return $datos;
+    }
+
+    public function uploadImgBlog($data) {
+        $id = $data['id'];
+        $update = array(
+            'imagen' => $data['img']
+        );
+        $this->db->update('blog', $update, "id = $id");
+        $contenido = '<img class="img-responsive" src="' . URL . 'public/img/posts/' . $data['img'] . '">';
         $datos = array(
             "result" => true,
             'id' => $id,
@@ -1743,6 +2006,12 @@ class Admin_Model extends Model {
         $dir = 'public/img/marcas/';
         $sql = $this->db->select("select img from marca where id = $idPost");
         unlink($dir . $sql[0]['img']);
+    }
+
+    public function unlinkActualBlogImg($idPost) {
+        $dir = 'public/img/posts/';
+        $sql = $this->db->select("select imagen from blog where id = $idPost");
+        unlink($dir . $sql[0]['imagen']);
     }
 
     public function unlinkActualCategoriaImg($idPost) {
