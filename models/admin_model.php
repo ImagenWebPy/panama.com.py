@@ -934,6 +934,155 @@ class Admin_Model extends Model {
         return json_encode($datos);
     }
 
+    public function modalAgregarSlider() {
+        $form = '<div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Agregar Sliders</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <form role="form" method="POST" action="' . URL . 'admin/frmAddSlider" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Texto del Enlace</label>
+                                <input type="text" name="slider[texto_enlace]" class="form-control" placeholder="Ingrese el texto del enlace" value="">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Enlace</label>
+                                <input type="text" name="slider[url]" class="form-control" placeholder="Ingrese el enlace" value="" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Orden</label>
+                                <input type="number" name="slider[orden]" class="form-control" placeholder="Ingrese el orden" value="" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <!-- checkbox -->
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="slider[estado]" value="1" checked>
+                                        Estado
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Imagen</label>
+                                <div class="html5fileupload fileSlider" data-form="true" data-valid-extensions="JPG,JPEG,jpg,png,jpeg,PNG" style="width: 100%;">
+                                    <input type="file" name="file_archivo" />
+                                </div>
+                            </div>
+                            <script>
+                                $(".html5fileupload.fileSlider").html5fileupload();
+                            </script>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Agregar Producto</button>
+                    </div>
+                </form>
+            </div>
+          </div>';
+        $datos = array(
+            'titulo' => 'Agregar Slider',
+            'contenido' => $form
+        );
+        return json_encode($datos);
+    }
+
+    public function modalEditarSlider($data) {
+        $id = $data['id'];
+        $sql = $this->db->select("select * from slider where id = $id");
+        $checked = ($sql[0]['estado'] == 1) ? 'checked' : '';
+        $form = '<div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Agregar Sliders</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <form role="form" method="POST" id="frmEditarSlider" enctype="multipart/form-data">
+                    <input type="hidden" value="' . $id . '" name="slider[id]">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Texto del Enlace</label>
+                                <input type="text" name="slider[texto_enlace]" class="form-control" placeholder="Ingrese el texto del enlace" value="' . utf8_encode($sql[0]['texto_enlace']) . '">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Enlace</label>
+                                <input type="text" name="slider[url]" class="form-control" placeholder="Ingrese el enlace" value="' . utf8_encode($sql[0]['url']) . '" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Orden</label>
+                                <input type="number" name="slider[orden]" class="form-control" placeholder="Ingrese el orden" value="' . utf8_encode($sql[0]['orden']) . '" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <!-- checkbox -->
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="slider[estado]" value="1" ' . $checked . '>
+                                        Estado
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Editar Producto</button>
+                    </div>
+                </form>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Imagen</label>
+                            <div class="html5fileupload fileSlider" data-url="' . URL . 'admin/uploadSliderImagen" data-valid-extensions="JPG,JPEG,jpg,png,jpeg,PNG" style="width: 100%;">
+                                <input type="file" name="file_archivo" />
+                            </div>
+                        </div>
+                        <script>
+                            $(".html5fileupload.fileSlider").html5fileupload({
+                                data:{id:' . $id . '},
+                                onAfterStartSuccess: function(response) {
+                                    $("#sliderIMG" + response.id).html("");
+                                    $("#sliderIMG" + response.id).append(response.content);
+                                }
+                            });
+                        </script>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3>Imagen Actual</h3>
+                        </div>
+                        <div class="col-md-12" id="sliderIMG' . $id . '">
+                            <img class="img-responsive" src="' . URL . 'public/img/layersliderimgs/' . utf8_encode($sql[0]['descripcion']) . '" alt="Photo">
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>';
+        $datos = array(
+            'titulo' => 'Editar Slider',
+            'contenido' => $form
+        );
+        return json_encode($datos);
+    }
+
     public function modalEditarProducto($data) {
         $id = $data['id'];
         $producto = $this->db->select("select p.*, c.id_marca from producto p left join categoria c on c.id = p.id_categoria where p.id = $id");
@@ -1345,6 +1494,33 @@ class Admin_Model extends Model {
         );
         return json_encode($datos);
     }
+    
+    public function modalEliminarSlider($data) {
+        $id = $data['id'];
+        $sql = $this->db->select("SELECT * FROM slider where id = $id");
+        $form = '<div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Datos del mensaje</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <form role="form" id="frmEliminarSlider" method="POST">
+                    <input type="hidden" name="slider[id]" value="' . $id . '">
+                    <div class="alert alert-danger alert-dismissible">
+                        <h4><i class="icon fa fa-ban"></i> ¿Está seguro de que desea eliminar el siguiente slider?</h4>
+                    </div>
+                    <div class="box-footer">
+                        <button type="submit" id="btnDeleteSlider" class="btn btn-danger" data-id="' . $id . '">Eliminar</button>
+                    </div>
+                </form>
+            </div>
+          </div>';
+        $datos = array(
+            'titulo' => 'Eliminar ',
+            'contenido' => $form
+        );
+        return json_encode($datos);
+    }
 
     public function modalEliminarBlog($data) {
         $id = $data['id'];
@@ -1522,6 +1698,35 @@ class Admin_Model extends Model {
                 . '<td>' . $estado . '</td>'
                 . '<td><a class="btn btn-app pointer btnEditarMarca btnSmall" data-id="' . $id . '"><i class="fa fa-edit"></i> Editar</a> '
                 . '| <a class="btn btn-app pointer btnEliminarMarca btnSmall" data-id="' . $id . '"><i class="fa fa-ban" aria-hidden="true"></i> Eliminar</a></td>';
+        $datos = array(
+            'type' => 'success',
+            'id' => $id,
+            'row' => $row
+        );
+        return $datos;
+    }
+
+    public function editSlider($data) {
+        $id = $data['id'];
+        $estado = 1;
+        if (empty($data['estado'])) {
+            $estado = 0;
+        }
+        $update = array(
+            'url' => utf8_decode($data['url']),
+            'texto_enlace' => utf8_decode($data['texto_enlace']),
+            'orden' => utf8_decode($data['orden']),
+            'estado' => $estado
+        );
+        $this->db->update('slider', $update, "id = $id");
+        #obtenemos la fila
+        $sql = $this->db->select("SELECT * FROM slider where id = $id");
+        $row = '<td>' . $sql[0]['orden'] . '</td>
+                <td><img src="' . URL . 'public/img/layersliderimgs/' . $sql[0]['descripcion'] . '" style="width: 200px;"></td>
+                <td>' . utf8_encode($sql[0]['url']) . '</td>
+                <td>' . utf8_encode($sql[0]['texto_enlace']) . '</td>
+                <td><a class="btn btn-app pointer btnEditarSlider" data-id="' . $id . '"><i class="fa fa-edit"></i> Editar</a> '
+                . '<a class="btn btn-app pointer btnEliminarSlider" data-id="' . $id . '"><i class="fa fa-ban" aria-hidden="true"></i> Eliminar</a></td>';
         $datos = array(
             'type' => 'success',
             'id' => $id,
@@ -1778,6 +1983,36 @@ class Admin_Model extends Model {
 
         return $datos;
     }
+    
+    public function deleteSlider($data) {
+        $id = $data['id'];
+        $imagenes = $this->db->select("select * from slider where id = $id");
+        if (!empty($imagenes)) {
+            $dir = "public/img/layersliderimgs/";
+            foreach ($imagenes as $item) {
+                unlink($dir . utf8_encode($item['descripcion']));
+            }
+        }
+        try {
+            $sth = $this->db->prepare("delete from slider where id = :id");
+            $sth->execute(array(
+                ':id' => $id
+            ));
+            $datos = array(
+                'type' => 'success',
+                'id' => $id,
+                'contenido' => ''
+            );
+        } catch (Exception $ex) {
+            $datos = array(
+                'type' => 'error',
+                'id' => $id,
+                'contenido' => 'Lo sentimos ha ocurrido un error, no se pudo eliminar el registro'
+            );
+        }
+
+        return $datos;
+    }
 
     public function deleteBlog($data) {
         $id = $data['id'];
@@ -1898,6 +2133,17 @@ class Admin_Model extends Model {
         return $id;
     }
 
+    public function frmAddSlider($data) {
+        $this->db->insert('slider', array(
+            'url' => utf8_decode($data['url']),
+            'texto_enlace' => utf8_decode($data['texto_enlace']),
+            'orden' => utf8_decode($data['orden']),
+            'estado' => $data['estado']
+        ));
+        $id = $this->db->lastInsertId();
+        return $id;
+    }
+
     public function frmAddBlog($data) {
         $this->db->insert('blog', array(
             'titulo' => utf8_decode($data['titulo']),
@@ -1941,6 +2187,14 @@ class Admin_Model extends Model {
         $this->db->update('marca', $update, "id = $id");
     }
 
+    public function frmAddSliderImg($img) {
+        $id = $img['id'];
+        $update = array(
+            'descripcion' => $img['imagen']
+        );
+        $this->db->update('slider', $update, "id = $id");
+    }
+
     public function frmAddBlogImg($img) {
         $id = $img['id'];
         $update = array(
@@ -1964,6 +2218,21 @@ class Admin_Model extends Model {
         );
         $this->db->update('marca', $update, "id = $id");
         $contenido = '<img class="img-responsive" src="' . URL . 'public/img/marcas/' . $data['img'] . '">';
+        $datos = array(
+            "result" => true,
+            'id' => $id,
+            'content' => $contenido
+        );
+        return $datos;
+    }
+
+    public function uploadImgSlider($data) {
+        $id = $data['id'];
+        $update = array(
+            'descripcion' => $data['img']
+        );
+        $this->db->update('slider', $update, "id = $id");
+        $contenido = '<img class="img-responsive" src="' . URL . 'public/img/layersliderimgs/' . $data['img'] . '">';
         $datos = array(
             "result" => true,
             'id' => $id,
@@ -2006,6 +2275,12 @@ class Admin_Model extends Model {
         $dir = 'public/img/marcas/';
         $sql = $this->db->select("select img from marca where id = $idPost");
         unlink($dir . $sql[0]['img']);
+    }
+
+    public function unlinkActualSliderImg($idPost) {
+        $dir = 'public/img/layersliderimgs/';
+        $sql = $this->db->select("select descripcion from slider where id = $idPost");
+        unlink($dir . $sql[0]['descripcion']);
     }
 
     public function unlinkActualBlogImg($idPost) {

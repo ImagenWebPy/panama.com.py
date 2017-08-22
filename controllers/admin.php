@@ -293,6 +293,15 @@ class Admin extends Controller {
         echo $datos;
     }
 
+    public function modalEditarSlider() {
+        header('Content-type: application/json; charset=utf-8');
+        $data = array(
+            'id' => $this->helper->cleanInput($_POST['id'])
+        );
+        $datos = $this->model->modalEditarSlider($data);
+        echo $datos;
+    }
+
     public function modalEditarBlog() {
         header('Content-type: application/json; charset=utf-8');
         $data = array(
@@ -344,6 +353,12 @@ class Admin extends Controller {
         echo $datos;
     }
 
+    public function modalAgregarSlider() {
+        header('Content-type: application/json; charset=utf-8');
+        $datos = $this->model->modalAgregarSlider();
+        echo $datos;
+    }
+
     public function modalAgregarMarca() {
         header('Content-type: application/json; charset=utf-8');
         $datos = $this->model->modalAgregarMarca();
@@ -382,7 +397,16 @@ class Admin extends Controller {
         $datos = $this->model->modalEliminarMarca($data);
         echo $datos;
     }
-    
+
+    public function modalEliminarSlider() {
+        header('Content-type: application/json; charset=utf-8');
+        $data = array(
+            'id' => $this->helper->cleanInput($_POST['id'])
+        );
+        $datos = $this->model->modalEliminarSlider($data);
+        echo $datos;
+    }
+
     public function modalEliminarBlog() {
         header('Content-type: application/json; charset=utf-8');
         $data = array(
@@ -448,6 +472,19 @@ class Admin extends Controller {
             'estado' => (!empty($_POST['marca']['estado'])) ? $this->helper->cleanInput($_POST['marca']['estado']) : 0
         );
         $data = $this->model->editMarca($data);
+        echo json_encode($data);
+    }
+
+    public function editSlider() {
+        header('Content-type: application/json; charset=utf-8');
+        $data = array(
+            'id' => $this->helper->cleanInput($_POST['slider']['id']),
+            'url' => $this->helper->cleanInput($_POST['slider']['url']),
+            'texto_enlace' => $this->helper->cleanInput($_POST['slider']['texto_enlace']),
+            'orden' => $this->helper->cleanInput($_POST['slider']['orden']),
+            'estado' => (!empty($_POST['slider']['estado'])) ? $this->helper->cleanInput($_POST['slider']['estado']) : 0
+        );
+        $data = $this->model->editSlider($data);
         echo json_encode($data);
     }
 
@@ -545,7 +582,16 @@ class Admin extends Controller {
         $data = $this->model->deleteMarca($data);
         echo json_encode($data);
     }
-    
+
+    public function deleteSlider() {
+        header('Content-type: application/json; charset=utf-8');
+        $data = array(
+            'id' => $this->helper->cleanInput($_POST['id'])
+        );
+        $data = $this->model->deleteSlider($data);
+        echo json_encode($data);
+    }
+
     public function deleteBlog() {
         header('Content-type: application/json; charset=utf-8');
         $data = array(
@@ -618,7 +664,7 @@ class Admin extends Controller {
                     $imagen_final = $fname;
                     $ancho = 283;
                     $alto = 177;
-                    $this->helper->redimensionar($imagen, $imagen_final, $ancho, $alto);
+                    $this->helper->redimensionar($imagen, $imagen_final, $ancho, $alto, $serverdir);
                     #############
                     $filename = $fname;
                 }
@@ -633,6 +679,62 @@ class Admin extends Controller {
                 'mensaje' => 'Se ha registrado correctamente la operación'
             ));
             header('Location:' . URL . 'admin/marcas/');
+        }
+    }
+
+    public function frmAddSlider() {
+        if (!empty($_POST)) {
+            $data = array(
+                'texto_enlace' => $this->helper->cleanInput($_POST['slider']['texto_enlace']),
+                'url' => $this->helper->cleanInput($_POST['slider']['url']),
+                'orden' => $this->helper->cleanInput($_POST['slider']['orden']),
+                'estado' => (!empty($_POST['slider']['estado'])) ? $_POST['slider']['estado'] : 0
+            );
+            $idPost = $this->model->frmAddSlider($data);
+            $error = false;
+            $absolutedir = dirname(__FILE__);
+            $dir = 'public/img/layersliderimgs/';
+            $serverdir = $dir;
+            #IMAGENES
+            $filename = '';
+            if (!empty($_FILES)) {
+                foreach ($_FILES as $inputname => $file) {
+                    $newname = $_POST[$inputname . '_name'];
+                    $ext = explode('.', $file['name']);
+                    $extension = strtolower(end($ext));
+                    $fname = $this->helper->cleanUrl($idPost . '_' . $newname . '.' . $extension);
+                    //$fname = $this->helper->cleanUrl($newname . '.' . $extension);
+
+                    $contents = file_get_contents($file['tmp_name']);
+
+                    $handle = fopen($serverdir . $fname, 'w');
+                    fwrite($handle, $contents);
+                    fclose($handle);
+
+                    #############
+                    #SE REDIMENSIONA LA IMAGEN
+                    #############
+                    # ruta de la imagen a redimensionar 
+                    $imagen = $serverdir . $fname;
+                    # ruta de la imagen final, si se pone el mismo nombre que la imagen, esta se sobreescribe 
+                    $imagen_final = $fname;
+                    $ancho = 1367;
+                    $alto = 530;
+                    $this->helper->redimensionar($imagen, $imagen_final, $ancho, $alto, $serverdir);
+                    #############
+                    $filename = $fname;
+                }
+                $img = array(
+                    'id' => $idPost,
+                    'imagen' => $filename
+                );
+                $this->model->frmAddSliderImg($img);
+            }
+            Session::set('message', array(
+                'type' => 'success',
+                'mensaje' => 'Se ha registrado correctamente la operación'
+            ));
+            header('Location:' . URL . 'admin/portada/');
         }
     }
 
@@ -674,7 +776,7 @@ class Admin extends Controller {
                     $imagen_final = $fname;
                     $ancho = 800;
                     $alto = 450;
-                    $this->helper->redimensionar($imagen, $imagen_final, $ancho, $alto);
+                    $this->helper->redimensionar($imagen, $imagen_final, $ancho, $alto, $serverdir);
                     #############
                     $filename = $fname;
                 }
@@ -729,7 +831,7 @@ class Admin extends Controller {
                     $imagen_final = $fname;
                     $ancho = 250;
                     $alto = 170;
-                    $this->helper->redimensionar($imagen, $imagen_final, $ancho, $alto);
+                    $this->helper->redimensionar($imagen, $imagen_final, $ancho, $alto, $serverdir);
                     #############
                     $filename = $fname;
                 }
@@ -785,7 +887,7 @@ class Admin extends Controller {
                     $imagen_final = $fname;
                     $ancho = 463;
                     $alto = 350;
-                    $this->helper->redimensionar($imagen, $imagen_final, $ancho, $alto);
+                    $this->helper->redimensionar($imagen, $imagen_final, $ancho, $alto, $serverdir);
                     #############
                     array_push($filename, $fname);
                 }
@@ -831,7 +933,7 @@ class Admin extends Controller {
             $imagen_final = $filename;
             $ancho = 283;
             $alto = 177;
-            $this->helper->redimensionar($imagen, $imagen_final, $ancho, $alto);
+            $this->helper->redimensionar($imagen, $imagen_final, $ancho, $alto, $serverdir);
             #############
             header('Content-type: application/json; charset=utf-8');
             $data = array(
@@ -849,6 +951,47 @@ class Admin extends Controller {
             header("Content-disposition: 		attachment; filename=\"" . basename($file_url) . "\"");
             readfile($file_url);
             exit();
+        }
+    }
+
+    public function uploadSliderImagen() {
+        if (!empty($_POST)) {
+            $idPost = $_POST['data']['id'];
+            $this->model->unlinkActualSliderImg($idPost);
+            $error = false;
+            $absolutedir = dirname(__FILE__);
+            $dir = 'public/img/layersliderimgs/';
+            $serverdir = $dir;
+            $tmp = explode(',', $_POST['file']);
+            $file = base64_decode($tmp[1]);
+            $ext = explode('.', $_POST['filename']);
+            $extension = strtolower(end($ext));
+            $name = $_POST['name'];
+            $filename = $this->helper->cleanUrl($idPost . '_' . $name);
+            $filename = $filename . '.' . $extension;
+            //$filename				= $file.'.'.substr(sha1(time()),0,6).'.'.$extension;
+            $handle = fopen($serverdir . $filename, 'w');
+            fwrite($handle, $file);
+            fclose($handle);
+            #############
+            #SE REDIMENSIONA LA IMAGEN
+            #############
+            # ruta de la imagen a redimensionar 
+            $imagen = $serverdir . $filename;
+            # ruta de la imagen final, si se pone el mismo nombre que la imagen, esta se sobreescribe 
+            $imagen_final = $filename;
+            $ancho = 1367;
+            $alto = 530;
+            $this->helper->redimensionar($imagen, $imagen_final, $ancho, $alto, $serverdir);
+            #############
+            header('Content-type: application/json; charset=utf-8');
+            $data = array(
+                'id' => $idPost,
+                'img' => $filename
+            );
+            $response = $this->model->uploadImgSlider($data);
+            echo json_encode($response);
+            //echo json_encode(array('result'=>true));
         }
     }
 
@@ -880,7 +1023,7 @@ class Admin extends Controller {
             $imagen_final = $filename;
             $ancho = 800;
             $alto = 450;
-            $this->helper->redimensionar($imagen, $imagen_final, $ancho, $alto);
+            $this->helper->redimensionar($imagen, $imagen_final, $ancho, $alto, $serverdir);
             #############
             header('Content-type: application/json; charset=utf-8');
             $data = array(
@@ -929,7 +1072,7 @@ class Admin extends Controller {
             $imagen_final = $filename;
             $ancho = 250;
             $alto = 170;
-            $this->helper->redimensionar($imagen, $imagen_final, $ancho, $alto);
+            $this->helper->redimensionar($imagen, $imagen_final, $ancho, $alto, $serverdir);
             #############
             header('Content-type: application/json; charset=utf-8');
             $data = array(
@@ -988,7 +1131,7 @@ class Admin extends Controller {
             $imagen_final = $filename;
             $ancho = 463;
             $alto = 350;
-            $this->helper->redimensionar($imagen, $imagen_final, $ancho, $alto);
+            $this->helper->redimensionar($imagen, $imagen_final, $ancho, $alto, $serverdir);
             #############
             header('Content-type: application/json; charset=utf-8');
             $data = array(

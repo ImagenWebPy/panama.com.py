@@ -451,7 +451,7 @@ class Helper {
         return $sql[0];
     }
 
-    function redimensionar($file, $nameFile, $ancho, $alto) {
+    function redimensionar($file, $nameFile, $ancho, $alto, $serverdir) {
         # se obtene la dimension y tipo de imagen 
         $datos = getimagesize($file);
         $ancho_orig = $datos[0]; # Anchura de la imagen original 
@@ -491,17 +491,17 @@ class Helper {
         // Crear fichero nuevo, según extensión. 
         if ($tipo == 1) // GIF 
             if (function_exists("imagegif"))
-                imagegif($img2, "public/archivos/$nameFile", 60);
+                imagegif($img2, $serverdir . $nameFile, 60);
             else
                 return false;
         if ($tipo == 2)  // JPG 
             if (function_exists("imagejpeg"))
-                imagejpeg($img2, "public/archivos/$nameFile", 60);
+                imagejpeg($img2, $serverdir . $nameFile, 60);
             else
                 return false;
         if ($tipo == 3)  // PNG 
             if (function_exists("imagepng"))
-                imagepng($img2, "public/archivos/$nameFile", 6);
+                imagepng($img2, $serverdir . $nameFile, 6);
             else
                 return false;
         return true;

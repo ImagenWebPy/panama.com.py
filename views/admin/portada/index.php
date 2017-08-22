@@ -1,6 +1,7 @@
 <?php
 $laEmpresa = $this->getLaEmpresa;
 $slider = $this->getSlider;
+$helper = new Helper();
 ?>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -14,9 +15,13 @@ $slider = $this->getSlider;
             <li class="active">Portada</li>
         </ol>
     </section>
-
     <!-- Main content -->
     <section class="content">
+        <?php
+        if (isset($_SESSION['message'])) {
+            echo $helper->messageAlert($_SESSION['message']['type'], $_SESSION['message']['mensaje']);
+        }
+        ?>
         <div class="row">
             <div class="col-md-12">
                 <div class="box box-info">
@@ -25,7 +30,7 @@ $slider = $this->getSlider;
                             <small>Slider Principal</small>
                         </h3>
                         <div class="col-xs-6 pull-right">
-                            <button type="button" class="btn btn-block btn-primary btnAgregarSucursal">Agregar Nuevo Slide</button>
+                            <button type="button" class="btn btn-block btn-primary btnAgregarSlider">Agregar Nuevo Slide</button>
                         </div>
                         <!-- tools box -->
                         <div class="pull-right box-tools">
@@ -47,7 +52,7 @@ $slider = $this->getSlider;
                             </thead>
                             <tbody>
                                 <?php foreach ($slider as $item): ?>
-                                    <tr>
+                                    <tr id="slider_<?= $item['id']; ?>">
                                         <td><?= $item['orden']; ?></td>
                                         <td><img src="<?= IMG; ?>layersliderimgs/<?= $item['descripcion']; ?>" style="width: 200px;"></td>
                                         <td><?= $item['url']; ?></td>
@@ -118,5 +123,94 @@ $slider = $this->getSlider;
         // Replace the <textarea id="editor1"> with a CKEditor
         // instance, using default configuration.
         CKEDITOR.replace('resumido');
+        $(document).on("click", ".btnAgregarSlider", function (e) {
+            if (e.handled !== true) // This will prevent event triggering more then once
+            {
+                $.ajax({
+                    url: "<?= URL; ?>admin/modalAgregarSlider",
+                    type: "POST",
+                    dataType: "json"
+                }).done(function (data) {
+                    $(".genericModal .modal-header").removeClass("modal-header").addClass("modal-header bg-primary");
+                    $(".genericModal .modal-title").html(data['titulo']);
+                    $(".genericModal .modal-body").html(data['contenido']);
+                    $(".genericModal").modal("toggle");
+                });
+            }
+            e.handled = true;
+        });
+        $(document).on("click", ".btnEditarSlider ", function (e) {
+            if (e.handled !== true) // This will prevent event triggering more then once
+            {
+                var id = $(this).attr("data-id");
+                $.ajax({
+                    url: "<?= URL; ?>admin/modalEditarSlider",
+                    type: "POST",
+                    data: {id: id},
+                    dataType: "json"
+                }).done(function (data) {
+                    $(".genericModal .modal-header").removeClass("modal-header").addClass("modal-header bg-primary");
+                    $(".genericModal .modal-title").html(data['titulo']);
+                    $(".genericModal .modal-body").html(data['contenido']);
+                    $(".genericModal").modal("toggle");
+                });
+            }
+            e.handled = true;
+        });
+        $(document).on("submit", "#frmEditarSlider", function (e) {
+            if (e.handled !== true) // This will prevent event triggering more then once
+            {
+                var url = "<?= URL ?>admin/editSlider"; // the script where you handle the form input.
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: $("#frmEditarSlider").serialize(), // serializes the form's elements.
+                    success: function (data)
+                    {
+                        if (data['type'] == 'success') {
+                            $("#slider_" + data['id']).html(data['row']);
+                            $(".genericModal").modal("toggle");
+                        }
+                    }
+                });
+                e.preventDefault(); // avoid to execute the actual submit of the form.
+            }
+            e.handled = true;
+        });
+        $(document).on("click", ".btnEliminarSlider", function (e) {
+            if (e.handled !== true) // This will prevent event triggering more then once
+            {
+                var id = $(this).attr("data-id");
+                $.ajax({
+                    url: "<?= URL; ?>admin/modalEliminarSlider",
+                    type: "POST",
+                    data: {id: id},
+                    dataType: "json"
+                }).done(function (data) {
+                    $(".genericModal .modal-header").removeClass("modal-header").addClass("modal-header bg-danger");
+                    $(".genericModal .modal-title").html(data['titulo']);
+                    $(".genericModal .modal-body").html(data['contenido']);
+                    $(".genericModal").modal("toggle");
+                });
+            }
+            e.handled = true;
+        });
+        $(document).on("submit", "#frmEliminarSlider", function (e) {
+            var url = "<?= URL ?>admin/deleteSlider"; // the script where you handle the form input.
+            var id = $("#btnDeleteSlider").attr("data-id");
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: {id: id}, // serializes the form's elements.
+                success: function (data)
+                {
+                    if (data['type'] == 'success') {
+                        $("#slider_" + data['id']).remove();
+                        $(".genericModal").modal("toggle");
+                    }
+                }
+            });
+            e.preventDefault(); // avoid to execute the actual submit of the form.
+        });
     });
 </script>
